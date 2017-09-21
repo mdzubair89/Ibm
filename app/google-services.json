@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "724399231401",
+    "firebase_url": "https://imfrasbaithulmal-774c0.firebaseio.com",
+    "project_id": "imfrasbaithulmal-774c0",
+    "storage_bucket": "imfrasbaithulmal-774c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:724399231401:android:7710532b2268ed07",
+        "android_client_info": {
+          "package_name": "ibm.imfras_baithul_mal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "724399231401-so3mfscrs5gvv9ev9gv6nion71s3kggk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBamPeYjxYg1VgD7R0es1AyWC60mCVqP_8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
