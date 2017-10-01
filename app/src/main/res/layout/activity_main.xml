@@ -4,18 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="16dp"
-    android:paddingRight="16dp"
-    android:paddingLeft="16dp"
-    android:paddingBottom="16dp"
     tools:context="ibm.imfras_baithul_mal.MainActivity">
 
   <LinearLayout
       android:layout_centerHorizontal="true"
       android:layout_centerVertical="true"
       android:orientation="vertical"
-      android:layout_width="363dp"
-      android:layout_height="wrap_content">
+      android:layout_width="395dp"
+      android:layout_height="587dp"
+      android:layout_gravity="center_vertical"
+      tools:layout_editor_absoluteY="8dp"
+      tools:layout_editor_absoluteX="8dp">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="User Registration"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
     <EditText
         android:layout_margin="15dp"

@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Imfras_baithul_Mal</string>
     <string name="register_user">Register User</string>
+    <string name="email">Email</string>
+    <string name="pass">Password</string>
 </resources>
