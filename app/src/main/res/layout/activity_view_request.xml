@@ -23,14 +23,60 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingBottom="10dp"
-            android:text="Requests"
+            android:text="REQUESTS"
             android:textAlignment="center"
+            android:textStyle="bold"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#006"
+        >
+
+        <!--  First header line -->
+        <TextView android:id="@+id/header_line1"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.6"
+            android:textStyle="bold"
+            android:background="@android:color/holo_green_light"
+            android:textColor="@color/abc_input_method_navigation_guard" />
+
+        <!-- Second header line -->
+        <TextView
+            android:id="@+id/header_line2"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:background="@android:color/holo_green_light"
+            android:textColor="@color/abc_input_method_navigation_guard" />
+
+        <!--  Third header line -->
+        <TextView android:id="@+id/header_line3"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.6"
+            android:textStyle="bold"
+            android:background="@android:color/holo_green_light"
+            android:textColor="@color/abc_input_method_navigation_guard" />
+        <!-- Fourth header line -->
+        <TextView android:id="@+id/header_line4"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.6"
+            android:textStyle="bold"
+            android:background="@android:color/holo_green_light"
+            android:textColor="@color/abc_input_method_navigation_guard" />
+
+    </LinearLayout>
         <ListView
             android:id="@+id/listView1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_orange_light"/>
 
 
     </LinearLayout>

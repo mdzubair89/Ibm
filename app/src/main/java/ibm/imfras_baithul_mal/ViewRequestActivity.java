@@ -32,18 +32,33 @@ public class ViewRequestActivity extends AppCompatActivity {
     private TextView textViewRequestNo;
     private EditText editTextRequestPurpose;
     ListView listView;
+    TextView columnHeader1;
+    TextView columnHeader2;
+    TextView columnHeader3;
+    TextView columnHeader4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_request);
 
+        TextView columnHeader1 = (TextView) findViewById(R.id.header_line1);
+        TextView columnHeader2 = (TextView) findViewById(R.id.header_line2);
+        TextView columnHeader3 = (TextView) findViewById(R.id.header_line3);
+        TextView columnHeader4 = (TextView) findViewById(R.id.header_line4);
+
+        columnHeader1.setText("REQ NO");
+        columnHeader2.setText("PURPOSE");
+        columnHeader3.setText("IBM");
+        columnHeader4.setText("SEP");
+
+
         listView=(ListView)findViewById(R.id.listView1);
         populateList();
 
 
         databaseRequests = FirebaseDatabase.getInstance().getReference("Requests");
-        Query query = databaseRequests.orderByChild("requestNo").equalTo(11);
+        Query query = databaseRequests.orderByChild("requestNo");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -84,10 +99,10 @@ public class ViewRequestActivity extends AppCompatActivity {
 
         list=new ArrayList<HashMap<String,String>>();
         HashMap<String,String> temp=new HashMap<String, String>();
-        temp.put(FIRST_COLUMN,"Hi");
-        temp.put(SECOND_COLUMN,"This ");
-        temp.put(THIRD_COLUMN,"is ");
-        temp.put(FOURTH_COLUMN,"Zubair");
+        temp.put(FIRST_COLUMN,"");
+        temp.put(SECOND_COLUMN,"");
+        temp.put(THIRD_COLUMN,"");
+        temp.put(FOURTH_COLUMN,"");
         list.add(temp);
 
 /*        HashMap<String,String> temp1=new HashMap<String, String>();

@@ -51,7 +51,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private void manageReq()
     {
-        finish();
         startActivity(new Intent(this,ManReqActivity.class));
     }
     @Override

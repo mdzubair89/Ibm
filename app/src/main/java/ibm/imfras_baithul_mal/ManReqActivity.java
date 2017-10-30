@@ -25,13 +25,11 @@ public class ManReqActivity extends AppCompatActivity implements View.OnClickLis
 
     private void viewRequest()
     {
-        finish();
         startActivity(new Intent(this,ViewRequestActivity.class));
     }
 
     private void addRequest()
     {
-        finish();
         startActivity(new Intent(this,AddRequestActivity.class));
     }
 
