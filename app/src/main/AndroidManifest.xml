@@ -20,7 +20,8 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ManReqActivity" />
-        <activity android:name=".AddRequestActivity"></activity>
+        <activity android:name=".AddRequestActivity" />
+        <activity android:name=".ViewRequestActivity"></activity>
     </application>
 
 </manifest>
