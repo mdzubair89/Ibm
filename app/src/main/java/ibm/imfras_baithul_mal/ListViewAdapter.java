@@ -12,11 +12,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -65,7 +67,7 @@ public class ListViewAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
-        ViewHolder holder;
+        ViewHolder holder = null;
         LayoutInflater inflater=activity.getLayoutInflater();
 
         if(convertView == null){
@@ -84,6 +86,7 @@ public class ListViewAdapter extends BaseAdapter{
         {
             holder = (ViewHolder) convertView.getTag();
         }
+
 
         HashMap<String, String> map=list.get(position);
         holder.txtFirst.setText(map.get(FIRST_COLUMN));

@@ -21,7 +21,8 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ManReqActivity" />
         <activity android:name=".AddRequestActivity" />
-        <activity android:name=".ViewRequestActivity"></activity>
+        <activity android:name=".ViewRequestActivity" />
+        <activity android:name=".UpdateRequestActivity"></activity>
     </application>
 
 </manifest>

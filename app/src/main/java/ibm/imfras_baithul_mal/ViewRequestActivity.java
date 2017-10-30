@@ -5,9 +5,12 @@ import static ibm.imfras_baithul_mal.Constants.SECOND_COLUMN;
 import static ibm.imfras_baithul_mal.Constants.THIRD_COLUMN;
 import static ibm.imfras_baithul_mal.Constants.FOURTH_COLUMN;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,11 +34,12 @@ public class ViewRequestActivity extends AppCompatActivity {
     DatabaseReference databaseRequests;
     private TextView textViewRequestNo;
     private EditText editTextRequestPurpose;
-    ListView listView;
     TextView columnHeader1;
     TextView columnHeader2;
     TextView columnHeader3;
     TextView columnHeader4;
+    TextView txtFirst;
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,22 +51,35 @@ public class ViewRequestActivity extends AppCompatActivity {
         TextView columnHeader3 = (TextView) findViewById(R.id.header_line3);
         TextView columnHeader4 = (TextView) findViewById(R.id.header_line4);
 
+
+
         columnHeader1.setText("REQ NO");
         columnHeader2.setText("PURPOSE");
         columnHeader3.setText("IBM");
         columnHeader4.setText("SEP");
 
-
         listView=(ListView)findViewById(R.id.listView1);
         populateList();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> adapter, View arg1, int position, long arg3) {
+                TextView textView = (TextView) arg1.findViewById(R.id.TextFirst);
+                String reqNo = textView.getText().toString();
+                Intent myIntent = new Intent(ViewRequestActivity.this, UpdateRequestActivity.class);
+                myIntent.putExtra("requestNo", reqNo);
+                startActivity(myIntent);
+            }
+        });
 
 
         databaseRequests = FirebaseDatabase.getInstance().getReference("Requests");
         Query query = databaseRequests.orderByChild("requestNo");
         query.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+            public void onDataChange(DataSnapshot dataSnapshot)
+
+            {
+                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
                     int requestNo = (int) messageSnapshot.child("requestNo").getValue(Integer.class);
                     String requestDate = (String) messageSnapshot.child("requestDate").getValue();
                     String requestPurpose = (String) messageSnapshot.child("requestPurpose").getValue();
@@ -78,8 +95,6 @@ public class ViewRequestActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     private void populateRequests(int requestNo, String requestPurpose, int requestIbmAmt, int requestSepAmt) {
@@ -125,4 +140,5 @@ public class ViewRequestActivity extends AppCompatActivity {
         list.add(temp3);*/
 
     }
+
 }

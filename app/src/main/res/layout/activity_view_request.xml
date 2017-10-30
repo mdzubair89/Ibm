@@ -72,11 +72,12 @@
             android:textColor="@color/abc_input_method_navigation_guard" />
 
     </LinearLayout>
+
         <ListView
             android:id="@+id/listView1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/holo_orange_light"/>
+            android:background="@android:color/holo_orange_light" />
 
 
     </LinearLayout>

@@ -56,6 +56,8 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
     private void addRequest()
     {
         /* reqNo in int need to be converted*/
+        int reqIbmAmt =0;
+        int reqSepAmt =0;
         String stReqNo = editTxtReqNo.getText().toString();
         String reqPurpose = editTxtPurpose.getText().toString().trim();
         String reqDate = editTxttDate.getText().toString().trim();
@@ -63,8 +65,13 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
         String reqPostal = editTxtPostal.getText().toString().trim();
         String reqPhone = PhoneNumberUtils.formatNumber(editTxtPhone.getText().toString());
         String reqReqPerson = editTxtReqPerson.getText().toString().trim();
-        int reqIbmAmt = Integer.parseInt(editTxtIbmAmt.getText().toString());
-        int reqSepAmt = Integer.parseInt(editTxtSepAmt.getText().toString());
+        if (!(TextUtils.isEmpty(editTxtIbmAmt.getText().toString()))){
+            reqIbmAmt = Integer.parseInt(editTxtIbmAmt.getText().toString());
+        }
+        if (!(TextUtils.isEmpty(editTxtSepAmt.getText().toString())))
+        {
+           reqSepAmt = Integer.parseInt(editTxtSepAmt.getText().toString());
+        }
         String reqSepList = editSepList.getText().toString().trim();
 
        if(!((TextUtils.isEmpty(stReqNo))&&(TextUtils.isEmpty(reqPurpose))) )
