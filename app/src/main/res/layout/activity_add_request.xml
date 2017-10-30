@@ -121,7 +121,7 @@
                     android:id="@+id/editTxtPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="phone" />
 
                 <TextView
                     android:layout_width="match_parent"

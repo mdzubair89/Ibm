@@ -2,6 +2,7 @@ package ibm.imfras_baithul_mal;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -55,21 +56,20 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
     private void addRequest()
     {
         /* reqNo in int need to be converted*/
-        String streqNo = editTxtReqNo.getText().toString();
+        String stReqNo = editTxtReqNo.getText().toString();
         String reqPurpose = editTxtPurpose.getText().toString().trim();
         String reqDate = editTxttDate.getText().toString().trim();
         String reqConPerson = ediTxtConPerson.getText().toString().trim();
         String reqPostal = editTxtPostal.getText().toString().trim();
-        int reqPhone = 0;
-        // = Integer.parseInt(editTxtPhone.getText().toString());
+        String reqPhone = PhoneNumberUtils.formatNumber(editTxtPhone.getText().toString());
         String reqReqPerson = editTxtReqPerson.getText().toString().trim();
         int reqIbmAmt = Integer.parseInt(editTxtIbmAmt.getText().toString());
         int reqSepAmt = Integer.parseInt(editTxtSepAmt.getText().toString());
         String reqSepList = editSepList.getText().toString().trim();
 
-       if(!((TextUtils.isEmpty(streqNo))&&(TextUtils.isEmpty(reqPurpose))) )
+       if(!((TextUtils.isEmpty(stReqNo))&&(TextUtils.isEmpty(reqPurpose))) )
         {
-            int reqNo = Integer.parseInt(streqNo);
+            int reqNo = Integer.parseInt(stReqNo);
             String id = databaseRequests.push().getKey();
             Request request = new Request(reqNo,reqPurpose,reqDate,reqConPerson,reqPostal,reqPhone,reqReqPerson,
                     reqIbmAmt,reqSepAmt,reqSepList);

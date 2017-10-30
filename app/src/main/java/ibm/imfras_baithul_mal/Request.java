@@ -11,19 +11,14 @@ public class Request {
     String requestDate;
     String requestConPerson;
     String requestPostal;
-    int requestPhone;
+    String requestPhone;
     String requestPerson;
     int requestIbmAmt;
     int requestSepAmt;
     String requestSepList;
 
-    public Request()
-    {
-
-    }
-
     public Request(int requestNo,String requestPurpose,String requestDate,String requestConPerson,String requestPostal,
-                   int  requestPhone,String requestPerson,int  requestIbmAmt,int requestSepAmt,String requestSepList)
+                   String  requestPhone,String requestPerson,int  requestIbmAmt,int requestSepAmt,String requestSepList)
     {
         this.requestNo          = requestNo;
         this.requestPurpose     = requestPurpose;
@@ -57,7 +52,7 @@ public class Request {
         return requestPostal;
     }
 
-    public int getRequestPhone() {
+    public String getRequestPhone() {
         return requestPhone;
     }
 
