@@ -65,7 +65,7 @@ public class ViewRequestActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapter, View arg1, int position, long arg3) {
                 TextView textView = (TextView) arg1.findViewById(R.id.TextFirst);
                 String reqNo = textView.getText().toString();
-                Intent myIntent = new Intent(ViewRequestActivity.this, UpdateRequestActivity.class);
+                Intent myIntent = new Intent(ViewRequestActivity.this, ViewDetReqActivity.class);
                 myIntent.putExtra("requestNo", reqNo);
                 startActivity(myIntent);
             }
