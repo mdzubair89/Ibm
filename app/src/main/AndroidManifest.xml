@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:windowSoftInputMode="stateVisible|adjustResize">
+        >
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,10 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".LoginActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ManReqActivity" />
-        <activity android:name=".AddRequestActivity" />
+        <activity android:name=".AddRequestActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ViewRequestActivity" />
         <activity android:name=".UpdateRequestActivity" />
         <activity android:name=".ViewDetReqActivity"></activity>

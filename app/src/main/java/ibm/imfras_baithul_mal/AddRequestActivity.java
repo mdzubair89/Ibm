@@ -1,5 +1,6 @@
 package ibm.imfras_baithul_mal;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
@@ -36,20 +37,36 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_request);
 
+        int reqNo = 0;
+
         databaseRequests = FirebaseDatabase.getInstance().getReference("Requests");
 
-        editTxtReqNo = (EditText) findViewById(R.id.editTxtReqNo);
-        editTxtPurpose = (EditText) findViewById(R.id.editTxtPurpose);
-        editTxttDate = (EditText) findViewById(R.id.editTxttDate);
-        ediTxtConPerson = (EditText) findViewById(R.id.ediTxtConPerson);
-        editTxtPostal = (EditText) findViewById(R.id.editTxtPostal);
-        editTxtPhone = (EditText) findViewById(R.id.editTxtPhone);
-        editTxtReqPerson = (EditText) findViewById(R.id.editTxtReqPerson);
-        editTxtIbmAmt = (EditText) findViewById(R.id.editTxtIbmAmt);
-        editTxtSepAmt = (EditText) findViewById(R.id.editTxtSepAmt);
-        editSepList = (EditText) findViewById(R.id.editSepList);
-        buttonSubmit = (Button) findViewById(R.id.buttonSubmit);
-        buttonSubmit.setOnClickListener(this);
+        Intent myIntent = getIntent();
+        String stReqNo = myIntent.getStringExtra("requestNo");
+        if (stReqNo != null) {
+            reqNo = Integer.parseInt(stReqNo);
+            Toast.makeText(this, "Request no:" + reqNo, Toast.LENGTH_LONG).show();
+        }
+
+
+        if (reqNo != 0)
+        {
+            Toast.makeText(this,"Request no:" + reqNo + " edit request",Toast.LENGTH_LONG).show();
+        }
+        else {
+            editTxtReqNo = (EditText) findViewById(R.id.editTxtReqNo);
+            editTxtPurpose = (EditText) findViewById(R.id.editTxtPurpose);
+            editTxttDate = (EditText) findViewById(R.id.editTxttDate);
+            ediTxtConPerson = (EditText) findViewById(R.id.ediTxtConPerson);
+            editTxtPostal = (EditText) findViewById(R.id.editTxtPostal);
+            editTxtPhone = (EditText) findViewById(R.id.editTxtPhone);
+            editTxtReqPerson = (EditText) findViewById(R.id.editTxtReqPerson);
+            editTxtIbmAmt = (EditText) findViewById(R.id.editTxtIbmAmt);
+            editTxtSepAmt = (EditText) findViewById(R.id.editTxtSepAmt);
+            editSepList = (EditText) findViewById(R.id.editSepList);
+            buttonSubmit = (Button) findViewById(R.id.buttonSubmit);
+            buttonSubmit.setOnClickListener(this);
+        }
 
     }
 
@@ -86,6 +103,43 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
         }
         else{
            Toast.makeText(this," You should enter a valid Request number or Request purpose..",Toast.LENGTH_LONG).show();
+        }
+
+}
+
+    private void editRequest()
+    {
+        /* reqNo in int need to be converted*/
+        int reqIbmAmt =0;
+        int reqSepAmt =0;
+        String stReqNo = editTxtReqNo.getText().toString();
+        String reqPurpose = editTxtPurpose.getText().toString().trim();
+        String reqDate = editTxttDate.getText().toString().trim();
+        String reqConPerson = ediTxtConPerson.getText().toString().trim();
+        String reqPostal = editTxtPostal.getText().toString().trim();
+        String reqPhone = PhoneNumberUtils.formatNumber(editTxtPhone.getText().toString());
+        String reqReqPerson = editTxtReqPerson.getText().toString().trim();
+        if (!(TextUtils.isEmpty(editTxtIbmAmt.getText().toString()))){
+            reqIbmAmt = Integer.parseInt(editTxtIbmAmt.getText().toString());
+        }
+        if (!(TextUtils.isEmpty(editTxtSepAmt.getText().toString())))
+        {
+            reqSepAmt = Integer.parseInt(editTxtSepAmt.getText().toString());
+        }
+        String reqSepList = editSepList.getText().toString().trim();
+
+        if(!((TextUtils.isEmpty(stReqNo))&&(TextUtils.isEmpty(reqPurpose))) )
+        {
+            int reqNo = Integer.parseInt(stReqNo);
+            String id = databaseRequests.push().getKey();
+            Request request = new Request(reqNo,reqPurpose,reqDate,reqConPerson,reqPostal,reqPhone,reqReqPerson,
+                    reqIbmAmt,reqSepAmt,reqSepList);
+            databaseRequests.child(id).setValue(request);
+            Toast.makeText(this,"Request added",Toast.LENGTH_SHORT).show();
+
+        }
+        else{
+            Toast.makeText(this," You should enter a valid Request number or Request purpose..",Toast.LENGTH_LONG).show();
         }
 
     }

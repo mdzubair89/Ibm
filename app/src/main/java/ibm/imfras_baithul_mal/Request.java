@@ -17,6 +17,11 @@ public class Request {
     int requestSepAmt;
     String requestSepList;
 
+    public  Request()
+    {
+
+    }
+
     public Request(int requestNo,String requestPurpose,String requestDate,String requestConPerson,String requestPostal,
                    String  requestPhone,String requestPerson,int  requestIbmAmt,int requestSepAmt,String requestSepList)
     {
