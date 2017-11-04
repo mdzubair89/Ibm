@@ -16,6 +16,7 @@ public class Request {
     int requestIbmAmt;
     int requestSepAmt;
     String requestSepList;
+    String requestStatus;
 
     public  Request()
     {
@@ -23,7 +24,7 @@ public class Request {
     }
 
     public Request(int requestNo,String requestPurpose,String requestDate,String requestConPerson,String requestPostal,
-                   String  requestPhone,String requestPerson,int  requestIbmAmt,int requestSepAmt,String requestSepList)
+                   String  requestPhone,String requestPerson,int  requestIbmAmt,int requestSepAmt,String requestSepList,String requestStatus)
     {
         this.requestNo          = requestNo;
         this.requestPurpose     = requestPurpose;
@@ -35,6 +36,7 @@ public class Request {
         this.requestIbmAmt      = requestIbmAmt;
         this.requestSepAmt      = requestSepAmt;
         this.requestSepList     = requestSepList;
+        this.requestStatus      = requestStatus;
     }
 
     public int getRequestNo() {
@@ -75,5 +77,9 @@ public class Request {
 
     public String getRequestSepList() {
         return requestSepList;
+    }
+
+    public String getRequestStatus() {
+        return requestStatus;
     }
 }

@@ -19,12 +19,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/txtViewTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingBottom="10dp"
-            android:text="Add Request"
             android:textAlignment="center"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
@@ -179,12 +178,26 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:text="Request Status:"
+
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+                <EditText
+                    android:id="@+id/editTxtReqStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                     />
+
                 <Button
                     android:id="@+id/buttonSubmit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:text="SUBMIT" />
+                     />
 
 
             </LinearLayout>

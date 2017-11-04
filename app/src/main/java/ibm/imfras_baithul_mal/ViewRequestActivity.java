@@ -46,6 +46,8 @@ public class ViewRequestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_request);
 
+
+
         TextView columnHeader1 = (TextView) findViewById(R.id.header_line1);
         TextView columnHeader2 = (TextView) findViewById(R.id.header_line2);
         TextView columnHeader3 = (TextView) findViewById(R.id.header_line3);
@@ -67,6 +69,7 @@ public class ViewRequestActivity extends AppCompatActivity {
                 String reqNo = textView.getText().toString();
                 Intent myIntent = new Intent(ViewRequestActivity.this, ViewDetReqActivity.class);
                 myIntent.putExtra("requestNo", reqNo);
+                //myIntent.putExtra("requestStatus", reqNo);
                 startActivity(myIntent);
             }
         });
@@ -78,7 +81,7 @@ public class ViewRequestActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
 
-            {
+            {       list.clear();
                     for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
                     int requestNo = (int) messageSnapshot.child("requestNo").getValue(Integer.class);
                     String requestDate = (String) messageSnapshot.child("requestDate").getValue();
@@ -99,12 +102,15 @@ public class ViewRequestActivity extends AppCompatActivity {
 
     private void populateRequests(int requestNo, String requestPurpose, int requestIbmAmt, int requestSepAmt) {
 
+
+
         HashMap<String,String> temp=new HashMap<String, String>();
         temp.put(FIRST_COLUMN, String.valueOf(requestNo));
         temp.put(SECOND_COLUMN,requestPurpose);
         temp.put(THIRD_COLUMN, String.valueOf(requestIbmAmt));
         temp.put(FOURTH_COLUMN, String.valueOf(requestSepAmt));
         list.add(temp);
+
         ListViewAdapter adapter= new ListViewAdapter(ViewRequestActivity.this,list);
         listView.setAdapter(adapter);
 

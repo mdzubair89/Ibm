@@ -1,6 +1,8 @@
 package ibm.imfras_baithul_mal;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,13 +21,20 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
 
     DatabaseReference databaseRequests;
     TextView textViewReqNo;
+    TextView textViewReqStatus;
     TextView textViewReqPurpose;
     TextView textViewReqDate;
+    TextView textViewReqDateFixed;
     TextView textViewReqConPer;
+    TextView textViewReqConPerFixed;
     TextView textViewReqPhone;
+    TextView textViewReqPhoneFixed;
     TextView textViewReqPer;
+    TextView textViewReqPerFixed;
     TextView textViewReqAdd;
+    TextView textViewReqAddFixed;
     TextView textViewReqSepList;
+    TextView textViewReqSepListFixed;
     TextView textViewReqIbmAmt;
     TextView textViewReqSepAmt;
     TextView textViewReqTotAmt;
@@ -41,13 +50,20 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
         request = new Request();
 
         textViewReqNo = (TextView) findViewById(R.id.textViewRequestNo);
+        textViewReqStatus = (TextView) findViewById(R.id.textViewRequestStatus);
         textViewReqPurpose = (TextView) findViewById(R.id.textViewReqPur);
         textViewReqDate = (TextView) findViewById(R.id.textViewReqDate);
+        textViewReqDateFixed = (TextView) findViewById(R.id.textViewReqDateFixed);
         textViewReqConPer = (TextView) findViewById(R.id.textViewReqConPer);
+        textViewReqConPerFixed = (TextView) findViewById(R.id.textViewReqConPerFixed);
         textViewReqPhone = (TextView) findViewById(R.id.textViewReqPhone);
+        textViewReqPhoneFixed = (TextView) findViewById(R.id.textViewReqPhoneFixed);
         textViewReqPer = (TextView) findViewById(R.id.textViewReqPer);
+        textViewReqPerFixed = (TextView) findViewById(R.id.textViewReqPerFixed);
         textViewReqAdd = (TextView) findViewById(R.id.textViewReqAdd);
+        textViewReqAddFixed = (TextView) findViewById(R.id.textViewReqAddFixed);
         textViewReqSepList = (TextView) findViewById(R.id.textViewReqSepList);
+        textViewReqSepListFixed = (TextView) findViewById(R.id.textViewReqSepListFixed);
         textViewReqIbmAmt = (TextView) findViewById(R.id.textViewReqIbmAmt);
         textViewReqSepAmt = (TextView) findViewById(R.id.textViewReqSepAmt);
         textViewReqTotAmt = (TextView) findViewById(R.id.textViewReqTotAmt);
@@ -69,6 +85,7 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
                     request.requestNo = (int) messageSnapshot.child("requestNo").getValue(Integer.class);
+                    request.requestStatus = (String) messageSnapshot.child("requestStatus").getValue();
                     request.requestDate = (String) messageSnapshot.child("requestDate").getValue();
                     request.requestPurpose = (String) messageSnapshot.child("requestPurpose").getValue();
                     request.requestSepList = (String) messageSnapshot.child("requestSepList").getValue();
@@ -78,7 +95,7 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
                     request.requestPhone = (String) messageSnapshot.child("requestPhone").getValue();
                     request.requestIbmAmt = (int) messageSnapshot.child("requestIbmAmt").getValue(Integer.class);
                     request.requestSepAmt = (int) messageSnapshot.child("requestSepAmt").getValue(Integer.class);
-                    populateReqLayout(request.requestNo,request.requestPurpose,request.requestDate,request.requestConPerson,request.requestPhone
+                    populateReqLayout(request.requestNo,request.requestStatus,request.requestPurpose,request.requestDate,request.requestConPerson,request.requestPhone
                             ,request.requestPerson,request.requestPostal,request.requestSepList,request.requestIbmAmt,request.requestSepAmt);
                 }
             }
@@ -90,22 +107,75 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
-    private void populateReqLayout(int requestNo,String requestPurpose, String requestDate,  String requestConPerson,
+    private void populateReqLayout(int requestNo, String requestStatus,String requestPurpose, String requestDate,  String requestConPerson,
                                    String requestPhone, String requestPerson, String requestPostal,String requestSepList,int requestIbmAmt, int requestSepAmt) {
 
         int requestTotAmt = requestIbmAmt + requestSepAmt;
 
-        textViewReqNo.setText("Request:" + String.valueOf(requestNo));
-        textViewReqPurpose.setText(requestPurpose);
-        textViewReqDate.setText(requestDate);
-        textViewReqConPer.setText(requestConPerson);
-        textViewReqPhone.setText(requestPhone);
-        textViewReqPer.setText(requestPerson);
-        textViewReqAdd.setText(requestPostal);
-        textViewReqSepList.setText(requestSepList);
-        textViewReqIbmAmt.setText(String.valueOf(requestIbmAmt));
-        textViewReqSepAmt.setText(String.valueOf(requestSepAmt));
-        textViewReqTotAmt.setText(String.valueOf(requestTotAmt));
+        textViewReqNo.setText("REQUEST:" + String.valueOf(requestNo));
+        textViewReqStatus.setText("STATUS:" + String.valueOf(requestStatus));
+        if(requestStatus.contentEquals("CLOSED")) {
+            textViewReqStatus.setTextColor(Color.parseColor("#008000"));
+        }
+        else
+        {
+            textViewReqStatus.setTextColor(Color.parseColor("#FF0000"));
+        }
+
+        textViewReqPurpose.setText(" " +requestPurpose);
+
+        if(!(requestDate.isEmpty())) {
+            textViewReqDate.setText(" " + requestDate);
+        }
+        else
+        {
+            textViewReqDate.setVisibility(View.GONE);
+            textViewReqDateFixed.setVisibility(View.GONE);
+
+        }
+        if(!(requestConPerson.isEmpty())) {
+            textViewReqConPer.setText(" " + requestConPerson);
+        }
+        else
+        {
+            textViewReqConPer.setVisibility(View.GONE);
+            textViewReqConPerFixed.setVisibility(View.GONE);
+        }
+        if(!(requestPhone.isEmpty())) {
+            textViewReqPhone.setText(" " + requestPhone);
+        }
+        else
+        {
+            textViewReqPhone.setVisibility(View.GONE);
+            textViewReqPhoneFixed.setVisibility(View.GONE);
+        }
+        if(!(requestPerson.isEmpty())) {
+            textViewReqPer.setText(" " + requestPerson);
+        }
+        else
+        {
+            textViewReqPer.setVisibility(View.GONE);
+            textViewReqPerFixed.setVisibility(View.GONE);
+        }
+        if(!(requestPostal.isEmpty())) {
+            textViewReqAdd.setText(" " + requestPostal);
+        }
+        else
+        {
+            textViewReqAdd.setVisibility(View.GONE);
+            textViewReqAddFixed.setVisibility(View.GONE);
+        }
+        if(!(requestSepList.isEmpty())) {
+            textViewReqSepList.setText(" " + requestSepList);
+        }
+        else
+        {
+            textViewReqSepList.setVisibility(View.GONE);
+            textViewReqSepListFixed.setVisibility(View.GONE);
+        }
+        textViewReqIbmAmt.setText(" " +String.valueOf(requestIbmAmt));
+        textViewReqSepAmt.setText(" " +String.valueOf(requestSepAmt));
+        textViewReqTotAmt.setText(" " +String.valueOf(requestTotAmt));
     }
 
     @Override
@@ -119,6 +189,7 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
         {
             Intent myIntent = new Intent(ViewDetReqActivity.this, AddRequestActivity.class);
             myIntent.putExtra("requestNo", String.valueOf(request.requestNo));
+            myIntent.putExtra("requestStatus", String.valueOf(request.requestStatus));
             myIntent.putExtra("requestPurpose", request.requestPurpose);
             myIntent.putExtra("requestDate", request.requestDate);
             myIntent.putExtra("requestConPerson", request.requestConPerson);
