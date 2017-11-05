@@ -21,8 +21,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Manage Requests"
+            android:text="MANAGE REQUESTS"
             android:textAlignment="center"
+            android:paddingBottom="20dp"
+            android:textColor="#000080"
+            android:textStyle="bold"
+            android:shadowColor="#0000FF"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="1"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
         />
 

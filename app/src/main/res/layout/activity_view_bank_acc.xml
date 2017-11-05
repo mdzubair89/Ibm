@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ibm.imfras_baithul_mal.ViewBankAccActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+
+
+    <TextView
+        android:id="@+id/textViewBankAccFixed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingTop="15dp"
+        android:textAlignment="center"
+        android:text="IBM BANK ACCOUNT DETAILS"
+        android:textStyle="bold"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textColor="#000080"
+        android:shadowColor="#0000FF"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="1"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:paddingTop="20dp"
+        >
+
+        <TextView android:id="@+id/textViewAccNameFixed"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:text=" Account Name"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+
+            />
+
+        <TextView android:id="@+id/textViewAccName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+            android:text=" Mohamed Rilwan"
+            />
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#006"
+            >
+
+            <TextView android:id="@+id/textViewAccNoFixed"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:text=" Account Number"
+                android:background="@drawable/textview_border"
+                android:textColor="@color/abc_input_method_navigation_guard"
+
+                />
+
+            <TextView android:id="@+id/textViewAccNo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:background="@drawable/textview_border"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                android:text=" 561702010082785"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#006"
+            >
+
+            <TextView android:id="@+id/textViewAccNameBranchFixed"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:text=" Name of the Branch"
+                android:background="@drawable/textview_border"
+                android:textColor="@color/abc_input_method_navigation_guard"
+
+                />
+
+            <TextView android:id="@+id/textViewAccNameBranch"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:background="@drawable/textview_border"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                android:text=" Union Bank of India"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#006"
+            >
+
+            <TextView android:id="@+id/textViewAccIfscCodeFixed"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:text=" IFSC code"
+                android:background="@drawable/textview_border"
+                android:textColor="@color/abc_input_method_navigation_guard"
+
+                />
+
+            <TextView android:id="@+id/textViewAccIfscCode"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:background="@drawable/textview_border"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                android:text=" UBIN0556173"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

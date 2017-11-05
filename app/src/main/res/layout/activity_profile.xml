@@ -15,21 +15,55 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/textViewBankAccFixed"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="User Registration"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="15dp"
+            android:textAlignment="center"
+            android:text="IBM MAIN PANEL"
+            android:textStyle="bold"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textColor="#000080"
+            android:shadowColor="#0000FF"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="2"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:paddingTop="50dp"
             android:id="@+id/textViewUserEmail"
             android:layout_gravity="center"
             />
 
-        <Button
-            android:id="@+id/buttonLogout"
-            android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Logout" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/textViewUserInfo"
+            android:text="Your options to navigate through IBM app are as below:"
+            android:layout_gravity="center"
+            android:paddingBottom="20dp"
+            />
+
+        <Button
+            android:id="@+id/buttonIbmMembers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="IBM Committee Members" />
+
+        <Button
+            android:id="@+id/buttonIbmAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="IBM Bank Account" />
 
         <Button
             android:id="@+id/buttonManReq"
@@ -37,6 +71,12 @@
             android:layout_height="wrap_content"
             android:text="Manage Requests" />
 
+        <Button
+            android:id="@+id/buttonLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Logout" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

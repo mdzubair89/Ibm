@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,11 +46,14 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
     Button buttonEdit;
     Button buttonDelete;
     Request request;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_det_req);
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         request = new Request();
 
@@ -184,31 +189,34 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
 
-        if(view == buttonDelete)
-        {
-
-            popUpDialog();
-
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        String email = user.getEmail();
+        if (email.contentEquals("mdzubair89@yahoo.co.in")) {
+            if (view == buttonDelete) {
+                    popUpDialog();
+            } else if (view == buttonEdit) {
+                Intent myIntent = new Intent(ViewDetReqActivity.this, AddRequestActivity.class);
+                myIntent.putExtra("requestNo", String.valueOf(request.requestNo));
+                myIntent.putExtra("requestStatus", String.valueOf(request.requestStatus));
+                myIntent.putExtra("requestPurpose", request.requestPurpose);
+                myIntent.putExtra("requestDate", request.requestDate);
+                myIntent.putExtra("requestConPerson", request.requestConPerson);
+                myIntent.putExtra("requestPostal", request.requestPostal);
+                myIntent.putExtra("requestPhone", request.requestPhone);
+                myIntent.putExtra("requestPerson", request.requestPerson);
+                myIntent.putExtra("requestSepList", request.requestSepList);
+                myIntent.putExtra("requestIbmAmt", String.valueOf(request.requestIbmAmt));
+                myIntent.putExtra("requestSepAmt", String.valueOf(request.requestSepAmt));
+                startActivity(myIntent);
+            }
         }
-        else if(view == buttonEdit)
-        {
-            Intent myIntent = new Intent(ViewDetReqActivity.this, AddRequestActivity.class);
-            myIntent.putExtra("requestNo", String.valueOf(request.requestNo));
-            myIntent.putExtra("requestStatus", String.valueOf(request.requestStatus));
-            myIntent.putExtra("requestPurpose", request.requestPurpose);
-            myIntent.putExtra("requestDate", request.requestDate);
-            myIntent.putExtra("requestConPerson", request.requestConPerson);
-            myIntent.putExtra("requestPostal", request.requestPostal);
-            myIntent.putExtra("requestPhone", request.requestPhone);
-            myIntent.putExtra("requestPerson", request.requestPerson);
-            myIntent.putExtra("requestSepList", request.requestSepList);
-            myIntent.putExtra("requestIbmAmt", String.valueOf(request.requestIbmAmt));
-            myIntent.putExtra("requestSepAmt", String.valueOf(request.requestSepAmt));
-            startActivity(myIntent);
-
+        else{
+            if (view == buttonEdit) {
+                Toast.makeText(this, "Current user does not have permission to edit requests.", Toast.LENGTH_SHORT).show();
+            }else if(view == buttonDelete){
+                Toast.makeText(this, "Current user does not have permission to delete requests.", Toast.LENGTH_SHORT).show();
+            }
         }
-
-
     }
 
     private void popUpDialog() {

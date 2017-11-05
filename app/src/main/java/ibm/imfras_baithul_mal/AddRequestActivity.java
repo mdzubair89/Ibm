@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +43,7 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
     private EditText editSepList;
     private EditText editTxtReqStatus;
     private Button buttonSubmit;
+    private FirebaseAuth firebaseAuth;
 
     DatabaseReference databaseRequests;
 
@@ -49,6 +52,7 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_request);
+        firebaseAuth = FirebaseAuth.getInstance();
 
         int reqNo = 0;
 
@@ -77,7 +81,7 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
             {
                 Toast.makeText(this,"Request no:" + reqNo + " edit request",Toast.LENGTH_LONG).show();
                 buttonSubmit.setText("Update");
-                txtViewTitle.setText("Update Request");
+                txtViewTitle.setText("UPDATE REQUEST");
                 setText(myIntent);
 
             }
@@ -85,7 +89,7 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
         else
         {
             buttonSubmit.setText("Add");
-            txtViewTitle.setText("Add Request");
+            txtViewTitle.setText("ADD REQUEST");
         }
 
 
@@ -138,8 +142,18 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
             String id = databaseRequests.push().getKey();
             Request request = new Request(reqNo,reqPurpose,reqDate,reqConPerson,reqPostal,reqPhone,reqReqPerson,
                     reqIbmAmt,reqSepAmt,reqSepList,reqStatus);
-            databaseRequests.child(id).setValue(request);
-            Toast.makeText(this,"Request added",Toast.LENGTH_SHORT).show();
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            String email = user.getEmail();
+
+            if (email.contentEquals("mdzubair89@yahoo.co.in"))
+            {
+                databaseRequests.child(id).setValue(request);
+                Toast.makeText(this,"Request added",Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(this,"Current user does not have permission to add requests.",Toast.LENGTH_SHORT).show();
+            }
 
         }
         else{

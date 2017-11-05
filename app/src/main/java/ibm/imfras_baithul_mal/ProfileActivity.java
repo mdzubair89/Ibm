@@ -16,7 +16,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private FirebaseAuth firebaseAuth;
     private TextView textViewUserEmail;
     private Button buttonLogout;
+    private Button buttonIbmMembers;
     private Button buttonManReq;
+    private Button buttonIbmAcc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +36,16 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
-        textViewUserEmail.setText("Welcome "+user.getEmail());
+        textViewUserEmail.setText("Asslamu Alaikum "+user.getDisplayName()+",");
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
         buttonManReq = (Button) findViewById(R.id.buttonManReq);
+        buttonIbmMembers = (Button) findViewById(R.id.buttonIbmMembers);
+        buttonIbmAcc = (Button) findViewById(R.id.buttonIbmAccount);
 
         buttonLogout.setOnClickListener(this);
         buttonManReq.setOnClickListener(this);
+        buttonIbmMembers.setOnClickListener(this);
+        buttonIbmAcc.setOnClickListener(this);
     }
 
     private void logout()
@@ -65,5 +71,22 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         {
             manageReq();
         }
+        else if( view == buttonIbmMembers)
+        {
+            viewIBMMembers();
+        }
+        else if (view == buttonIbmAcc)
+        {
+            viewIBMAcc();
+        }
+    }
+
+    private void viewIBMAcc() {
+        startActivity(new Intent(this,ViewBankAccActivity.class));
+    }
+
+    private void viewIBMMembers() {
+
+        startActivity(new Intent(this,ViewIbmMembersActivity.class));
     }
 }
