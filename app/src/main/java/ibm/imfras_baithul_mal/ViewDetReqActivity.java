@@ -1,10 +1,13 @@
 package ibm.imfras_baithul_mal;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -39,7 +42,7 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
     TextView textViewReqSepAmt;
     TextView textViewReqTotAmt;
     Button buttonEdit;
-    Button buttonBack;
+    Button buttonDelete;
     Request request;
 
     @Override
@@ -68,10 +71,10 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
         textViewReqSepAmt = (TextView) findViewById(R.id.textViewReqSepAmt);
         textViewReqTotAmt = (TextView) findViewById(R.id.textViewReqTotAmt);
         buttonEdit = (Button) findViewById(R.id.buttonEdit);
-        buttonBack = (Button) findViewById(R.id.buttonBack);
+        buttonDelete = (Button) findViewById(R.id.buttonDelete);
 
         buttonEdit.setOnClickListener(this);
-        buttonBack.setOnClickListener(this);
+        buttonDelete.setOnClickListener(this);
 
         Intent myIntent = getIntent();
         String stReqNo = myIntent.getStringExtra("requestNo");
@@ -181,8 +184,10 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
 
-        if(view == buttonBack)
+        if(view == buttonDelete)
         {
+
+            popUpDialog();
 
         }
         else if(view == buttonEdit)
@@ -204,5 +209,57 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
         }
 
 
+    }
+
+    private void popUpDialog() {
+
+        AlertDialog.Builder builder;
+        builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Delete request");
+        builder.setMessage("Are you sure you want to delete the request?");
+        builder.setPositiveButton("Confirm",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestDelete();
+                    }
+                });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                showToast("Request Delete Cancelled");
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void requestDelete() {
+
+        Query query = databaseRequests.orderByChild("requestNo").equalTo(request.requestNo);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+                    messageSnapshot.getRef().removeValue();
+                }
+                showToast("Request Deleted successfully");
+                finish();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                showToast("Request Deleted failure");
+                //Log.e(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+    }
+
+    private void showToast(String message) {
+
+        Toast.makeText(this,message,Toast.LENGTH_LONG).show();
     }
 }

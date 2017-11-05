@@ -324,8 +324,8 @@
 
             <Button
                 android:layout_gravity="center_horizontal"
-                android:id="@+id/buttonBack"
-                android:text="BACK"
+                android:id="@+id/buttonDelete"
+                android:text="DELETE"
                 android:textAlignment="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

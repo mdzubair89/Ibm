@@ -106,7 +106,7 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
         editSepList.setText(myIntent.getStringExtra("requestSepList"));
         editTxtIbmAmt.setText(myIntent.getStringExtra("requestIbmAmt"));
         editTxtSepAmt.setText(myIntent.getStringExtra("requestSepAmt"));
-        editTxtReqStatus.setText(myIntent.getStringExtra("requestSepAmt"));
+        editTxtReqStatus.setText(myIntent.getStringExtra("requestStatus"));
     }
 
     private void addRequest()
@@ -117,6 +117,7 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
         String stReqNo = editTxtReqNo.getText().toString();
         String reqPurpose = editTxtPurpose.getText().toString().trim();
         String reqDate = editTxttDate.getText().toString().trim();
+
         String reqConPerson = ediTxtConPerson.getText().toString().trim();
         String reqPostal = editTxtPostal.getText().toString().trim();
         String reqPhone = PhoneNumberUtils.formatNumber(editTxtPhone.getText().toString());
@@ -185,6 +186,7 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
                 String key = nodeDataSnapshot.getKey();
                 String path = "/" + key;
                 databaseRequests.child(path).updateChildren(childUpdates);
+                showToast("Request updated successfully");
                 finish();
             }
 
@@ -194,6 +196,11 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
 
             }
         });
+    }
+
+    private void showToast(String message) {
+
+        Toast.makeText(this,message,Toast.LENGTH_LONG).show();
     }
 
     private void getReqDetailsFromView(Request request) {

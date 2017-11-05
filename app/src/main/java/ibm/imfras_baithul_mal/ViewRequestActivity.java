@@ -25,6 +25,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class ViewRequestActivity extends AppCompatActivity {
@@ -91,6 +92,7 @@ public class ViewRequestActivity extends AppCompatActivity {
                     populateRequests(requestNo,requestPurpose,requestIbmAmt,requestSepAmt);
 
                 }
+                reverseListAndSetAdapter();
             }
 
             @Override
@@ -98,6 +100,12 @@ public class ViewRequestActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void reverseListAndSetAdapter() {
+        Collections.reverse(list);
+        ListViewAdapter adapter= new ListViewAdapter(ViewRequestActivity.this,list);
+        listView.setAdapter(adapter);
     }
 
     private void populateRequests(int requestNo, String requestPurpose, int requestIbmAmt, int requestSepAmt) {
@@ -111,8 +119,8 @@ public class ViewRequestActivity extends AppCompatActivity {
         temp.put(FOURTH_COLUMN, String.valueOf(requestSepAmt));
         list.add(temp);
 
-        ListViewAdapter adapter= new ListViewAdapter(ViewRequestActivity.this,list);
-        listView.setAdapter(adapter);
+        /*ListViewAdapter adapter= new ListViewAdapter(ViewRequestActivity.this,list);
+        listView.setAdapter(adapter);*/
 
     }
 
