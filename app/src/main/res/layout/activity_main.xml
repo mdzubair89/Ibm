@@ -7,25 +7,30 @@
     tools:context="ibm.imfras_baithul_mal.MainActivity">
 
   <LinearLayout
-      android:layout_centerHorizontal="true"
-      android:layout_centerVertical="true"
       android:orientation="vertical"
-      android:layout_width="395dp"
-      android:layout_height="587dp"
-      android:layout_gravity="center_vertical"
-      tools:layout_editor_absoluteY="8dp"
-      tools:layout_editor_absoluteX="8dp">
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      >
 
     <TextView
         android:id="@+id/textView"
+        android:layout_margin="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="User Registration"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+        android:text="REGISTRATION"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textColor="#000080"
+        android:shadowColor="#0000FF"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="1"/>
 
     <EditText
-        android:layout_margin="15dp"
+        android:layout_margin="20dp"
         android:inputType="textPersonName"
         android:id="@+id/editTextName"
         android:layout_width="match_parent"
@@ -34,7 +39,7 @@
         />
 
     <EditText
-        android:layout_margin="15dp"
+        android:layout_margin="20dp"
         android:inputType="textEmailAddress"
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
@@ -43,7 +48,7 @@
  />
 
     <EditText
-        android:layout_margin="15dp"
+        android:layout_margin="20dp"
         android:inputType="textPassword"
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
@@ -52,7 +57,7 @@
          />
 
     <Button
-        android:layout_margin="15dp"
+        android:layout_margin="20dp"
         android:id="@+id/buttonRegister"
         android:text="@string/register_user"
         android:layout_width="match_parent"
