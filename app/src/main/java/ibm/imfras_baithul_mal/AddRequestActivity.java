@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +28,7 @@ import org.w3c.dom.Text;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.Boolean.FALSE;
 import static java.util.logging.Level.INFO;
 
 public class AddRequestActivity extends AppCompatActivity implements View.OnClickListener {
@@ -44,6 +47,8 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
     private EditText editTxtReqStatus;
     private Button buttonSubmit;
     private FirebaseAuth firebaseAuth;
+    int sepContr = 0;
+
 
     DatabaseReference databaseRequests;
 
@@ -68,10 +73,48 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
         editTxtIbmAmt = (EditText) findViewById(R.id.editTxtIbmAmt);
         editTxtSepAmt = (EditText) findViewById(R.id.editTxtSepAmt);
         editSepList = (EditText) findViewById(R.id.editSepList);
+        editTxtSepAmt.setEnabled(false);
         txtViewTitle  =  (TextView) findViewById(R.id.txtViewTitle);
         editTxtReqStatus = (EditText) findViewById(R.id.editTxtReqStatus);
         buttonSubmit = (Button) findViewById(R.id.buttonSubmit);
         buttonSubmit.setOnClickListener(this);
+        editSepList.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int num = 0;
+                int length = 0;
+                sepContr = 0;
+                if(s.length() != 0) {
+                    String reqSepList = editSepList.getText().toString().trim();
+                    String lines[] = reqSepList.split("\\r?\\n");
+                    if (lines != null) {
+                        for (String line : lines) {
+                            if(line.contains("-")) {
+                                String[] parts = line.split("-");
+                                length = parts.length;
+                                if (length > 1) {
+                                    //value.replaceAll("[^0-9]", "");
+                                    parts[1] = parts[1].replaceAll("[^0-9]","");
+                                    num = Integer.parseInt(parts[1]);
+                                    sepContr += num;
+                                }
+                            }
+                        }
+                        editTxtSepAmt.setText(String.valueOf(sepContr));
+                    }
+                }
+            }
+        });
 
         Intent myIntent = getIntent();
         String stReqNo = myIntent.getStringExtra("requestNo");
@@ -91,11 +134,6 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
             buttonSubmit.setText("Add");
             txtViewTitle.setText("ADD REQUEST");
         }
-
-
-
-
-
     }
 
     private void setText(Intent myIntent) {
@@ -118,6 +156,8 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
         /* reqNo in int need to be converted*/
         int reqIbmAmt =0;
         int reqSepAmt =0;
+        int num =0;
+/*        int sepContr =0;*/
         String stReqNo = editTxtReqNo.getText().toString();
         String reqPurpose = editTxtPurpose.getText().toString().trim();
         String reqDate = editTxttDate.getText().toString().trim();
@@ -139,28 +179,40 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
        if(!((TextUtils.isEmpty(stReqNo))&&(TextUtils.isEmpty(reqPurpose))) )
         {
             int reqNo = Integer.parseInt(stReqNo);
-            String id = databaseRequests.push().getKey();
+
             Request request = new Request(reqNo,reqPurpose,reqDate,reqConPerson,reqPostal,reqPhone,reqReqPerson,
                     reqIbmAmt,reqSepAmt,reqSepList,reqStatus);
-            FirebaseUser user = firebaseAuth.getCurrentUser();
-            String email = user.getEmail();
+            /* For later reference, if need to get user details*/
+            /*FirebaseUser user = firebaseAuth.getCurrentUser();
+            String email = user.getEmail();*/
 
-            if (email.contentEquals("mdzubair89@yahoo.co.in"))
-            {
-                databaseRequests.child(id).setValue(request);
-                Toast.makeText(this,"Request added",Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
-                Toast.makeText(this,"Current user does not have permission to add requests.",Toast.LENGTH_SHORT).show();
-            }
+                String id = databaseRequests.push().getKey();
+               // databaseRequests.child(id).setValue(request);
+                databaseRequests.child(id).setValue(request, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                if(databaseError != null)
+                                {
+                                    showToast("Request not added successfully. May be you are not having write permission!.Contact the admin.");
 
+                                }
+                                else
+                                {
+                                    showToast("Request added successfully");
+                                    startViewReq();
+                                }
+                            }
+                        });
         }
         else{
            Toast.makeText(this," You should enter a valid Request number or Request purpose..",Toast.LENGTH_LONG).show();
         }
 
 }
+
+    private void startViewReq() {
+        startActivity(new Intent(this, ViewRequestActivity.class));
+    }
 
     @Override
     public void onClick(View view) {
@@ -199,14 +251,27 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
                 DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
                 String key = nodeDataSnapshot.getKey();
                 String path = "/" + key;
-                databaseRequests.child(path).updateChildren(childUpdates);
-                showToast("Request updated successfully");
-                finish();
+                databaseRequests.child(path).updateChildren(childUpdates, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                        if(databaseError != null)
+                        {
+                            showToast("You may not have permission to update the request. Please contact admin!");
+                        }
+                        else
+                        {
+                            showToast("Request updated successfully");
+                            finish();
+                        }
+                    }
+                });
+
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                //Logger(, ">>> Error:" + "find onCancelled:" + databaseError);
+                showToast("Failed to update the request. Please contact admin!");
 
             }
         });

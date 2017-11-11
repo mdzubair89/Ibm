@@ -19,6 +19,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private Button buttonIbmMembers;
     private Button buttonManReq;
     private Button buttonIbmAcc;
+    private Button buttonAdvOptions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         buttonManReq = (Button) findViewById(R.id.buttonManReq);
         buttonIbmMembers = (Button) findViewById(R.id.buttonIbmMembers);
         buttonIbmAcc = (Button) findViewById(R.id.buttonIbmAccount);
+        buttonAdvOptions = (Button) findViewById(R.id.buttonAdvOptions);
 
         buttonLogout.setOnClickListener(this);
         buttonManReq.setOnClickListener(this);
@@ -79,6 +81,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         {
             viewIBMAcc();
         }
+        else if (view == buttonAdvOptions)
+        {
+            advanceOptions();
+        }
+    }
+
+    private void advanceOptions() {
+        startActivity(new Intent(this, AdvanceOptionsActivity.class));
     }
 
     private void viewIBMAcc() {

@@ -13,6 +13,7 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -26,7 +27,11 @@
         <activity android:name=".UpdateRequestActivity" />
         <activity android:name=".ViewDetReqActivity" />
         <activity android:name=".ViewIbmMembersActivity" />
-        <activity android:name=".ViewBankAccActivity"></activity>
+        <activity android:name=".ViewBankAccActivity" />
+        <activity android:name=".BalanceActivity" />
+        <activity android:name=".AdvanceOptionsActivity" />
+        <activity android:name=".UserAddActivity" />
+        <activity android:name=".AddAccountActivity"></activity>
     </application>
 
 </manifest>

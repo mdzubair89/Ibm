@@ -189,9 +189,7 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
 
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        String email = user.getEmail();
-        if (email.contentEquals("mdzubair89@yahoo.co.in")) {
+
             if (view == buttonDelete) {
                     popUpDialog();
             } else if (view == buttonEdit) {
@@ -210,14 +208,7 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
                 startActivity(myIntent);
             }
         }
-        else{
-            if (view == buttonEdit) {
-                Toast.makeText(this, "Current user does not have permission to edit requests.", Toast.LENGTH_SHORT).show();
-            }else if(view == buttonDelete){
-                Toast.makeText(this, "Current user does not have permission to delete requests.", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+
 
     private void popUpDialog() {
 
@@ -253,15 +244,25 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
 
                 for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
                     messageSnapshot.getRef().removeValue();
+                    messageSnapshot.getRef().removeValue(new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                            if (databaseError != null) {
+                                showToast("Request delete failure. Please contact admin");
+                            }
+                            else
+                            {
+                                showToast("Request Deleted successfully");
+                                finish();
+                            }
+                        }
+                    });
                 }
-                showToast("Request Deleted successfully");
-                finish();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                showToast("Request Deleted failure");
-                //Log.e(TAG, "onCancelled", databaseError.toException());
+                showToast("Request Delete error.");
             }
         });
     }
