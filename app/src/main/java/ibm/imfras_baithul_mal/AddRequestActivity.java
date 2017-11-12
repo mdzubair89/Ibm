@@ -105,8 +105,10 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
                                 if (length > 1) {
                                     //value.replaceAll("[^0-9]", "");
                                     parts[1] = parts[1].replaceAll("[^0-9]","");
-                                    num = Integer.parseInt(parts[1]);
-                                    sepContr += num;
+                                    if (!(parts[1].isEmpty())) {
+                                        num = Integer.parseInt(parts[1]);
+                                        sepContr += num;
+                                    }
                                 }
                             }
                         }

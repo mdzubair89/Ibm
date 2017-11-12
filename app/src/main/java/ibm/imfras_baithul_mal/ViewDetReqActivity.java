@@ -130,10 +130,10 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
             textViewReqStatus.setTextColor(Color.parseColor("#FF0000"));
         }
 
-        textViewReqPurpose.setText(" " +requestPurpose);
+        textViewReqPurpose.setText(requestPurpose);
 
         if(!(requestDate.isEmpty())) {
-            textViewReqDate.setText(" " + requestDate);
+            textViewReqDate.setText(requestDate);
         }
         else
         {
@@ -142,7 +142,7 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
 
         }
         if(!(requestConPerson.isEmpty())) {
-            textViewReqConPer.setText(" " + requestConPerson);
+            textViewReqConPer.setText(requestConPerson);
         }
         else
         {
@@ -150,7 +150,7 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
             textViewReqConPerFixed.setVisibility(View.GONE);
         }
         if(!(requestPhone.isEmpty())) {
-            textViewReqPhone.setText(" " + requestPhone);
+            textViewReqPhone.setText(requestPhone);
         }
         else
         {
@@ -158,7 +158,7 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
             textViewReqPhoneFixed.setVisibility(View.GONE);
         }
         if(!(requestPerson.isEmpty())) {
-            textViewReqPer.setText(" " + requestPerson);
+            textViewReqPer.setText(requestPerson);
         }
         else
         {
@@ -166,7 +166,7 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
             textViewReqPerFixed.setVisibility(View.GONE);
         }
         if(!(requestPostal.isEmpty())) {
-            textViewReqAdd.setText(" " + requestPostal);
+            textViewReqAdd.setText(requestPostal);
         }
         else
         {
@@ -174,16 +174,16 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
             textViewReqAddFixed.setVisibility(View.GONE);
         }
         if(!(requestSepList.isEmpty())) {
-            textViewReqSepList.setText(" " + requestSepList);
+            textViewReqSepList.setText(requestSepList);
         }
         else
         {
             textViewReqSepList.setVisibility(View.GONE);
             textViewReqSepListFixed.setVisibility(View.GONE);
         }
-        textViewReqIbmAmt.setText(" " +String.valueOf(requestIbmAmt));
-        textViewReqSepAmt.setText(" " +String.valueOf(requestSepAmt));
-        textViewReqTotAmt.setText(" " +String.valueOf(requestTotAmt));
+        textViewReqIbmAmt.setText(String.valueOf(requestIbmAmt));
+        textViewReqSepAmt.setText(String.valueOf(requestSepAmt));
+        textViewReqTotAmt.setText(String.valueOf(requestTotAmt));
     }
 
     @Override

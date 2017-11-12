@@ -31,7 +31,8 @@
         <activity android:name=".BalanceActivity" />
         <activity android:name=".AdvanceOptionsActivity" />
         <activity android:name=".UserAddActivity" />
-        <activity android:name=".AddAccountActivity"></activity>
+        <activity android:name=".AddAccountActivity" />
+        <activity android:name=".ObjectiveActivity"></activity>
     </application>
 
 </manifest>

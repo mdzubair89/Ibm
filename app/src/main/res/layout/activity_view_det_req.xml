@@ -20,7 +20,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteY="8dp"
+        android:background="@android:color/holo_orange_light">
 
 
 
@@ -63,7 +64,8 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:textStyle="bold"
-            android:text=" Purpose:"
+            android:text="Purpose:"
+            android:padding="4dp"
             android:background="@drawable/textview_border"
             android:textColor="@color/abc_input_method_navigation_guard"
 
@@ -74,6 +76,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:textStyle="bold"
+            android:padding="4dp"
             android:background="@drawable/textview_border"
             android:textColor="@color/abc_input_method_navigation_guard"
              />
@@ -91,7 +94,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:textStyle="bold"
-                android:text=" Requested Date:"
+                android:text="Requested Date:"
+                android:padding="4dp"
                 android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 
@@ -100,6 +104,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:textStyle="bold"
+                android:padding="4dp"
                 android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 
@@ -116,7 +121,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:textStyle="bold"
-                android:text=" Contact Person:"
+                android:text="Contact Person:"
+                android:padding="4dp"
                 android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 
@@ -125,6 +131,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:textStyle="bold"
+                android:padding="4dp"
                 android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 
@@ -141,7 +148,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:textStyle="bold"
-                android:text=" Contact no:"
+                android:text="Contact no:"
+                android:padding="4dp"
                 android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 
@@ -150,6 +158,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:textStyle="bold"
+                android:padding="4dp"
                 android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 
@@ -166,7 +175,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:textStyle="bold"
-                android:text=" Address:"
+                android:text="Address:"
+                android:padding="4dp"
                 android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 
@@ -175,6 +185,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:textStyle="bold"
+                android:padding="4dp"
                 android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 
@@ -191,7 +202,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:textStyle="bold"
-                android:text=" Requested Person:"
+                android:text="Requested Person:"
+                android:padding="4dp"
                 android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 
@@ -200,6 +212,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:textStyle="bold"
+                android:padding="4dp"
                 android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 
@@ -216,7 +229,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:textStyle="bold"
-                android:text=" Seperate Contribution list:"
+                android:text="Seperate Contribution list:"
+                android:padding="4dp"
                 android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 
@@ -225,6 +239,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:textStyle="bold"
+                android:padding="4dp"
                 android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 
@@ -238,18 +253,20 @@
 
             <TextView android:id="@+id/textViewReqIbmAmtFixed"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:textStyle="bold"
-                android:text=" Fixed Ibm Amount:"
+                android:text="Fixed Ibm Amount:"
+                android:padding="4dp"
                 android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 
             <TextView android:id="@+id/textViewReqIbmAmt"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:textStyle="bold"
+                android:padding="4dp"
                 android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 
@@ -263,18 +280,20 @@
 
             <TextView android:id="@+id/textViewReqSepAmtFixed"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:textStyle="bold"
-                android:text=" Seperate Contribution:"
+                android:text="Seperate Contribution:"
+                android:padding="4dp"
                 android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 
             <TextView android:id="@+id/textViewReqSepAmt"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:textStyle="bold"
+                android:padding="4dp"
                 android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 
@@ -288,18 +307,20 @@
 
             <TextView android:id="@+id/textViewReqTotAmtFixed"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:textStyle="bold"
-                android:text=" Total Contribution:"
+                android:text="Total Contribution:"
+                android:padding="4dp"
                 android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 
             <TextView android:id="@+id/textViewReqTotAmt"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:textStyle="bold"
+                android:padding="4dp"
                 android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 

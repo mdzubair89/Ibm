@@ -14,7 +14,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.0">
+        app:layout_constraintHorizontal_bias="0.0"
+        android:background="@android:color/holo_orange_light">
 
         <TextView
             android:id="@+id/textView2"
