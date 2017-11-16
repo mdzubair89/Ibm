@@ -3,4 +3,9 @@
     <string name="register_user">Register User</string>
     <string name="email">Email</string>
     <string name="pass">Password</string>
+    <string-array name="requestType">
+        <item>General</item>
+        <item>Marriage</item>
+        <item>Medical</item>
+    </string-array>
 </resources>

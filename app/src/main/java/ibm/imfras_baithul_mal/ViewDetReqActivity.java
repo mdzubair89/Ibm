@@ -43,6 +43,15 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
     TextView textViewReqIbmAmt;
     TextView textViewReqSepAmt;
     TextView textViewReqTotAmt;
+
+    /* Medical*/
+    TextView textViewReqTreatment;
+    TextView textViewReqTreatmentFixed;
+    TextView textViewReqTreatmentCost;
+    TextView textViewReqTreatmentCostFixed;
+    TextView textViewReqPatientName;
+    TextView textViewReqPatientNameFixed;
+
     Button buttonEdit;
     Button buttonDelete;
     Request request;
@@ -75,6 +84,19 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
         textViewReqIbmAmt = (TextView) findViewById(R.id.textViewReqIbmAmt);
         textViewReqSepAmt = (TextView) findViewById(R.id.textViewReqSepAmt);
         textViewReqTotAmt = (TextView) findViewById(R.id.textViewReqTotAmt);
+
+        /*Medical*/
+        textViewReqTreatment = (TextView) findViewById(R.id.textViewReqTreatment);
+        textViewReqTreatmentFixed = (TextView) findViewById(R.id.textViewReqTreatmentFixed);
+
+        textViewReqTreatmentCost = (TextView) findViewById(R.id.textViewReqTreatmentCost);
+        textViewReqTreatmentCostFixed = (TextView) findViewById(R.id.textViewReqTreatmentCostFixed);
+
+        textViewReqPatientName = (TextView) findViewById(R.id.textViewReqPatientName);
+        textViewReqPatientNameFixed = (TextView) findViewById(R.id.textViewReqPatientNameFixed);
+
+
+
         buttonEdit = (Button) findViewById(R.id.buttonEdit);
         buttonDelete = (Button) findViewById(R.id.buttonDelete);
 
@@ -103,8 +125,20 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
                     request.requestPhone = (String) messageSnapshot.child("requestPhone").getValue();
                     request.requestIbmAmt = (int) messageSnapshot.child("requestIbmAmt").getValue(Integer.class);
                     request.requestSepAmt = (int) messageSnapshot.child("requestSepAmt").getValue(Integer.class);
-                    populateReqLayout(request.requestNo,request.requestStatus,request.requestPurpose,request.requestDate,request.requestConPerson,request.requestPhone
-                            ,request.requestPerson,request.requestPostal,request.requestSepList,request.requestIbmAmt,request.requestSepAmt);
+                    request.requestType = (String) messageSnapshot.child("requestType").getValue();
+
+                    if(request.requestType.contentEquals("Medical"))
+                    {
+                        if(messageSnapshot.hasChild("requestTreatment"))
+                        request.requestTreatment = (String) messageSnapshot.child("requestTreatment").getValue();
+                        if(messageSnapshot.hasChild("requestTreatmentCost"))
+                        request.requestTreatmentCost = (String) messageSnapshot.child("requestTreatmentCost").getValue();
+                        if(messageSnapshot.hasChild("requestPatientName"))
+                        request.requestPatientName = (String) messageSnapshot.child("requestPatientName").getValue();
+
+                    }
+
+                    populateReqLayout();
                 }
             }
 
@@ -115,14 +149,13 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
-    private void populateReqLayout(int requestNo, String requestStatus,String requestPurpose, String requestDate,  String requestConPerson,
-                                   String requestPhone, String requestPerson, String requestPostal,String requestSepList,int requestIbmAmt, int requestSepAmt) {
+    private void populateReqLayout() {
 
-        int requestTotAmt = requestIbmAmt + requestSepAmt;
+        int requestTotAmt = request.requestIbmAmt + request.requestSepAmt;
 
-        textViewReqNo.setText("REQUEST:" + String.valueOf(requestNo));
-        textViewReqStatus.setText("STATUS:" + String.valueOf(requestStatus));
-        if(requestStatus.contentEquals("CLOSED")) {
+        textViewReqNo.setText("REQUEST:" + String.valueOf(request.requestNo));
+        textViewReqStatus.setText("STATUS:" + String.valueOf(request.requestStatus));
+        if(request.requestStatus.contentEquals("CLOSED")) {
             textViewReqStatus.setTextColor(Color.parseColor("#008000"));
         }
         else
@@ -130,10 +163,10 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
             textViewReqStatus.setTextColor(Color.parseColor("#FF0000"));
         }
 
-        textViewReqPurpose.setText(requestPurpose);
+        textViewReqPurpose.setText(request.requestPurpose);
 
-        if(!(requestDate.isEmpty())) {
-            textViewReqDate.setText(requestDate);
+        if(!(request.requestDate.isEmpty())) {
+            textViewReqDate.setText(request.requestDate);
         }
         else
         {
@@ -141,50 +174,99 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
             textViewReqDateFixed.setVisibility(View.GONE);
 
         }
-        if(!(requestConPerson.isEmpty())) {
-            textViewReqConPer.setText(requestConPerson);
+        if(!(request.requestConPerson.isEmpty())) {
+            textViewReqConPer.setText(request.requestConPerson);
         }
         else
         {
             textViewReqConPer.setVisibility(View.GONE);
             textViewReqConPerFixed.setVisibility(View.GONE);
         }
-        if(!(requestPhone.isEmpty())) {
-            textViewReqPhone.setText(requestPhone);
+        if(!(request.requestPhone.isEmpty())) {
+            textViewReqPhone.setText(request.requestPhone);
         }
         else
         {
             textViewReqPhone.setVisibility(View.GONE);
             textViewReqPhoneFixed.setVisibility(View.GONE);
         }
-        if(!(requestPerson.isEmpty())) {
-            textViewReqPer.setText(requestPerson);
+        if(!(request.requestPerson.isEmpty())) {
+            textViewReqPer.setText(request.requestPerson);
         }
         else
         {
             textViewReqPer.setVisibility(View.GONE);
             textViewReqPerFixed.setVisibility(View.GONE);
         }
-        if(!(requestPostal.isEmpty())) {
-            textViewReqAdd.setText(requestPostal);
+        if(!(request.requestPostal.isEmpty())) {
+            textViewReqAdd.setText(request.requestPostal);
         }
         else
         {
             textViewReqAdd.setVisibility(View.GONE);
             textViewReqAddFixed.setVisibility(View.GONE);
         }
-        if(!(requestSepList.isEmpty())) {
-            textViewReqSepList.setText(requestSepList);
+        if(!(request.requestSepList.isEmpty())) {
+            textViewReqSepList.setText(request.requestSepList);
         }
         else
         {
             textViewReqSepList.setVisibility(View.GONE);
             textViewReqSepListFixed.setVisibility(View.GONE);
         }
-        textViewReqIbmAmt.setText(String.valueOf(requestIbmAmt));
-        textViewReqSepAmt.setText(String.valueOf(requestSepAmt));
+
+        if(request.requestType.contentEquals("Medical"))
+        {
+            if(!(request.requestTreatment.contentEquals("")))
+            {
+                if(!(request.requestTreatment.isEmpty()))
+                textViewReqTreatment.setText(request.requestTreatment);
+            }
+            else
+            {
+                textViewReqTreatment.setVisibility(View.GONE);
+                textViewReqTreatmentFixed.setVisibility(View.GONE);
+            }
+
+            if(!((request.requestTreatmentCost.contentEquals(""))&& (request.requestTreatmentCost.isEmpty())))
+            {
+                textViewReqTreatmentCost.setText(request.requestTreatmentCost);
+            }
+            else
+            {
+                textViewReqTreatmentCostFixed.setVisibility(View.GONE);
+                textViewReqTreatmentCost.setVisibility(View.GONE);
+            }
+
+            if(!((request.requestPatientName.contentEquals("")) && (request.requestPatientName.isEmpty())))
+            {
+                textViewReqPatientName.setText(request.requestPatientName);
+            }
+            else
+            {
+                textViewReqPatientNameFixed.setVisibility(View.GONE);
+                textViewReqPatientName.setVisibility(View.GONE);
+            }
+        }
+        else
+        {
+           textViewReqPatientName.setVisibility(View.GONE);
+            textViewReqTreatmentCost.setVisibility(View.GONE);
+            textViewReqTreatment.setVisibility(View.GONE);
+
+            textViewReqPatientNameFixed.setVisibility(View.GONE);
+            textViewReqTreatmentCostFixed.setVisibility(View.GONE);
+            textViewReqTreatmentFixed.setVisibility(View.GONE);
+        }
+
+
+
+        textViewReqIbmAmt.setText(String.valueOf(request.requestIbmAmt));
+        textViewReqSepAmt.setText(String.valueOf(request.requestSepAmt));
         textViewReqTotAmt.setText(String.valueOf(requestTotAmt));
     }
+
+
 
     @Override
     public void onClick(View view) {
@@ -205,6 +287,12 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
                 myIntent.putExtra("requestSepList", request.requestSepList);
                 myIntent.putExtra("requestIbmAmt", String.valueOf(request.requestIbmAmt));
                 myIntent.putExtra("requestSepAmt", String.valueOf(request.requestSepAmt));
+                myIntent.putExtra("requestType", String.valueOf(request.requestType));
+                if(request.requestType.contentEquals("Medical")) {
+                    myIntent.putExtra("requestTreatment", String.valueOf(request.requestTreatment));
+                    myIntent.putExtra("requestTreatmentCost", String.valueOf(request.requestTreatmentCost));
+                    myIntent.putExtra("requestPatientName", String.valueOf(request.requestPatientName));
+                }
                 startActivity(myIntent);
             }
         }

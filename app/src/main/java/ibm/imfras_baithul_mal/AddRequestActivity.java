@@ -8,8 +8,11 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +37,7 @@ import static java.util.logging.Level.INFO;
 public class AddRequestActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView txtViewTitle;
+    private Spinner spinnerReqType;
     private EditText editTxtReqNo;
     private EditText editTxtPurpose;
     private EditText editTxttDate;
@@ -45,9 +49,20 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
     private EditText editTxtSepAmt;
     private EditText editSepList;
     private EditText editTxtReqStatus;
+
+    /*Medical request*/
+    private EditText editTxtTreatment;
+    private EditText editTxtPatientName;
+    private EditText editTxtTreatmentCost;
+    private TextView txtViewTreatment;
+    private TextView txtViewTreatmentCost;
+    private TextView txtViewPatientName;
+
     private Button buttonSubmit;
     private FirebaseAuth firebaseAuth;
+    private ArrayAdapter spinnerReqTypeArrAdap;
     int sepContr = 0;
+    String requestType = "GENERAL";
 
 
     DatabaseReference databaseRequests;
@@ -64,6 +79,66 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
         databaseRequests = FirebaseDatabase.getInstance().getReference("Requests");
 
         editTxtReqNo = (EditText) findViewById(R.id.editTxtReqNo);
+
+        /* Medical request*/
+        editTxtTreatment = (EditText) findViewById(R.id.editTxtTreatment);
+        editTxtPatientName = (EditText) findViewById(R.id.editTxtPatientNmae);
+        editTxtTreatmentCost = (EditText) findViewById(R.id.editTxtTreatmentCost);
+
+        txtViewTreatment = (TextView) findViewById(R.id.txtViewTxtTreatment);
+        txtViewPatientName = (TextView) findViewById(R.id.txtViewTxtPatientName);
+        txtViewTreatmentCost = (TextView) findViewById(R.id.txtViewTxtTreatmentCost);
+
+
+        spinnerReqType = (Spinner) findViewById(R.id.spinnerReqType);
+        spinnerReqTypeArrAdap = ArrayAdapter.createFromResource(this, R.array.requestType,android.R.layout.simple_spinner_dropdown_item);
+        spinnerReqTypeArrAdap.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerReqType.setAdapter(spinnerReqTypeArrAdap);
+
+        spinnerReqType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                switch (position)
+                {
+                    case 0:  editTxtTreatment.setVisibility(View.GONE);
+                             editTxtPatientName.setVisibility(View.GONE);
+                             editTxtTreatmentCost.setVisibility(View.GONE);
+                             txtViewTreatment.setVisibility(View.GONE);
+                             txtViewPatientName.setVisibility(View.GONE);
+                             txtViewTreatmentCost.setVisibility(View.GONE);
+                             requestType = "General";
+                        break;
+                    case 1:
+                            editTxtTreatment.setVisibility(View.GONE);
+                            editTxtPatientName.setVisibility(View.GONE);
+                            editTxtTreatmentCost.setVisibility(View.GONE);
+                            txtViewTreatment.setVisibility(View.GONE);
+                            txtViewPatientName.setVisibility(View.GONE);
+                            txtViewTreatmentCost.setVisibility(View.GONE);
+                            requestType = "Marriage";
+                        break;
+                    case 2:
+                            editTxtTreatment.setVisibility(View.VISIBLE);
+                            editTxtPatientName.setVisibility(View.VISIBLE);
+                            editTxtTreatmentCost.setVisibility(View.VISIBLE);
+                            txtViewTreatment.setVisibility(View.VISIBLE);
+                            txtViewPatientName.setVisibility(View.VISIBLE);
+                            txtViewTreatmentCost.setVisibility(View.VISIBLE);
+                            requestType = "Medical";
+                            break;
+
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         editTxtPurpose = (EditText) findViewById(R.id.editTxtPurpose);
         editTxttDate = (EditText) findViewById(R.id.editTxttDate);
         ediTxtConPerson = (EditText) findViewById(R.id.ediTxtConPerson);
@@ -151,66 +226,55 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
         editTxtIbmAmt.setText(myIntent.getStringExtra("requestIbmAmt"));
         editTxtSepAmt.setText(myIntent.getStringExtra("requestSepAmt"));
         editTxtReqStatus.setText(myIntent.getStringExtra("requestStatus"));
+
+        String requestType = myIntent.getStringExtra("requestType");
+        if(requestType.contentEquals("Medical"))
+        {
+            spinnerReqType.setSelection(2);
+            String patientName = myIntent.getStringExtra("requestPatientName");
+            String treatment = myIntent.getStringExtra("requestTreatment");
+            String treatmentCost = myIntent.getStringExtra("requestTreatmentCost");
+            if(!(patientName.contentEquals("null")))
+            editTxtPatientName.setText(patientName);
+            if(!(treatment.contentEquals("null")))
+            editTxtTreatment.setText(treatment);
+            if(!(treatmentCost.contentEquals("null")))
+            editTxtTreatmentCost.setText(treatmentCost);
+        }
+        else if(requestType.contentEquals("Marriage"))
+        {
+            spinnerReqType.setSelection(1);
+        }
+        else if(requestType.contentEquals("General"))
+        {
+            spinnerReqType.setSelection(0);
+        }
+        else
+        {
+            spinnerReqType.setSelection(0); /* Set default to general */
+        }
     }
 
-    private void addRequest()
-    {
-        /* reqNo in int need to be converted*/
-        int reqIbmAmt =0;
-        int reqSepAmt =0;
-        int num =0;
-/*        int sepContr =0;*/
-        String stReqNo = editTxtReqNo.getText().toString();
-        String reqPurpose = editTxtPurpose.getText().toString().trim();
-        String reqDate = editTxttDate.getText().toString().trim();
+    private void addRequest() {
+        Request request = new Request();
+        getReqDetailsFromView(request);
 
-        String reqConPerson = ediTxtConPerson.getText().toString().trim();
-        String reqPostal = editTxtPostal.getText().toString().trim();
-        String reqPhone = PhoneNumberUtils.formatNumber(editTxtPhone.getText().toString());
-        String reqReqPerson = editTxtReqPerson.getText().toString().trim();
-        if (!(TextUtils.isEmpty(editTxtIbmAmt.getText().toString()))){
-            reqIbmAmt = Integer.parseInt(editTxtIbmAmt.getText().toString());
-        }
-        if (!(TextUtils.isEmpty(editTxtSepAmt.getText().toString())))
-        {
-           reqSepAmt = Integer.parseInt(editTxtSepAmt.getText().toString());
-        }
-        String reqSepList = editSepList.getText().toString().trim();
-        String reqStatus = editTxtReqStatus.getText().toString().trim();
+        String id = databaseRequests.push().getKey();
+        // databaseRequests.child(id).setValue(request);
+        databaseRequests.child(id).setValue(request, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError != null) {
+                    showToast("Request not added successfully. May be you are not having write permission!.Contact the admin.");
 
-       if(!((TextUtils.isEmpty(stReqNo))&&(TextUtils.isEmpty(reqPurpose))) )
-        {
-            int reqNo = Integer.parseInt(stReqNo);
+                } else {
+                    showToast("Request added successfully");
+                    startViewReq();
+                }
+            }
+        });
 
-            Request request = new Request(reqNo,reqPurpose,reqDate,reqConPerson,reqPostal,reqPhone,reqReqPerson,
-                    reqIbmAmt,reqSepAmt,reqSepList,reqStatus);
-            /* For later reference, if need to get user details*/
-            /*FirebaseUser user = firebaseAuth.getCurrentUser();
-            String email = user.getEmail();*/
-
-                String id = databaseRequests.push().getKey();
-               // databaseRequests.child(id).setValue(request);
-                databaseRequests.child(id).setValue(request, new DatabaseReference.CompletionListener() {
-                            @Override
-                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                                if(databaseError != null)
-                                {
-                                    showToast("Request not added successfully. May be you are not having write permission!.Contact the admin.");
-
-                                }
-                                else
-                                {
-                                    showToast("Request added successfully");
-                                    startViewReq();
-                                }
-                            }
-                        });
-        }
-        else{
-           Toast.makeText(this," You should enter a valid Request number or Request purpose..",Toast.LENGTH_LONG).show();
-        }
-
-}
+    }
 
     private void startViewReq() {
         startActivity(new Intent(this, ViewRequestActivity.class));
@@ -230,11 +294,11 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
 
     private void updateRequest() {
 
-        Request request = new Request();
+        final Request request = new Request();
         getReqDetailsFromView(request);
 
         final Map<String, Object> childUpdates = new HashMap<>();
-
+        childUpdates.put("requestNo",request.requestNo);
         childUpdates.put("requestPurpose",request.requestPurpose);
         childUpdates.put("requestDate",request.requestDate);
         childUpdates.put("requestConPerson",request.requestConPerson);
@@ -245,6 +309,16 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
         childUpdates.put("requestSepAmt",request.requestSepAmt);
         childUpdates.put("requestSepList",request.requestSepList);
         childUpdates.put("requestStatus",request.requestStatus);
+        childUpdates.put("requestType", requestType);
+        if(requestType.contentEquals("Medical")) {
+            childUpdates.put("requestTreatment", request.requestTreatment);
+            childUpdates.put("requestTreatmentCost", request.requestTreatmentCost);
+            childUpdates.put("requestPatientName", request.requestPatientName);
+        }
+
+
+
+
 
         Query query = databaseRequests.orderByChild("requestNo").equalTo(request.requestNo);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -263,7 +337,10 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
                         else
                         {
                             showToast("Request updated successfully");
-                            finish();
+                            //finish();
+                            Intent myIntent = new Intent(AddRequestActivity.this, ViewDetReqActivity.class);
+                            myIntent.putExtra("requestNo", String.valueOf(request.requestNo));
+                            startActivity(myIntent);
                         }
                     }
                 });
@@ -289,12 +366,21 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
         int reqIbmAmt =0;
         int reqSepAmt =0;
         String stReqNo = editTxtReqNo.getText().toString();
+        request.requestNo = Integer.parseInt(stReqNo);
         request.requestPurpose = editTxtPurpose.getText().toString().trim();
         request.requestDate = editTxttDate.getText().toString().trim();
         request.requestConPerson = ediTxtConPerson.getText().toString().trim();
         request.requestPostal = editTxtPostal.getText().toString().trim();
         request.requestPhone = PhoneNumberUtils.formatNumber(editTxtPhone.getText().toString());
         request.requestPerson= editTxtReqPerson.getText().toString().trim();
+        request.requestType = requestType;
+
+        if(request.requestType.contentEquals("Medical"))
+        {
+            request.requestTreatment = editTxtTreatment.getText().toString().trim();
+            request.requestTreatmentCost = editTxtTreatmentCost.getText().toString().trim();
+            request.requestPatientName = editTxtPatientName.getText().toString().trim();
+        }
 
         if (!(TextUtils.isEmpty(editTxtIbmAmt.getText().toString()))){
             request.requestIbmAmt = Integer.parseInt(editTxtIbmAmt.getText().toString());

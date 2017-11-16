@@ -17,6 +17,10 @@ public class Request {
     int requestSepAmt;
     String requestSepList;
     String requestStatus;
+    String requestType;
+    String requestTreatment = "";
+    String requestPatientName = "";
+    String requestTreatmentCost = "";
 
     public  Request()
     {
@@ -24,7 +28,8 @@ public class Request {
     }
 
     public Request(int requestNo,String requestPurpose,String requestDate,String requestConPerson,String requestPostal,
-                   String  requestPhone,String requestPerson,int  requestIbmAmt,int requestSepAmt,String requestSepList,String requestStatus)
+                   String  requestPhone,String requestPerson,int  requestIbmAmt,int requestSepAmt,String requestSepList,
+                   String requestStatus, String requestType, String requestTreatment,String requestPatientName,String requestTreatmentCost)
     {
         this.requestNo          = requestNo;
         this.requestPurpose     = requestPurpose;
@@ -37,6 +42,10 @@ public class Request {
         this.requestSepAmt      = requestSepAmt;
         this.requestSepList     = requestSepList;
         this.requestStatus      = requestStatus;
+        this.requestType        = requestType;
+        this.requestTreatment   = requestTreatment;
+        this.requestPatientName = requestPatientName;
+        this.requestTreatmentCost = requestTreatmentCost;
     }
 
     public int getRequestNo() {
@@ -81,5 +90,37 @@ public class Request {
 
     public String getRequestStatus() {
         return requestStatus;
+    }
+
+    public String getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(String requestType) {
+        this.requestType = requestType;
+    }
+
+    public String getRequestTreatment() {
+        return requestTreatment;
+    }
+
+    public void setRequestTreatment(String requestTreatment) {
+        this.requestTreatment = requestTreatment;
+    }
+
+    public String getRequestPatientName() {
+        return requestPatientName;
+    }
+
+    public void setRequestPatientName(String requestPatientName) {
+        this.requestPatientName = requestPatientName;
+    }
+
+    public String getRequestTreatmentCost() {
+        return requestTreatmentCost;
+    }
+
+    public void setRequestTreatmentCost(String requestTreatmentCost) {
+        this.requestTreatmentCost = requestTreatmentCost;
     }
 }
