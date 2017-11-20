@@ -1,5 +1,6 @@
 package ibm.imfras_baithul_mal;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -40,6 +41,8 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
     TextView textViewReqAddFixed;
     TextView textViewReqSepList;
     TextView textViewReqSepListFixed;
+    TextView textViewReqCommentsFixed;
+    TextView textViewReqComments;
     TextView textViewReqIbmAmt;
     TextView textViewReqSepAmt;
     TextView textViewReqTotAmt;
@@ -52,10 +55,19 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
     TextView textViewReqPatientName;
     TextView textViewReqPatientNameFixed;
 
+    /* Marriage */
+    TextView textViewMarriageDataFixed;
+    TextView textViewMarriageDate;
+
+    /* Button */
     Button buttonEdit;
     Button buttonDelete;
+    Button buttonMenu;
+    Button buttonView;
     Request request;
     private FirebaseAuth firebaseAuth;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +75,8 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_view_det_req);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+        progressDialog = new ProgressDialog(this);
 
         request = new Request();
 
@@ -81,6 +95,8 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
         textViewReqAddFixed = (TextView) findViewById(R.id.textViewReqAddFixed);
         textViewReqSepList = (TextView) findViewById(R.id.textViewReqSepList);
         textViewReqSepListFixed = (TextView) findViewById(R.id.textViewReqSepListFixed);
+        textViewReqCommentsFixed = (TextView) findViewById(R.id.textViewReqCommentsFixed);
+        textViewReqComments = (TextView) findViewById(R.id.textViewReqComments);
         textViewReqIbmAmt = (TextView) findViewById(R.id.textViewReqIbmAmt);
         textViewReqSepAmt = (TextView) findViewById(R.id.textViewReqSepAmt);
         textViewReqTotAmt = (TextView) findViewById(R.id.textViewReqTotAmt);
@@ -88,20 +104,24 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
         /*Medical*/
         textViewReqTreatment = (TextView) findViewById(R.id.textViewReqTreatment);
         textViewReqTreatmentFixed = (TextView) findViewById(R.id.textViewReqTreatmentFixed);
-
         textViewReqTreatmentCost = (TextView) findViewById(R.id.textViewReqTreatmentCost);
         textViewReqTreatmentCostFixed = (TextView) findViewById(R.id.textViewReqTreatmentCostFixed);
-
         textViewReqPatientName = (TextView) findViewById(R.id.textViewReqPatientName);
         textViewReqPatientNameFixed = (TextView) findViewById(R.id.textViewReqPatientNameFixed);
 
-
+        /*Marriage */
+        textViewMarriageDate = (TextView) findViewById(R.id.textViewMarriageDate);
+        textViewMarriageDataFixed = (TextView) findViewById(R.id.textViewMarrigeDateFixed);
 
         buttonEdit = (Button) findViewById(R.id.buttonEdit);
         buttonDelete = (Button) findViewById(R.id.buttonDelete);
+        buttonMenu = (Button) findViewById(R.id.buttonMenu);
+        buttonView = (Button) findViewById(R.id.buttonView);
 
         buttonEdit.setOnClickListener(this);
         buttonDelete.setOnClickListener(this);
+        buttonMenu.setOnClickListener(this);
+        buttonView.setOnClickListener(this);
 
         Intent myIntent = getIntent();
         String stReqNo = myIntent.getStringExtra("requestNo");
@@ -127,6 +147,9 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
                     request.requestSepAmt = (int) messageSnapshot.child("requestSepAmt").getValue(Integer.class);
                     request.requestType = (String) messageSnapshot.child("requestType").getValue();
 
+                    if(messageSnapshot.hasChild("requestComments"))
+                        request.requestComments = (String )messageSnapshot.child("requestComments").getValue();
+
                     if(request.requestType.contentEquals("Medical"))
                     {
                         if(messageSnapshot.hasChild("requestTreatment"))
@@ -136,6 +159,11 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
                         if(messageSnapshot.hasChild("requestPatientName"))
                         request.requestPatientName = (String) messageSnapshot.child("requestPatientName").getValue();
 
+                    }
+                    else if(request.requestType.contentEquals("Marriage"))
+                    {
+                        if(messageSnapshot.hasChild("requestMarriageDate"))
+                        request.requestMarriageDate = (String) messageSnapshot.child("requestMarriageDate").getValue();
                     }
 
                     populateReqLayout();
@@ -217,6 +245,10 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
 
         if(request.requestType.contentEquals("Medical"))
         {
+            /* Marriage*/
+            textViewMarriageDataFixed.setVisibility(View.GONE);
+            textViewMarriageDate.setVisibility(View.GONE);
+
             if(!(request.requestTreatment.contentEquals("")))
             {
                 if(!(request.requestTreatment.isEmpty()))
@@ -248,18 +280,53 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
                 textViewReqPatientName.setVisibility(View.GONE);
             }
         }
-        else
+        else if (request.requestType.contentEquals("Marriage"))
         {
-           textViewReqPatientName.setVisibility(View.GONE);
+            /* Medical */
+            textViewReqPatientName.setVisibility(View.GONE);
             textViewReqTreatmentCost.setVisibility(View.GONE);
             textViewReqTreatment.setVisibility(View.GONE);
-
             textViewReqPatientNameFixed.setVisibility(View.GONE);
             textViewReqTreatmentCostFixed.setVisibility(View.GONE);
             textViewReqTreatmentFixed.setVisibility(View.GONE);
+
+            /*Marriage*/
+            textViewMarriageDataFixed.setVisibility(View.VISIBLE);
+            textViewMarriageDate.setVisibility(View.VISIBLE);
+            if(!((request.requestMarriageDate.contentEquals("")) && (request.requestMarriageDate.isEmpty())))
+            {
+                textViewMarriageDate.setText(request.requestMarriageDate);
+            }
+            else
+            {
+                textViewMarriageDate.setVisibility(View.GONE);
+                textViewMarriageDataFixed.setVisibility(View.GONE);
+            }
+        }
+        else
+        {
+            /* Medical */
+            textViewReqPatientName.setVisibility(View.GONE);
+            textViewReqTreatmentCost.setVisibility(View.GONE);
+            textViewReqTreatment.setVisibility(View.GONE);
+            textViewReqPatientNameFixed.setVisibility(View.GONE);
+            textViewReqTreatmentCostFixed.setVisibility(View.GONE);
+            textViewReqTreatmentFixed.setVisibility(View.GONE);
+
+            /* Marriage*/
+            textViewMarriageDataFixed.setVisibility(View.GONE);
+            textViewMarriageDate.setVisibility(View.GONE);
         }
 
-
+        if(!((request.requestComments.contentEquals(""))&& (request.requestComments.isEmpty())))
+        {
+            textViewReqComments.setText(request.requestComments);
+        }
+        else
+        {
+            textViewReqCommentsFixed.setVisibility(View.GONE);
+            textViewReqComments.setVisibility(View.GONE);
+        }
 
         textViewReqIbmAmt.setText(String.valueOf(request.requestIbmAmt));
         textViewReqSepAmt.setText(String.valueOf(request.requestSepAmt));
@@ -285,6 +352,7 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
                 myIntent.putExtra("requestPhone", request.requestPhone);
                 myIntent.putExtra("requestPerson", request.requestPerson);
                 myIntent.putExtra("requestSepList", request.requestSepList);
+                myIntent.putExtra("requestComments", request.requestComments);
                 myIntent.putExtra("requestIbmAmt", String.valueOf(request.requestIbmAmt));
                 myIntent.putExtra("requestSepAmt", String.valueOf(request.requestSepAmt));
                 myIntent.putExtra("requestType", String.valueOf(request.requestType));
@@ -293,7 +361,19 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
                     myIntent.putExtra("requestTreatmentCost", String.valueOf(request.requestTreatmentCost));
                     myIntent.putExtra("requestPatientName", String.valueOf(request.requestPatientName));
                 }
+                else if(request.requestType.contentEquals("Marriage"))
+                {
+                    myIntent.putExtra("requestMarriageDate", String.valueOf(request.requestMarriageDate));
+                }
                 startActivity(myIntent);
+            }
+            else if(view == buttonMenu)
+            {
+                startActivity(new Intent(this,ProfileActivity.class));
+            }
+            else if(view == buttonView)
+            {
+                startActivity(new Intent(this,ViewRequestActivity.class));
             }
         }
 
@@ -325,6 +405,9 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
 
     private void requestDelete() {
 
+        progressDialog.setMessage("Deleting request information.Please wait");
+        progressDialog.show();
+
         Query query = databaseRequests.orderByChild("requestNo").equalTo(request.requestNo);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -336,12 +419,15 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
                         @Override
                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                             if (databaseError != null) {
+                                progressDialog.dismiss();
                                 showToast("Request delete failure. Please contact admin");
                             }
                             else
                             {
+                                progressDialog.dismiss();
                                 showToast("Request Deleted successfully");
-                                finish();
+                                //finish();
+                                startViewReq();
                             }
                         }
                     });
@@ -353,6 +439,10 @@ public class ViewDetReqActivity extends AppCompatActivity implements View.OnClic
                 showToast("Request Delete error.");
             }
         });
+    }
+
+    private void startViewReq() {
+        startActivity(new Intent(this, ViewRequestActivity.class));
     }
 
     private void showToast(String message) {

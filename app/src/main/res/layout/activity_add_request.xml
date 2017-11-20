@@ -60,7 +60,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium">
 
 
             <TextView
@@ -112,6 +113,23 @@
                     android:ems="10"
                     android:padding="4dp"
                     android:inputType="date" />
+
+                <TextView
+                    android:id="@+id/txtViewMarriageDateFixed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Marriage date: "
+                    android:padding="4dp"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+                <EditText
+                    android:id="@+id/editTxtMarriageDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:padding="4dp"
+                    android:inputType="date" />
+
 
 
                 <TextView
@@ -261,6 +279,23 @@
                     android:padding="4dp"
                     android:inputType="textMultiLine" />
 
+                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                    android:text="Comments:"
+                    />
+
+                <EditText
+                    android:id="@+id/editTxtReqComments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:inputType="textMultiLine"
+                    />
+
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -275,12 +310,30 @@
                     android:padding="4dp"
                      />
 
-                <Button
-                    android:id="@+id/buttonSubmit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                >
 
-                     />
+                <Button
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:textAlignment="center"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/buttonSubmit"
+                    />
+
+                <Button
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:textAlignment="center"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/buttonCancel"
+                    android:text="Cancel"
+                    />
+            </LinearLayout>
 
 
             </LinearLayout>

@@ -5,6 +5,7 @@ import static ibm.imfras_baithul_mal.Constants.SECOND_COLUMN;
 import static ibm.imfras_baithul_mal.Constants.THIRD_COLUMN;
 import static ibm.imfras_baithul_mal.Constants.FOURTH_COLUMN;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,20 +42,19 @@ public class ViewRequestActivity extends AppCompatActivity {
     TextView columnHeader4;
     TextView txtFirst;
     ListView listView;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_request);
 
-
+        progressDialog = new ProgressDialog(this);
 
         TextView columnHeader1 = (TextView) findViewById(R.id.header_line1);
         TextView columnHeader2 = (TextView) findViewById(R.id.header_line2);
         TextView columnHeader3 = (TextView) findViewById(R.id.header_line3);
         TextView columnHeader4 = (TextView) findViewById(R.id.header_line4);
-
-
 
         columnHeader1.setText("REQ NO");
         columnHeader2.setText("PURPOSE");
@@ -75,14 +75,16 @@ public class ViewRequestActivity extends AppCompatActivity {
             }
         });
 
-
         databaseRequests = FirebaseDatabase.getInstance().getReference("Requests");
+        progressDialog.setMessage("Getting all Requests information. Please wait...");
+        progressDialog.show();
         Query query = databaseRequests.orderByChild("requestNo");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
 
             {       list.clear();
+            progressDialog.dismiss();
                     for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
                     int requestNo = (int) messageSnapshot.child("requestNo").getValue(Integer.class);
                     String requestDate = (String) messageSnapshot.child("requestDate").getValue();
