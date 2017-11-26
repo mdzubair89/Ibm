@@ -21,6 +21,8 @@ public class Request {
     String requestTreatment = "";
     String requestPatientName = "";
     String requestTreatmentCost = "";
+    String requestComments = "";
+    String requestMarriageDate = "";
 
     public  Request()
     {
@@ -29,7 +31,8 @@ public class Request {
 
     public Request(int requestNo,String requestPurpose,String requestDate,String requestConPerson,String requestPostal,
                    String  requestPhone,String requestPerson,int  requestIbmAmt,int requestSepAmt,String requestSepList,
-                   String requestStatus, String requestType, String requestTreatment,String requestPatientName,String requestTreatmentCost)
+                   String requestStatus, String requestType, String requestTreatment,String requestPatientName,String requestTreatmentCost,
+                   String requestComments, String requestMarriageDate)
     {
         this.requestNo          = requestNo;
         this.requestPurpose     = requestPurpose;
@@ -46,6 +49,8 @@ public class Request {
         this.requestTreatment   = requestTreatment;
         this.requestPatientName = requestPatientName;
         this.requestTreatmentCost = requestTreatmentCost;
+        this.requestComments = requestComments;
+        this.requestMarriageDate = requestMarriageDate;
     }
 
     public int getRequestNo() {
@@ -122,5 +127,21 @@ public class Request {
 
     public void setRequestTreatmentCost(String requestTreatmentCost) {
         this.requestTreatmentCost = requestTreatmentCost;
+    }
+
+    public String getRequestComments() {
+        return requestComments;
+    }
+
+    public void setRequestComments(String requestComments) {
+        this.requestComments = requestComments;
+    }
+
+    public String getRequestMarriageDate() {
+        return requestMarriageDate;
+    }
+
+    public void setRequestMarriageDate(String requestMarriageDate) {
+        this.requestMarriageDate = requestMarriageDate;
     }
 }

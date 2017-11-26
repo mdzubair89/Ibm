@@ -1,5 +1,6 @@
 package ibm.imfras_baithul_mal;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,6 +50,8 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
     private EditText editTxtSepAmt;
     private EditText editSepList;
     private EditText editTxtReqStatus;
+    private EditText editTxtReqComments;
+    private EditText editTxtMarriageDate;
 
     /*Medical request*/
     private EditText editTxtTreatment;
@@ -57,16 +60,19 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
     private TextView txtViewTreatment;
     private TextView txtViewTreatmentCost;
     private TextView txtViewPatientName;
+    private TextView txtViewMarriageDateFixed;
 
     private Button buttonSubmit;
+    private Button buttonCancel;
+
     private FirebaseAuth firebaseAuth;
     private ArrayAdapter spinnerReqTypeArrAdap;
     int sepContr = 0;
     String requestType = "GENERAL";
 
+    private ProgressDialog progressDialog;
 
     DatabaseReference databaseRequests;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +84,14 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
 
         databaseRequests = FirebaseDatabase.getInstance().getReference("Requests");
 
+        progressDialog = new ProgressDialog(this);
+
         editTxtReqNo = (EditText) findViewById(R.id.editTxtReqNo);
+
+        /* Marriage Request */
+        editTxtMarriageDate = (EditText) findViewById(R.id.editTxtMarriageDate);
+
+        txtViewMarriageDateFixed = (TextView) findViewById(R.id.txtViewMarriageDateFixed);
 
         /* Medical request*/
         editTxtTreatment = (EditText) findViewById(R.id.editTxtTreatment);
@@ -101,36 +114,49 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
 
                 switch (position)
                 {
-                    case 0:  editTxtTreatment.setVisibility(View.GONE);
+                    case 0:  /* Medical request*/
+                             editTxtTreatment.setVisibility(View.GONE);
                              editTxtPatientName.setVisibility(View.GONE);
                              editTxtTreatmentCost.setVisibility(View.GONE);
                              txtViewTreatment.setVisibility(View.GONE);
                              txtViewPatientName.setVisibility(View.GONE);
                              txtViewTreatmentCost.setVisibility(View.GONE);
+
+                             /* Marriage request */
+                             txtViewMarriageDateFixed.setVisibility(View.GONE);
+                             editTxtMarriageDate.setVisibility(View.GONE);
                              requestType = "General";
                         break;
                     case 1:
+                            /* Medical request*/
                             editTxtTreatment.setVisibility(View.GONE);
                             editTxtPatientName.setVisibility(View.GONE);
                             editTxtTreatmentCost.setVisibility(View.GONE);
                             txtViewTreatment.setVisibility(View.GONE);
                             txtViewPatientName.setVisibility(View.GONE);
                             txtViewTreatmentCost.setVisibility(View.GONE);
+
+                            /* Marriage request */
+                            txtViewMarriageDateFixed.setVisibility(View.VISIBLE);
+                            editTxtMarriageDate.setVisibility(View.VISIBLE);
                             requestType = "Marriage";
                         break;
                     case 2:
+                            /* Medical request*/
                             editTxtTreatment.setVisibility(View.VISIBLE);
                             editTxtPatientName.setVisibility(View.VISIBLE);
                             editTxtTreatmentCost.setVisibility(View.VISIBLE);
                             txtViewTreatment.setVisibility(View.VISIBLE);
                             txtViewPatientName.setVisibility(View.VISIBLE);
                             txtViewTreatmentCost.setVisibility(View.VISIBLE);
+
+                            /* Marriage request*/
+                            txtViewMarriageDateFixed.setVisibility(View.GONE);
+                            editTxtMarriageDate.setVisibility(View.GONE);
                             requestType = "Medical";
                             break;
 
-
                 }
-
             }
 
             @Override
@@ -151,8 +177,15 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
         editTxtSepAmt.setEnabled(false);
         txtViewTitle  =  (TextView) findViewById(R.id.txtViewTitle);
         editTxtReqStatus = (EditText) findViewById(R.id.editTxtReqStatus);
+        editTxtReqComments = (EditText) findViewById(R.id.editTxtReqComments);
+
+
         buttonSubmit = (Button) findViewById(R.id.buttonSubmit);
         buttonSubmit.setOnClickListener(this);
+        buttonCancel = (Button) findViewById(R.id.buttonCancel);
+        buttonCancel.setOnClickListener(this);
+
+
         editSepList.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -223,6 +256,7 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
         editTxtReqPerson.setText(myIntent.getStringExtra("requestPerson"));
         editTxtPostal.setText(myIntent.getStringExtra("requestPostal"));
         editSepList.setText(myIntent.getStringExtra("requestSepList"));
+        editTxtReqComments.setText(myIntent.getStringExtra("requestComments"));
         editTxtIbmAmt.setText(myIntent.getStringExtra("requestIbmAmt"));
         editTxtSepAmt.setText(myIntent.getStringExtra("requestSepAmt"));
         editTxtReqStatus.setText(myIntent.getStringExtra("requestStatus"));
@@ -243,6 +277,10 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
         }
         else if(requestType.contentEquals("Marriage"))
         {
+            String marriageDate = myIntent.getStringExtra("requestMarriageDate");
+            if(!(marriageDate.contentEquals("null")))
+            editTxtMarriageDate.setText(marriageDate);
+
             spinnerReqType.setSelection(1);
         }
         else if(requestType.contentEquals("General"))
@@ -256,24 +294,49 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void addRequest() {
-        Request request = new Request();
+        final Request request = new Request();
         getReqDetailsFromView(request);
 
-        String id = databaseRequests.push().getKey();
-        // databaseRequests.child(id).setValue(request);
-        databaseRequests.child(id).setValue(request, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                if (databaseError != null) {
-                    showToast("Request not added successfully. May be you are not having write permission!.Contact the admin.");
+        final String id = databaseRequests.push().getKey();
+        progressDialog.setMessage("Add request in progress. Please wait...");
+        progressDialog.show();
 
-                } else {
-                    showToast("Request added successfully");
-                    startViewReq();
+        Query query = databaseRequests.orderByChild("requestNo").equalTo(request.requestNo);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    progressDialog.dismiss();
+                    showToast("Request no already exists. Please check..");
+                }
+                else
+                {
+                     databaseRequests.child(id).setValue(request, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                            if (databaseError != null) {
+                                progressDialog.dismiss();
+                                showToast("Request not added successfully. May be you are not having write permission!.Contact the admin.");
+
+                            } else {
+                                progressDialog.dismiss();
+                                showToast("Request added successfully");
+                                startViewReq();
+                            }
+                        }
+                    });
+
                 }
             }
-        });
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                progressDialog.dismiss();
+                showToast("Adding request failure. Please contact admin.");
+
+            }
+        });
     }
 
     private void startViewReq() {
@@ -289,6 +352,10 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
         else  if ((view == buttonSubmit) && (buttonSubmit.getText() == "Update"))
         {
             updateRequest();
+        }
+        else if(view == buttonCancel)
+        {
+            finish();
         }
     }
 
@@ -308,17 +375,18 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
         childUpdates.put("requestIbmAmt",request.requestIbmAmt);
         childUpdates.put("requestSepAmt",request.requestSepAmt);
         childUpdates.put("requestSepList",request.requestSepList);
+        childUpdates.put("requestComments",request.requestComments);
         childUpdates.put("requestStatus",request.requestStatus);
         childUpdates.put("requestType", requestType);
         if(requestType.contentEquals("Medical")) {
-            childUpdates.put("requestTreatment", request.requestTreatment);
+            childUpdates.put("requestTreatsment", request.requestTreatment);
             childUpdates.put("requestTreatmentCost", request.requestTreatmentCost);
             childUpdates.put("requestPatientName", request.requestPatientName);
         }
-
-
-
-
+        else if(requestType.contentEquals("Marriage"))
+        {
+            childUpdates.put("requestMarriageDate", request.requestMarriageDate);
+        }
 
         Query query = databaseRequests.orderByChild("requestNo").equalTo(request.requestNo);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -327,15 +395,19 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
                 DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
                 String key = nodeDataSnapshot.getKey();
                 String path = "/" + key;
+                progressDialog.setMessage("Updating request. Please wait...");
+                progressDialog.show();
                 databaseRequests.child(path).updateChildren(childUpdates, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                         if(databaseError != null)
                         {
+                            progressDialog.dismiss();
                             showToast("You may not have permission to update the request. Please contact admin!");
                         }
                         else
                         {
+                            progressDialog.dismiss();
                             showToast("Request updated successfully");
                             //finish();
                             Intent myIntent = new Intent(AddRequestActivity.this, ViewDetReqActivity.class);
@@ -344,14 +416,11 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
                         }
                     }
                 });
-
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 showToast("Failed to update the request. Please contact admin!");
-
             }
         });
     }
@@ -381,6 +450,10 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
             request.requestTreatmentCost = editTxtTreatmentCost.getText().toString().trim();
             request.requestPatientName = editTxtPatientName.getText().toString().trim();
         }
+        else if(request.requestType.contentEquals("Marriage"))
+        {
+            request.requestMarriageDate = editTxtMarriageDate.getText().toString().trim();
+        }
 
         if (!(TextUtils.isEmpty(editTxtIbmAmt.getText().toString()))){
             request.requestIbmAmt = Integer.parseInt(editTxtIbmAmt.getText().toString());
@@ -390,6 +463,7 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
             request.requestSepAmt = Integer.parseInt(editTxtSepAmt.getText().toString());
         }
         request.requestSepList = editSepList.getText().toString().trim();
+        request.requestComments = editTxtReqComments.getText().toString().trim();
         request.requestStatus = editTxtReqStatus.getText().toString().trim();
 
         if(!((TextUtils.isEmpty(stReqNo))&&(TextUtils.isEmpty(request.requestPurpose))) ) {
@@ -399,7 +473,6 @@ public class AddRequestActivity extends AppCompatActivity implements View.OnClic
         {
             Toast.makeText(this," You should enter a valid Request number or Request purpose..",Toast.LENGTH_LONG).show();
         }
-
 
     }
 }

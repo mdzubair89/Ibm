@@ -47,10 +47,10 @@ public class ObjectiveActivity extends AppCompatActivity {
         /* Nokkam*/
         textViewThirdPartHead.setText("Nehf;fk;:-");
         textViewThirdPart.setText("ekJ}H Nkyg;ghisaj;jpy; epiwa mikg;Gfs; gy ey;y tp\\aq;fis nra;J tUfpd;wJ. ekJ IMFRAS BAITHUL MAL (IBM) d; Nehf;fkhdJ mbg;gil trjpaw;w Viofspd; tho;thjhuj;jpw;F ek;khy; ,ad;w cjtpfis nra;tNj MFk;. \n");
-        textViewFourthPartHead.setText(" gzpfs;:-");
+        textViewFourthPartHead.setText("gzpfs;:-");
         textViewFourthPart.setText("Mjutw;w Viof; FLk;gq;fSf;Fk;, tpjitg; ngz;fSf;Fk; khjhe;jpu cjtpj; njhif toq;Fjy;.\n NehahspfSf;F kUj;Jt cjtp.;\n Viof; FkHfSf;F jpUkz cjtp.\n Nehd;G fhyq;fspy; [f;fhj; kw;Wk; ]jfh.\n");
-        textViewFifthPartHead.setText(" tq;fp fzf;F:-");
-        textViewFifthPart.setText("  IBM tuT nryT fzf;Ffis ghh;gjw;F tq;fp fzf;F Njitg;gl;lJ ehk; rl;lg;gb hp[p];lh; nra;ahjjhy; IBM ngahpy; tq;fp fzf;F njhlq;f Kbatpy;iy Mifahy; Kfk;kJ upy;thd; vd;w jdp egh; ngahpy; Adpad; tq;fpapy; fzf;F Muk;gpf;fg;gl;lJ. IBM rk;ge;jg;gl;l gdptu;jidfis kl;Lk; ,jpy; nra;ayhk; vd;W KbT nra;ag;gl;lJ.\n");
+        textViewFifthPartHead.setText("tq;fp fzf;F:-");
+        textViewFifthPart.setText("IBM tuT nryT fzf;Ffis ghh;gjw;F tq;fp fzf;F Njitg;gl;lJ ehk; rl;lg;gb hp[p];lh; nra;ahjjhy; IBM ngahpy; tq;fp fzf;F njhlq;f Kbatpy;iy Mifahy; Kfk;kJ upy;thd; vd;w jdp egh; ngahpy; Adpad; tq;fpapy; fzf;F Muk;gpf;fg;gl;lJ. IBM rk;ge;jg;gl;l gdptu;jidfis kl;Lk; ,jpy; nra;ayhk; vd;W KbT nra;ag;gl;lJ.\n");
 
 
 
@@ -63,6 +63,7 @@ public class ObjectiveActivity extends AppCompatActivity {
         textViewFourthPart.setTypeface(typeface);
         textViewFifthPartHead.setTypeface(typeface);
         textViewFifthPart.setTypeface(typeface);
+
 
 
     }
