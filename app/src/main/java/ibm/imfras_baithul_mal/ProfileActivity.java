@@ -51,6 +51,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         buttonIbmMembers.setOnClickListener(this);
         buttonIbmAcc.setOnClickListener(this);
         buttonIbmObj.setOnClickListener(this);
+        buttonAdvOptions.setOnClickListener(this);
     }
 
     private void logout()
@@ -86,7 +87,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
         else if (view == buttonAdvOptions)
         {
-            advanceOptions();
+            //advanceOptions();
+            launchConnectIBM();
         }
         else if (view == buttonIbmObj)
         {
@@ -100,6 +102,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private void advanceOptions() {
         startActivity(new Intent(this, AdvanceOptionsActivity.class));
+    }
+
+    private void launchConnectIBM() {
+        startActivity(new Intent(this, ConnectIBMActivity.class));
     }
 
     private void viewIBMAcc() {
