@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ibm.imfras_baithul_mal.ViewTransactionActivity">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:weightSum="1">
+
+
+        <TextView
+            android:id="@+id/textViewRequests"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"
+            android:text="TRANSACTIONS"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textColor="#000080"
+            android:shadowColor="#0000FF"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#006"
+            >
+
+            <!--  First header line -->
+            <TextView android:id="@+id/transaction_header_line1"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:background="@android:color/holo_green_light"
+                android:textColor="@color/abc_input_method_navigation_guard" />
+
+            <!-- Second header line -->
+            <TextView
+                android:id="@+id/transaction_header_line2"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="6"
+                android:textStyle="bold"
+                android:background="@android:color/holo_green_light"
+                android:textColor="@color/abc_input_method_navigation_guard" />
+
+            <!--  Third header line -->
+            <TextView android:id="@+id/transaction_header_line3"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:background="@android:color/holo_green_light"
+                android:textColor="@color/abc_input_method_navigation_guard" />
+            <!-- Fourth header line -->
+            <TextView android:id="@+id/transaction_header_line4"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:background="@android:color/holo_green_light"
+                android:textColor="@color/abc_input_method_navigation_guard" />
+                <!--  Fifth header line -->
+            <TextView
+                android:id="@+id/transaction_header_line5"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:background="@android:color/holo_green_light"
+                android:textColor="@color/abc_input_method_navigation_guard" />
+
+            <!--  Sixth header line
+            <TextView android:id="@+id/transaction_header_line6"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="3"
+                android:textStyle="bold"
+                android:background="@android:color/holo_green_light"
+                android:textColor="@color/abc_input_method_navigation_guard" />
+             Seventh header line
+            <TextView android:id="@+id/transaction_header_line7"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="3"
+                android:textStyle="bold"
+                android:background="@android:color/holo_green_light"
+                android:textColor="@color/abc_input_method_navigation_guard" /> -->
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/transactionListView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_orange_light" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

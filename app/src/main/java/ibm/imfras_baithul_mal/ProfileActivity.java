@@ -88,7 +88,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         else if (view == buttonAdvOptions)
         {
             //advanceOptions();
-            launchConnectIBM();
+            //launchConnectIBM();
+            viewTransaction();
         }
         else if (view == buttonIbmObj)
         {
@@ -106,6 +107,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private void launchConnectIBM() {
         startActivity(new Intent(this, ConnectIBMActivity.class));
+    }
+
+    private void viewTransaction() {
+        startActivity(new Intent(this, ViewTransactionActivity.class));
     }
 
     private void viewIBMAcc() {
