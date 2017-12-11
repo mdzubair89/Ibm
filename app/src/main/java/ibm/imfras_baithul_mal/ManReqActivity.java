@@ -10,6 +10,8 @@ public class ManReqActivity extends AppCompatActivity implements View.OnClickLis
 
     private Button buttonViewReq;
     private Button buttonAddReq;
+    private Button buttonViewTransaction;
+    private Button buttonViewBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,9 +20,13 @@ public class ManReqActivity extends AppCompatActivity implements View.OnClickLis
 
         buttonViewReq = (Button) findViewById(R.id.buttonViewReq);
         buttonAddReq =   (Button) findViewById(R.id.buttonAddReq);
+        buttonViewTransaction =   (Button) findViewById(R.id.buttonTransaction);
+        buttonViewBalance =   (Button) findViewById(R.id.buttonViewBalance);
 
         buttonAddReq.setOnClickListener(this);
         buttonViewReq.setOnClickListener(this);
+        buttonViewTransaction.setOnClickListener(this);
+        buttonViewBalance.setOnClickListener(this);
     }
 
     private void viewRequest()
@@ -33,6 +39,13 @@ public class ManReqActivity extends AppCompatActivity implements View.OnClickLis
         startActivity(new Intent(this,AddRequestActivity.class));
     }
 
+    private void  viewTransaction() {  startActivity(new Intent(this, ViewTransactionActivity.class));    }
+
+
+    private void viewBalance() {
+        startActivity(new Intent(this, BalanceActivity.class));
+    }
+
     @Override
     public void onClick(View view) {
         if (view == buttonViewReq)
@@ -43,8 +56,12 @@ public class ManReqActivity extends AppCompatActivity implements View.OnClickLis
         {
             addRequest();
         }
-        else{
-
+        else if (view == buttonViewTransaction){
+            viewTransaction();
+        }
+        else if (view == buttonViewBalance){
+            viewBalance();
         }
     }
+
 }

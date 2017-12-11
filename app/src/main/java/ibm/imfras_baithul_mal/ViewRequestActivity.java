@@ -43,6 +43,7 @@ public class ViewRequestActivity extends AppCompatActivity {
     TextView txtFirst;
     ListView listView;
     private ProgressDialog progressDialog;
+    public String layout = "request";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +107,7 @@ public class ViewRequestActivity extends AppCompatActivity {
 
     private void reverseListAndSetAdapter() {
         Collections.reverse(list);
-        ListViewAdapter adapter= new ListViewAdapter(ViewRequestActivity.this,list);
+        ListViewAdapter adapter= new ListViewAdapter(ViewRequestActivity.this,list,layout);
         listView.setAdapter(adapter);
     }
 

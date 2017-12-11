@@ -45,5 +45,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Add request" />
+
+        <Button
+            android:id="@+id/buttonTransaction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Transactions" />
+
+        <Button
+            android:id="@+id/buttonViewBalance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Balance" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

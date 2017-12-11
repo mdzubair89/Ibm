@@ -76,7 +76,7 @@
             android:id="@+id/buttonManReq"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Manage Requests" />
+            android:text="Manage" />
 
         <Button
             android:id="@+id/buttonAdvOptions"

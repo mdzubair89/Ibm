@@ -30,10 +30,13 @@ public class ListViewAdapter extends BaseAdapter{
     TextView txtSecond;
     TextView txtThird;
     TextView txtFourth;
-    public ListViewAdapter(Activity activity,ArrayList<HashMap<String, String>> list){
+    public String layout;
+
+    public ListViewAdapter(Activity activity,ArrayList<HashMap<String, String>> list,String layout){
         super();
-        this.activity=activity;
-        this.list=list;
+        this.activity = activity;
+        this.list = list;
+        this.layout = layout;
     }
 
     @Override
@@ -72,7 +75,14 @@ public class ListViewAdapter extends BaseAdapter{
 
         if(convertView == null){
 
-            convertView=inflater.inflate(R.layout.column_row, null);
+            if(layout == "balance")
+            {
+                convertView = inflater.inflate(R.layout.balance_layout, null);
+            }
+            else if(layout == "request") {
+
+                convertView = inflater.inflate(R.layout.column_row, null);
+            }
             holder = new ViewHolder();
 
             holder.txtFirst=(TextView) convertView.findViewById(R.id.TextFirst);
