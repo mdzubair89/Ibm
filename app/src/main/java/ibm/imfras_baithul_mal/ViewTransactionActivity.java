@@ -66,8 +66,6 @@ public class ViewTransactionActivity extends Activity
     TextView columnHeader3;
     TextView columnHeader4;
     TextView columnHeader5;
-    /*TextView columnHeader6;
-    TextView columnHeader7;*/
     TextView txtFirst;
     ListView listView;
     private ArrayList<HashMap<String, String>> list;
@@ -81,16 +79,11 @@ public class ViewTransactionActivity extends Activity
     private static final String[] SCOPES = { SheetsScopes.SPREADSHEETS_READONLY };
     GoogleAccountCredential mCredential;
     ProgressDialog mProgress;
-    private TextView mOutputText;
-    private Button mCallApiButton;
-    private EditText queryEditText;
 
     private Spinner spinnerTransYear;
-    private ArrayAdapter spinnerTransYearArrAdap;
     private Spinner spinnerTransAcc;
-    private ArrayAdapter spinnerTransAccArrAdap;
 
-    private static String transYear = "2018";
+    private static String transYear ;
     private static String transAcc = "All Accounts";
 
     public static final String TRANSACTION="TRANSACTION";
@@ -98,12 +91,9 @@ public class ViewTransactionActivity extends Activity
 
     Button buttonTransGo;
     private static String querySel = TRANSACTION;
-    private ArrayList<HashMap<String,String>> accountsArr ;
-    private ArrayList<List> accountsArray;
 
-
-
-
+    private ArrayList<String> spinnerAccountsArray;
+    private ArrayList<String> spinnerYearArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,8 +105,6 @@ public class ViewTransactionActivity extends Activity
         TextView columnHeader3 = (TextView) findViewById(R.id.transaction_header_line3);
         TextView columnHeader4 = (TextView) findViewById(R.id.transaction_header_line4);
         TextView columnHeader5 = (TextView) findViewById(R.id.transaction_header_line5);
-        /*TextView columnHeader6 = (TextView) findViewById(R.id.transaction_header_line6);
-        TextView columnHeader7 = (TextView) findViewById(R.id.transaction_header_line7);*/
 
         buttonTransGo = (Button) findViewById(R.id.buttonTransGo);
         buttonTransGo.setOnClickListener(this);
@@ -126,35 +114,17 @@ public class ViewTransactionActivity extends Activity
         columnHeader3.setText("C/D");
         columnHeader4.setText("ACC.");
         columnHeader5.setText("BAL.");
-        /*columnHeader6.setText("ACCOUNT");
-        columnHeader7.setText("BALANCE");*/
         listView=(ListView)findViewById(R.id.transactionListView1);
         populateList();
 
         spinnerTransYear = (Spinner) findViewById(R.id.spinnerTransYear);
-        spinnerTransYearArrAdap = ArrayAdapter.createFromResource(this, R.array.transYear,android.R.layout.simple_spinner_dropdown_item);
-        spinnerTransYearArrAdap.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerTransYear.setAdapter(spinnerTransYearArrAdap);
 
         spinnerTransYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                transYear = spinnerTransYear.getSelectedItem().toString();
                 list.clear();
-
-                switch (position)
-                {
-                    case 0:  /* Medical request*/
-                        transYear = "2018";
-                        break;
-                    case 1:
-                        transYear = "2017";
-                        break;
-                    default:
-                        transYear = "2018";
-                        break;
-
-                }
 
             }
 
@@ -165,57 +135,12 @@ public class ViewTransactionActivity extends Activity
         });
 
         spinnerTransAcc = (Spinner) findViewById(R.id.spinnerTransAcc);
-        spinnerTransAccArrAdap = ArrayAdapter.createFromResource(this, R.array.transAcc,android.R.layout.simple_spinner_dropdown_item);
-        spinnerTransAccArrAdap.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerTransAcc.setAdapter(spinnerTransAccArrAdap);
 
         spinnerTransAcc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                transAcc = spinnerTransAcc.getSelectedItem().toString();
                 list.clear();
-
-                switch (position)
-                {
-                    case 0:  /* Medical request*/
-
-                        transAcc = "All Accounts";
-
-                        break;
-
-                    case 1:
-                        transAcc = "Rilwan Account";
-
-                        break;
-                    case 2:
-                        transAcc = "Rasool Account";
-                        break;
-
-                    case 3:
-                        transAcc = "Anas Bank Account";
-
-                        break;
-                    case 4:
-                        transAcc = "Anas Hand cash";
-                        break;
-
-                    case 5:
-                        transAcc = "Azhar account";
-
-                        break;
-                    case 6:
-                        transAcc = "Ameen Hand";
-                        break;
-
-                    case 7:
-                        transAcc = "Rilwan Hand";
-
-                        break;
-                    default:
-                        transAcc = "All Accounts";
-                        break;
-
-                }
             }
 
             @Override
@@ -233,16 +158,6 @@ public class ViewTransactionActivity extends Activity
 
         querySel = ACCOUNTS;
         getResultsFromApi();
-
-        //spinnerTransYearArrAdap = ArrayAdapter.createFromResource(this, accountsArray.toArray(),android.R.layout.simple_spinner_dropdown_item);
-        //spinnerTransYearArrAdap.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //fetchTransAccounts();
-        /*querySel = "TRANSACTION";
-        getResultsFromApi();*/
-
-    }
-
-    private void fetchTransAccounts() {
 
     }
 
@@ -267,7 +182,6 @@ public class ViewTransactionActivity extends Activity
     }
 
     private void populateRequests(Object dat, Object purpose, String inf, Object acc, Object bal) {
-
         String stDate = dat.toString();
         String stPurpose = purpose.toString();
 
@@ -309,11 +223,6 @@ public class ViewTransactionActivity extends Activity
             temp.put(FIFTH_COLUMN, stBal);
             list.add(temp);
         }
-        //TransactionListViewAdapter adapter= new TransactionListViewAdapter(ViewTransactionActivity.this,list);
-        //listView.setAdapter(adapter);
-
-        /*ListViewAdapter adapter= new ListViewAdapter(ViewRequestActivity.this,list);
-        listView.setAdapter(adapter);*/
 
     }
     private void showToast(String message) {
@@ -556,7 +465,15 @@ public class ViewTransactionActivity extends Activity
             if ( querySel.contentEquals(ACCOUNTS))
             {
                 try {
+                    getYearDataFromApi();
+                } catch (Exception e) {
+                    mLastError = e;
+                    cancel(true);
+                    return null;
+                }
+                try {
                      getAccountsDataFromApi();
+
                 } catch (Exception e) {
                     mLastError = e;
                     cancel(true);
@@ -576,43 +493,71 @@ public class ViewTransactionActivity extends Activity
 
         }
 
-        private void getAccountsDataFromApi() throws IOException {
-            //String spreadsheetId = "1uLUhqMsFvB5JFSjj7vxQztn0QwHP1krwF3izKUWiyt8";
+        private void getYearDataFromApi() throws IOException {
+
             int count = 1;
             String spreadsheetId = "1JRYW5c0ZWA7ZfHzbcXuvCFznZCB_vK7JHm6G9fV-Kk0";
 
-            List<String> accountsList = new ArrayList<String>();
-            accountsArray = new ArrayList<List>();
-            accountsArr = new ArrayList<HashMap<String, String>>();
-            HashMap<String, String> temp = new HashMap<String, String>();
-            //String query =  "TRANSACTIONS_2017!B14:H";
-            String query =  "BALANCE_TESTING!A5:A";
-            String inf = null;
-            //String range = "Class Data!A2:E";
-            //String range = "TRANSACTIONS_2017!B14:H";
-            String range = query;
-            List<String> results = new ArrayList<String>();
+            spinnerYearArray = new ArrayList<String>();
+
+            String query =  "COMMON!B5:B";
+
             ValueRange response = this.mService.spreadsheets().values()
-                    .get(spreadsheetId, range)
+                    .get(spreadsheetId, query)
                     .execute();
             List<List<Object>> values = response.getValues();
 
-            int rowId = getRowId(query);
+            if (values != null) {
+
+
+                for (List row : values) {
+
+                        if (count == 1)
+                        transYear = row.get(0).toString();
+                        spinnerYearArray.add(row.get(0).toString());
+                        count++;
+                    }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setSpinnerYear();
+                    }
+                });
+            }
+        }
+
+        private void getAccountsDataFromApi() throws IOException {
+
+            int count = 1;
+            String spreadsheetId = "1JRYW5c0ZWA7ZfHzbcXuvCFznZCB_vK7JHm6G9fV-Kk0";
+
+            spinnerAccountsArray = new ArrayList<String>();
+            spinnerAccountsArray.add("All Accounts");
+
+            String query =  "BALANCE_TESTING!A5:A";
+
+            List<String> results = new ArrayList<String>();
+            ValueRange response = this.mService.spreadsheets().values()
+                    .get(spreadsheetId, query)
+                    .execute();
+            List<List<Object>> values = response.getValues();
+
+
             if (values != null) {
                 results.add("Name       Balance");
                 for (List row : values) {
                     if ( count < values.size()) {
-                        accountsList.add(row.get(0).toString());
-                        //temp.put(String.valueOf(count),row.get(0).toString());
+                        spinnerAccountsArray.add(row.get(0).toString());
                         count++;
                     }
-//                    populateRequests(row.get(0),row.get(1),inf,row.get(4),row.get(6));
                 }
-                //accountsArr.add(temp);
-                accountsArray.add(accountsList);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setSpinnerAccounts();
+                    }
+                });
             }
-
-
         }
 
         /**
@@ -622,27 +567,21 @@ public class ViewTransactionActivity extends Activity
          * @throws IOException
          */
         private List<String> getTransDataFromApi() throws IOException {
-            //String spreadsheetId = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
-            //String spreadsheetId = "1uLUhqMsFvB5JFSjj7vxQztn0QwHP1krwF3izKUWiyt8";
+
             String spreadsheetId = "1JRYW5c0ZWA7ZfHzbcXuvCFznZCB_vK7JHm6G9fV-Kk0";
-            //String query =  "TRANSACTIONS_2017!B14:H";
             String query =  "TRANSACTIONS_"+ transYear + "!B14:H";
             String inf = null;
-            //String range = "Class Data!A2:E";
-            //String range = "TRANSACTIONS_2017!B14:H";
             String range = query;
             List<String> results = new ArrayList<String>();
             ValueRange response = this.mService.spreadsheets().values()
                     .get(spreadsheetId, range)
                     .execute();
             List<List<Object>> values = response.getValues();
-            int rowId = getRowId(query);
+
             if (values != null) {
                 results.add("Name       Balance");
                 for (List row : values) {
-                    //if(((row.size() == 2)))
-                    //results.add(row.get(0) + "       " + row.get(rowId));
-                    if(String.valueOf(row.get(2)) != "") {
+                      if(String.valueOf(row.get(2)) != "") {
                         inf = "+" + String.valueOf(row.get(2));
                     }
                     else if(String.valueOf(row.get(3)) != "")
@@ -653,6 +592,12 @@ public class ViewTransactionActivity extends Activity
                 }
             }
 
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    reverseListAndSetAdapter();
+                }
+            });
             return results;
         }
 
@@ -672,7 +617,7 @@ public class ViewTransactionActivity extends Activity
             } else {
                 //output.add(0, "Data retrieved using the Google Sheets API:");
                 //setListadapter();
-                reverseListAndSetAdapter();
+                //reverseListAndSetAdapter();
                 //showToast(TextUtils.join("\n", output));
             }
         }
@@ -699,83 +644,18 @@ public class ViewTransactionActivity extends Activity
         }
     }
 
-    private void setListadapter() {
-        TransactionListViewAdapter adapter= new TransactionListViewAdapter(ViewTransactionActivity.this,list);
-        listView.setAdapter(adapter);
+    private void setSpinnerAccounts() {
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, spinnerAccountsArray);
+        spinnerTransAcc.setAdapter(spinnerArrayAdapter);
 
     }
 
-    private int getRowId(String query) {
+    private void setSpinnerYear() {
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, spinnerYearArray);
+        spinnerTransYear.setAdapter(spinnerArrayAdapter);
 
-        String[] parts = query.split(":");
-        int rowId = 0;
-        switch(parts[1])
-        {
-            /* JAN */
-            case "C":
-                rowId = 1;
-                break;
-            /* FEB */
-            case "D":
-                rowId = 2;
-                break;
-            /* MARCH */
-            case "E":
-                rowId = 3;
-                break;
-            /* APRIL */
-            case "F":
-                rowId = 4;
-                break;
-            /* MAY*/
-            case "G":
-                rowId = 5;
-                break;
-            /* JUNE */
-            case "H":
-                rowId = 6;
-                break;
-            /* ZAKAATH */
-            case "I":
-                rowId = 7;
-                break;
-            /* Orph  */
-            case "J":
-                rowId = 8;
-                break;
-            /* JULY */
-            case "K":
-                rowId = 9;
-                break;
-            /* AUG */
-            case "L":
-                rowId = 10;
-                break;
-            /* SEPT */
-            case "M":
-                rowId = 11;
-                break;
-            /* OCT */
-            case "N":
-                rowId = 12;
-                break;
-            /* NOV */
-            case "O":
-                rowId = 13;
-                break;
-            /* DEC */
-            case "P":
-                rowId = 14;
-                break;
-            /* BALANCE */
-            case "Q":
-                rowId = 15;
-                break;
-            default:
-                rowId = 15;
-                break;
-        }
-        return rowId;
     }
+
+
 }
 
