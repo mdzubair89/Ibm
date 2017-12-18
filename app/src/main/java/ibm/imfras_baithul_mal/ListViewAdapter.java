@@ -83,6 +83,10 @@ public class ListViewAdapter extends BaseAdapter{
 
                 convertView = inflater.inflate(R.layout.column_row, null);
             }
+            else if(layout == "distribution") {
+
+                convertView = inflater.inflate(R.layout.distribution_layout, null);
+            }
             holder = new ViewHolder();
 
             holder.txtFirst=(TextView) convertView.findViewById(R.id.TextFirst);

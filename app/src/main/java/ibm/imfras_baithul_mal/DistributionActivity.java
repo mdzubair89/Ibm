@@ -1,6 +1,5 @@
 package ibm.imfras_baithul_mal;
 
-import android.*;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.Dialog;
@@ -14,7 +13,6 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,121 +35,102 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.ValueRange;
+import com.google.firebase.database.DatabaseReference;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-import static ibm.imfras_baithul_mal.Constants.FIFTH_COLUMN;
 import static ibm.imfras_baithul_mal.Constants.FIRST_COLUMN;
 import static ibm.imfras_baithul_mal.Constants.FOURTH_COLUMN;
 import static ibm.imfras_baithul_mal.Constants.SECOND_COLUMN;
-import static ibm.imfras_baithul_mal.Constants.SEVENTH_COLUMN;
-import static ibm.imfras_baithul_mal.Constants.SIXTH_COLUMN;
 import static ibm.imfras_baithul_mal.Constants.THIRD_COLUMN;
 
-public class ViewTransactionActivity extends Activity
-        implements EasyPermissions.PermissionCallbacks, View.OnClickListener {
-    TextView columnHeader1;
-    TextView columnHeader2;
-    TextView columnHeader3;
-    TextView columnHeader4;
-    TextView columnHeader5;
-    TextView txtFirst;
-    ListView listView;
-    private ArrayList<HashMap<String, String>> list;
+public class DistributionActivity extends Activity   implements EasyPermissions.PermissionCallbacks, View.OnClickListener {
 
-    private TextView textViewTransaction;
 
-    static final int REQUEST_ACCOUNT_PICKER = 1000;
-    static final int REQUEST_AUTHORIZATION = 1001;
-    static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
-    static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
-    private static final String BUTTON_TEXT = "Call Google Sheets API";
-    private static final String PREF_ACCOUNT_NAME = "accountName";
-    private static final String[] SCOPES = { SheetsScopes.SPREADSHEETS_READONLY };
-    GoogleAccountCredential mCredential;
-    ProgressDialog mProgress;
+        DatabaseReference databaseRequests;
+        private TextView textViewRequestNo;
+        private EditText editTextRequestPurpose;
+        TextView columnHeader1;
+        TextView columnHeader2;
+        TextView columnHeader3;
+        TextView columnHeader4;
+        TextView txtFirst;
+        ListView listView;
+        private ProgressDialog progressDialog;
+        public String layout = "distribution";
 
-    private Spinner spinnerTransYear;
-    private Spinner spinnerTransAcc;
+        private Spinner spinnerDistYear;
 
-    private static String transYear ;
-    private static String transAcc = "All Accounts";
+        private ArrayList<HashMap<String, String>> list;
 
-    public static final String TRANSACTION="TRANSACTION";
-    public static final String ACCOUNTS="ACCOUNTS";
+        private TextView textViewDistribution;
 
-    Button buttonTransGo;
-    private static String querySel = TRANSACTION;
+        static final int REQUEST_ACCOUNT_PICKER = 1000;
+        static final int REQUEST_AUTHORIZATION = 1001;
+        static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
+        static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
+        private static final String BUTTON_TEXT = "Call Google Sheets API";
+        private static final String PREF_ACCOUNT_NAME = "accountName";
+        private static final String[] SCOPES = { SheetsScopes.SPREADSHEETS_READONLY };
+        GoogleAccountCredential mCredential;
+        ProgressDialog mProgress;
+        private ArrayList<String> spinnerYearArray;
+        Button buttonDistGo;
 
-    private ArrayList<String> spinnerAccountsArray;
-    private ArrayList<String> spinnerYearArray;
+        private static String distYear ;
+        public static final String INITIAL="INITIAL";
+        public static final String DISTRIBUTION="DISTRIBUTION";
+        private static String querySel = INITIAL;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_transaction);
+        setContentView(R.layout.activity_distribution);
+        TextView columnHeader1 = (TextView) findViewById(R.id.balHeader_line1);
+        TextView columnHeader2 = (TextView) findViewById(R.id.balHeader_line2);
+        TextView columnHeader3 = (TextView) findViewById(R.id.balHeader_line3);
+        TextView columnHeader4 = (TextView) findViewById(R.id.balHeader_line4);
 
-        TextView columnHeader1 = (TextView) findViewById(R.id.transaction_header_line1);
-        TextView columnHeader2 = (TextView) findViewById(R.id.transaction_header_line2);
-        TextView columnHeader3 = (TextView) findViewById(R.id.transaction_header_line3);
-        TextView columnHeader4 = (TextView) findViewById(R.id.transaction_header_line4);
-        TextView columnHeader5 = (TextView) findViewById(R.id.transaction_header_line5);
+        columnHeader1.setText("REQ NO");
+        columnHeader2.setText("DATE");
+        columnHeader3.setText("PARTICULARS");
+        columnHeader4.setText("CONTRIB.");
 
-        buttonTransGo = (Button) findViewById(R.id.buttonTransGo);
-        buttonTransGo.setOnClickListener(this);
+        textViewDistribution = (TextView) findViewById(R.id.textViewDistribution);
 
-        columnHeader1.setText("DATE");
-        columnHeader2.setText("PURPOSE");
-        columnHeader3.setText("C/D");
-        columnHeader4.setText("ACC.");
-        columnHeader5.setText("BAL.");
 
-        textViewTransaction = (TextView)findViewById(R.id.textViewTransaction);
-        listView=(ListView)findViewById(R.id.transactionListView1);
+        buttonDistGo = (Button) findViewById(R.id.buttonDistGo);
+        buttonDistGo.setOnClickListener(this);
+
+        spinnerDistYear = (Spinner) findViewById(R.id.spinnerDistYear);
+        spinnerDistYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                distYear = spinnerDistYear.getSelectedItem().toString();
+                list.clear();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+        listView=(ListView)findViewById(R.id.balListView);
+
         populateList();
-
-        spinnerTransYear = (Spinner) findViewById(R.id.spinnerTransYear);
-
-        spinnerTransYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                transYear = spinnerTransYear.getSelectedItem().toString();
-                list.clear();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        spinnerTransAcc = (Spinner) findViewById(R.id.spinnerTransAcc);
-
-        spinnerTransAcc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                transAcc = spinnerTransAcc.getSelectedItem().toString();
-                list.clear();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         mProgress = new ProgressDialog(this);
         mProgress.setMessage("Fetching data ...Please wait");
@@ -160,9 +139,9 @@ public class ViewTransactionActivity extends Activity
                 getApplicationContext(), Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff());
 
-        querySel = ACCOUNTS;
-        getResultsFromApi();
+        querySel = INITIAL;
 
+        getResultsFromApi();
     }
 
     private void populateList() {
@@ -173,62 +152,11 @@ public class ViewTransactionActivity extends Activity
         temp.put(SECOND_COLUMN, "");
         temp.put(THIRD_COLUMN, "");
         temp.put(FOURTH_COLUMN, "");
-        temp.put(FIFTH_COLUMN, "");
-        list.add(temp);
-*/
+        list.add(temp);*/
 
     }
 
-    private void reverseListAndSetAdapter() {
-        Collections.reverse(list);
-        TransactionListViewAdapter adapter= new TransactionListViewAdapter(ViewTransactionActivity.this,list);
-        listView.setAdapter(adapter);
-    }
 
-    private void populateRequests(Object dat, Object purpose, String inf, Object acc, Object bal) {
-        String stDate = dat.toString();
-        String stPurpose = purpose.toString();
-
-        String stAcc = acc.toString();
-        String stBal = bal.toString();
-
-        /*String stDate = dat.toString();
-        // *** note that it's "yyyy-MM-dd hh:mm:ss" not "yyyy-mm-dd hh:mm:ss"
-        SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy");
-        Date date = null;
-        try {
-            date = dt.parse(stDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        // *** same for the format String below
-        SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
-        System.out.println(dt1.format(date));
-*/
-
-
-        if ( stAcc.contentEquals(transAcc)) {
-            HashMap<String, String> temp = new HashMap<String, String>();
-            temp.put(FIRST_COLUMN, stDate);
-            temp.put(SECOND_COLUMN, stPurpose);
-            temp.put(THIRD_COLUMN, inf);
-            temp.put(FOURTH_COLUMN, stAcc);
-            temp.put(FIFTH_COLUMN, stBal);
-            list.add(temp);
-        }
-        else if (transAcc.contentEquals("All Accounts"))
-        {
-            HashMap<String, String> temp = new HashMap<String, String>();
-            temp.put(FIRST_COLUMN, stDate);
-            temp.put(SECOND_COLUMN, stPurpose);
-            temp.put(THIRD_COLUMN, inf);
-            temp.put(FOURTH_COLUMN, stAcc);
-            temp.put(FIFTH_COLUMN, stBal);
-            list.add(temp);
-        }
-
-    }
     private void showToast(String message) {
 
         Toast.makeText(this,message,Toast.LENGTH_LONG).show();
@@ -250,7 +178,7 @@ public class ViewTransactionActivity extends Activity
         } else if (! isDeviceOnline()) {
             showToast("No network connection available.");
         } else {
-            new ViewTransactionActivity.MakeRequestTask(mCredential).execute();
+            new DistributionActivity.MakeRequestTask(mCredential).execute();
         }
     }
 
@@ -373,6 +301,7 @@ public class ViewTransactionActivity extends Activity
      *         permission
      * @param list The requested permission list. Never null.
      */
+
     @Override
     public void onPermissionsDenied(int requestCode, List<String> list) {
         // Do nothing.
@@ -427,7 +356,7 @@ public class ViewTransactionActivity extends Activity
             final int connectionStatusCode) {
         GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
         Dialog dialog = apiAvailability.getErrorDialog(
-                ViewTransactionActivity.this,
+                DistributionActivity.this,
                 connectionStatusCode,
                 REQUEST_GOOGLE_PLAY_SERVICES);
         dialog.show();
@@ -435,11 +364,10 @@ public class ViewTransactionActivity extends Activity
 
     @Override
     public void onClick(View view) {
-
-        if (view == buttonTransGo)
+        if (view == buttonDistGo)
         {
             list.clear();
-            textViewTransaction.setText("TRANSACTIONS\n" + transYear);
+            textViewDistribution.setText("DISTRIBUTION\n" + distYear);
             getResultsFromApi();
         }
     }
@@ -468,7 +396,7 @@ public class ViewTransactionActivity extends Activity
         @Override
         protected List<String> doInBackground(Void... params) {
 
-            if ( querySel.contentEquals(ACCOUNTS))
+            if ( querySel.contentEquals(INITIAL))
             {
                 try {
                     getYearDataFromApi();
@@ -477,28 +405,19 @@ public class ViewTransactionActivity extends Activity
                     cancel(true);
                     return null;
                 }
-
-                try {
-                     getAccountsDataFromApi();
-
-                } catch (Exception e) {
-                    mLastError = e;
-                    cancel(true);
-                    return null;
-                }
-
             }
 
-                try {
-                    querySel = TRANSACTION;
-                    return getTransDataFromApi();
-                } catch (Exception e) {
-                    mLastError = e;
-                    cancel(true);
-                    return null;
-                }
-
+            try {
+                querySel = DISTRIBUTION;
+                return getDataFromApi();
+            } catch (Exception e) {
+                mLastError = e;
+                cancel(true);
+                return null;
+            }
         }
+
+
 
         private void getYearDataFromApi() throws IOException {
 
@@ -507,7 +426,7 @@ public class ViewTransactionActivity extends Activity
 
             spinnerYearArray = new ArrayList<String>();
 
-            String query =  "COMMON!B5:B";
+            String query =  "COMMON!C5:C";
 
             ValueRange response = this.mService.spreadsheets().values()
                     .get(spreadsheetId, query)
@@ -519,49 +438,15 @@ public class ViewTransactionActivity extends Activity
 
                 for (List row : values) {
 
-                        if (count == 1)
-                        transYear = row.get(0).toString();
-                        spinnerYearArray.add(row.get(0).toString());
-                        count++;
-                    }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setSpinnerYear();
-                    }
-                });
-            }
-        }
-
-        private void getAccountsDataFromApi() throws IOException {
-
-            int count = 1;
-            String spreadsheetId = "1JRYW5c0ZWA7ZfHzbcXuvCFznZCB_vK7JHm6G9fV-Kk0";
-
-            spinnerAccountsArray = new ArrayList<String>();
-            spinnerAccountsArray.add("All Accounts");
-
-            String query =  "BALANCE_TESTING!A5:A";
-
-            List<String> results = new ArrayList<String>();
-            ValueRange response = this.mService.spreadsheets().values()
-                    .get(spreadsheetId, query)
-                    .execute();
-            List<List<Object>> values = response.getValues();
-
-
-            if (values != null) {
-                results.add("Name       Balance");
-                for (List row : values) {
-                    if ( count < values.size()) {
-                        spinnerAccountsArray.add(row.get(0).toString());
-                        count++;
-                    }
+                    if (count == 1)
+                        distYear = row.get(0).toString();
+                    spinnerYearArray.add(row.get(0).toString());
+                    count++;
                 }
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        setSpinnerAccounts();
+                        setSpinnerYear();
                     }
                 });
             }
@@ -573,39 +458,47 @@ public class ViewTransactionActivity extends Activity
          * @return List of names and majors
          * @throws IOException
          */
-        private List<String> getTransDataFromApi() throws IOException {
-
+        private List<String> getDataFromApi() throws IOException {
+            //String spreadsheetId = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
+            //String spreadsheetId = "1uLUhqMsFvB5JFSjj7vxQztn0QwHP1krwF3izKUWiyt8";
             String spreadsheetId = "1JRYW5c0ZWA7ZfHzbcXuvCFznZCB_vK7JHm6G9fV-Kk0";
-            String query =  "TRANSACTIONS_"+ transYear + "!B14:H";
-            String inf = null;
+            String query =  "Distribution_"+ distYear + "!B4:G";
+            //String query =  "Distribution_2017!B4:G";
+
             String range = query;
             List<String> results = new ArrayList<String>();
             ValueRange response = this.mService.spreadsheets().values()
                     .get(spreadsheetId, range)
                     .execute();
             List<List<Object>> values = response.getValues();
-
+            //int rowId = getRowId(query);
             if (values != null) {
                 results.add("Name       Balance");
                 for (List row : values) {
-                      if(String.valueOf(row.get(2)) != "") {
-                        inf = "+" + String.valueOf(row.get(2));
-                    }
-                    else if(String.valueOf(row.get(3)) != "")
-                    {
-                        inf = "-" + String.valueOf(row.get(3));
-                    }
-                    populateRequests(row.get(0),row.get(1),inf,row.get(4),row.get(6));
+                    populate(row.get(0),row.get(1),row.get(2),row.get(5));
                 }
             }
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    reverseListAndSetAdapter();
-                }
-            });
             return results;
+        }
+
+        private void populate(Object acc, Object actual, Object interest, Object total) {
+
+            String stAcc = acc.toString();
+            String stActual = actual.toString();
+            String stInterest = interest.toString();
+            String stTotal = total.toString();
+
+            HashMap<String,String> temp=new HashMap<String, String>();
+            temp.put(FIRST_COLUMN, stAcc);
+            temp.put(SECOND_COLUMN,stActual);
+            temp.put(THIRD_COLUMN, stInterest);
+            temp.put(FOURTH_COLUMN, stTotal);
+
+            list.add(temp);
+            //TransactionListViewAdapter adapter= new TransactionListViewAdapter(ViewTransactionActivity.this,list);
+            //listView.setAdapter(adapter);
+
         }
 
 
@@ -623,7 +516,7 @@ public class ViewTransactionActivity extends Activity
                 showToast("No results returned.");
             } else {
                 //output.add(0, "Data retrieved using the Google Sheets API:");
-                //setListadapter();
+                setListadapter();
                 //reverseListAndSetAdapter();
                 //showToast(TextUtils.join("\n", output));
             }
@@ -651,19 +544,17 @@ public class ViewTransactionActivity extends Activity
         }
     }
 
-    private void setSpinnerAccounts() {
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, spinnerAccountsArray);
-        spinnerTransAcc.setAdapter(spinnerArrayAdapter);
+    private void setListadapter() {
+        ListViewAdapter adapter= new ListViewAdapter(DistributionActivity.this,list,layout);
+        listView.setAdapter(adapter);
 
     }
+
 
     private void setSpinnerYear() {
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, spinnerYearArray);
-        spinnerTransYear.setAdapter(spinnerArrayAdapter);
-        textViewTransaction.setText("TRANSACTIONS\n" + transYear);
-
+        spinnerDistYear.setAdapter(spinnerArrayAdapter);
+        textViewDistribution.setText("DISTRIBUTION\n" + distYear);
     }
 
-
 }
-

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ibm.imfras_baithul_mal.ViewTransactionActivity">
+    tools:context="ibm.imfras_baithul_mal.DistributionActivity">
+
+
 
     <LinearLayout
         android:layout_width="0dp"
@@ -18,56 +20,54 @@
 
 
         <TextView
-            android:id="@+id/textViewTransaction"
+            android:id="@+id/textViewDistribution"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingBottom="20dp"
             android:paddingTop="20dp"
-            android:text="TRANSACTIONS"
+            android:paddingBottom="20dp"
+            android:text="DISTRIBUTION"
             android:textAlignment="center"
             android:textStyle="bold"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:textColor="#000080"
             android:shadowColor="#0000FF"
-
             android:shadowDx="2"
             android:shadowDy="2"
             android:shadowRadius="1"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        >
 
-        <Spinner
-            android:id="@+id/spinnerTransYear"
-            android:layout_weight="1"
-            android:padding="2dp"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/txtViewTransFilter"
-            />
-        <Spinner
-            android:id="@+id/spinnerTransAcc"
-            android:layout_weight="1"
-            android:padding="2dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/spinnerTransYear"
-            />
-        <Button
-            android:id="@+id/buttonTransGo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="2dp"
-            android:layout_toRightOf="@+id/spinnerTransAcc"
-            android:text="GO"/>
+            android:orientation="horizontal"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            >
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Filter by: "/>
+
+            <Spinner
+                android:id="@+id/spinnerDistYear"
+                android:layout_weight="1"
+                android:padding="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/txtViewTransFilter"
+                />
+
+            <Button
+                android:id="@+id/buttonDistGo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="2dp"
+                android:layout_toRightOf="@+id/spinnerTransAcc"
+                android:text="GO"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,10 +77,10 @@
             >
 
             <!--  First header line -->
-            <TextView android:id="@+id/transaction_header_line1"
+            <TextView android:id="@+id/balHeader_line1"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_weight="3"
+                android:layout_weight="1.2"
                 android:textStyle="bold"
                 android:background="@drawable/textview_border"
                 android:textAlignment="center"
@@ -88,68 +88,42 @@
 
             <!-- Second header line -->
             <TextView
-                android:id="@+id/transaction_header_line2"
+                android:id="@+id/balHeader_line2"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_weight="6"
+                android:layout_weight="1.6"
                 android:textStyle="bold"
                 android:background="@drawable/textview_border"
                 android:textAlignment="center"
                 android:textColor="@color/abc_input_method_navigation_guard" />
 
             <!--  Third header line -->
-            <TextView android:id="@+id/transaction_header_line3"
+            <TextView android:id="@+id/balHeader_line3"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_weight="2"
+                android:layout_weight="4"
                 android:textStyle="bold"
                 android:background="@drawable/textview_border"
                 android:textAlignment="center"
                 android:textColor="@color/abc_input_method_navigation_guard" />
             <!-- Fourth header line -->
-            <TextView android:id="@+id/transaction_header_line4"
+            <TextView android:id="@+id/balHeader_line4"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="2"
                 android:textStyle="bold"
-                android:textAlignment="center"
                 android:background="@drawable/textview_border"
-                android:textColor="@color/abc_input_method_navigation_guard" />
-                <!--  Fifth header line -->
-            <TextView
-                android:id="@+id/transaction_header_line5"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:textStyle="bold"
                 android:textAlignment="center"
-                android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard" />
-
-            <!--  Sixth header line
-            <TextView android:id="@+id/transaction_header_line6"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="3"
-                android:textStyle="bold"
-                android:background="@android:color/holo_green_light"
-                android:textColor="@color/abc_input_method_navigation_guard" />
-             Seventh header line
-            <TextView android:id="@+id/transaction_header_line7"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="3"
-                android:textStyle="bold"
-                android:background="@android:color/holo_green_light"
-                android:textColor="@color/abc_input_method_navigation_guard" /> -->
 
         </LinearLayout>
 
         <ListView
-            android:id="@+id/transactionListView1"
+            android:id="@+id/balListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_orange_light" />
+
 
     </LinearLayout>
 
