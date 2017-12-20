@@ -46,7 +46,9 @@
             android:layout_height="40dp"
             android:layout_weight="0.6"
             android:textStyle="bold"
-            android:background="@android:color/holo_green_light"
+            android:padding="2dp"
+            android:background="@drawable/textview_border"
+            android:textAlignment="center"
             android:textColor="@color/abc_input_method_navigation_guard" />
 
         <!-- Second header line -->
@@ -54,9 +56,11 @@
             android:id="@+id/header_line2"
             android:layout_width="0dp"
             android:layout_height="40dp"
+            android:padding="2dp"
             android:layout_weight="2"
             android:textStyle="bold"
-            android:background="@android:color/holo_green_light"
+            android:textAlignment="center"
+            android:background="@drawable/textview_border"
             android:textColor="@color/abc_input_method_navigation_guard" />
 
         <!--  Third header line -->
@@ -65,7 +69,9 @@
             android:layout_height="40dp"
             android:layout_weight="0.6"
             android:textStyle="bold"
-            android:background="@android:color/holo_green_light"
+            android:padding="2dp"
+            android:textAlignment="center"
+            android:background="@drawable/textview_border"
             android:textColor="@color/abc_input_method_navigation_guard" />
         <!-- Fourth header line -->
         <TextView android:id="@+id/header_line4"
@@ -73,7 +79,9 @@
             android:layout_height="40dp"
             android:layout_weight="0.6"
             android:textStyle="bold"
-            android:background="@android:color/holo_green_light"
+            android:padding="2dp"
+            android:textAlignment="center"
+            android:background="@drawable/textview_border"
             android:textColor="@color/abc_input_method_navigation_guard" />
 
     </LinearLayout>
