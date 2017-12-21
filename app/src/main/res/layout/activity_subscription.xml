@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ibm.imfras_baithul_mal.SubscriptionActivity">
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:weightSum="1">
+
+
+        <TextView
+            android:id="@+id/textViewSubscription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:text="IBM MONTHLY SHEET"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textColor="#000080"
+            android:shadowColor="#0000FF"
+
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            >
+
+            <Spinner
+                android:id="@+id/spinnerSubsYear"
+                android:layout_weight="1"
+                android:padding="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/txtViewTransFilter"
+                />
+
+            <Spinner
+                android:id="@+id/spinnerSubsMemberGrp"
+                android:layout_weight="1"
+                android:padding="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <Button
+                android:id="@+id/buttonSubsGo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="2dp"
+                android:layout_toRightOf="@+id/spinnerSubsMember"
+                android:text="GO"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#006"
+            >
+
+            <!--  First header line -->
+            <TextView android:id="@+id/subscription_header_line1"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:background="@drawable/textview_border"
+                android:textAlignment="center"
+                android:textColor="@color/abc_input_method_navigation_guard" />
+
+            <!-- Second header line -->
+            <TextView
+                android:id="@+id/subscription_header_line2"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="4"
+                android:textStyle="bold"
+                android:background="@drawable/textview_border"
+                android:textAlignment="center"
+                android:textColor="@color/abc_input_method_navigation_guard" />
+
+            <!--  Third header line -->
+            <TextView android:id="@+id/subscription_header_line3"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:background="@drawable/textview_border"
+                android:textAlignment="center"
+                android:textColor="@color/abc_input_method_navigation_guard" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/transactionListView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_orange_light" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

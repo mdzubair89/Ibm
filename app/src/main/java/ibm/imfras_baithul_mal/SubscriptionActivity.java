@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,42 +34,35 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.ValueRange;
-import com.google.firebase.database.DatabaseReference;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
+import static ibm.imfras_baithul_mal.Constants.FIFTH_COLUMN;
 import static ibm.imfras_baithul_mal.Constants.FIRST_COLUMN;
 import static ibm.imfras_baithul_mal.Constants.FOURTH_COLUMN;
 import static ibm.imfras_baithul_mal.Constants.SECOND_COLUMN;
 import static ibm.imfras_baithul_mal.Constants.THIRD_COLUMN;
 
-public class DistributionActivity extends Activity   implements EasyPermissions.PermissionCallbacks, View.OnClickListener {
-
-
-        DatabaseReference databaseRequests;
-        private TextView textViewRequestNo;
-        private EditText editTextRequestPurpose;
+public class SubscriptionActivity extends Activity
+        implements EasyPermissions.PermissionCallbacks, View.OnClickListener {
         TextView columnHeader1;
         TextView columnHeader2;
         TextView columnHeader3;
         TextView columnHeader4;
+        TextView columnHeader5;
         TextView txtFirst;
         ListView listView;
-        private ProgressDialog progressDialog;
-        public String layout = "distribution";
-
-        private Spinner spinnerDistYear;
-
         private ArrayList<HashMap<String, String>> list;
 
-        private TextView textViewDistribution;
+        private TextView textViewSubscription;
 
         static final int REQUEST_ACCOUNT_PICKER = 1000;
         static final int REQUEST_AUTHORIZATION = 1001;
@@ -81,43 +73,53 @@ public class DistributionActivity extends Activity   implements EasyPermissions.
         private static final String[] SCOPES = { SheetsScopes.SPREADSHEETS_READONLY };
         GoogleAccountCredential mCredential;
         ProgressDialog mProgress;
-        private ArrayList<String> spinnerYearArray;
-        Button buttonDistGo;
+        ArrayAdapter spinnerMemberGroupArrayAdapter;
 
-        private static String distYear ;
+    private Spinner spinnerSubsMemberGrp;
+        private Spinner spinnerSubsYear;
+
+        private static String subsYear ;
+        private static String memberGroup = "Imfras Member";
+        private static String transAcc = "All Accounts";
+
         public static final String INITIAL="INITIAL";
-        public static final String DISTRIBUTION="DISTRIBUTION";
+        public static final String SUBSCRIPTION="SUBSCRIPTION";
+
+        Button buttonSubsGo;
         private static String querySel = INITIAL;
 
-
+        private ArrayList<String> spinnerMemberGroupArray;
+        private ArrayList<String> spinnerYearArray;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_distribution);
-        TextView columnHeader1 = (TextView) findViewById(R.id.balHeader_line1);
-        TextView columnHeader2 = (TextView) findViewById(R.id.balHeader_line2);
-        TextView columnHeader3 = (TextView) findViewById(R.id.balHeader_line3);
-        TextView columnHeader4 = (TextView) findViewById(R.id.balHeader_line4);
+        setContentView(R.layout.activity_subscription);
 
-        columnHeader1.setText("REQ NO");
-        columnHeader2.setText("DATE");
-        columnHeader3.setText("PARTICULARS");
-        columnHeader4.setText("CONTRIB.");
-
-        textViewDistribution = (TextView) findViewById(R.id.textViewDistribution);
+        TextView columnHeader1 = (TextView) findViewById(R.id.subscription_header_line1);
+        TextView columnHeader2 = (TextView) findViewById(R.id.subscription_header_line2);
+        TextView columnHeader3 = (TextView) findViewById(R.id.subscription_header_line3);
 
 
-        buttonDistGo = (Button) findViewById(R.id.buttonDistGo);
-        buttonDistGo.setOnClickListener(this);
+        buttonSubsGo = (Button) findViewById(R.id.buttonSubsGo);
+        buttonSubsGo.setOnClickListener(this);
 
-        spinnerDistYear = (Spinner) findViewById(R.id.spinnerDistYear);
-        spinnerDistYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        columnHeader1.setText("S.NO");
+        columnHeader2.setText("NAME");
+        columnHeader3.setText("TOTAL CONTRIB");
+
+        textViewSubscription = (TextView)findViewById(R.id.textViewSubscription);
+        listView=(ListView)findViewById(R.id.transactionListView1);
+        populateList();
+
+        spinnerSubsMemberGrp = (Spinner) findViewById(R.id.spinnerSubsMemberGrp);
+        spinnerMemberGroupArrayAdapter = ArrayAdapter.createFromResource(this,R.array.subsMember,android.R.layout.simple_spinner_dropdown_item);
+        spinnerMemberGroupArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerSubsMemberGrp.setAdapter(spinnerMemberGroupArrayAdapter);
+        spinnerSubsMemberGrp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                distYear = spinnerDistYear.getSelectedItem().toString();
+                memberGroup = spinnerSubsMemberGrp.getSelectedItem().toString();
                 list.clear();
-
             }
 
             @Override
@@ -126,11 +128,19 @@ public class DistributionActivity extends Activity   implements EasyPermissions.
             }
         });
 
+        spinnerSubsYear = (Spinner) findViewById(R.id.spinnerSubsYear);
+        spinnerSubsYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subsYear = spinnerSubsYear.getSelectedItem().toString();
+                list.clear();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-        listView=(ListView)findViewById(R.id.balListView);
-
-        populateList();
+            }
+        });
 
         mProgress = new ProgressDialog(this);
         mProgress.setMessage("Fetching data ...Please wait");
@@ -140,10 +150,8 @@ public class DistributionActivity extends Activity   implements EasyPermissions.
                 .setBackOff(new ExponentialBackOff());
 
         querySel = INITIAL;
-
         getResultsFromApi();
     }
-
     private void populateList() {
 
         list = new ArrayList<HashMap<String, String>>();
@@ -152,11 +160,30 @@ public class DistributionActivity extends Activity   implements EasyPermissions.
         temp.put(SECOND_COLUMN, "");
         temp.put(THIRD_COLUMN, "");
         temp.put(FOURTH_COLUMN, "");
-        list.add(temp);*/
+        temp.put(FIFTH_COLUMN, "");
+        list.add(temp);
+*/
 
     }
 
+    private void reverseListAndSetAdapter() {
+        //Collections.reverse(list);
+        SubscriptionListViewAdapter adapter= new SubscriptionListViewAdapter(SubscriptionActivity.this,list);
+        listView.setAdapter(adapter);
+    }
 
+    private void populateRequests(int sno, Object name, Object total) {
+
+        String stName = name.toString();
+
+        String stTotal = total.toString();
+            HashMap<String, String> temp = new HashMap<String, String>();
+            temp.put(FIRST_COLUMN, String.valueOf(sno));
+            temp.put(SECOND_COLUMN, stName);
+            temp.put(THIRD_COLUMN, stTotal);
+            list.add(temp);
+
+    }
     private void showToast(String message) {
 
         Toast.makeText(this,message,Toast.LENGTH_LONG).show();
@@ -178,7 +205,7 @@ public class DistributionActivity extends Activity   implements EasyPermissions.
         } else if (! isDeviceOnline()) {
             showToast("No network connection available.");
         } else {
-            new DistributionActivity.MakeRequestTask(mCredential).execute();
+            new SubscriptionActivity.MakeRequestTask(mCredential).execute();
         }
     }
 
@@ -301,7 +328,6 @@ public class DistributionActivity extends Activity   implements EasyPermissions.
      *         permission
      * @param list The requested permission list. Never null.
      */
-
     @Override
     public void onPermissionsDenied(int requestCode, List<String> list) {
         // Do nothing.
@@ -356,7 +382,7 @@ public class DistributionActivity extends Activity   implements EasyPermissions.
             final int connectionStatusCode) {
         GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
         Dialog dialog = apiAvailability.getErrorDialog(
-                DistributionActivity.this,
+                SubscriptionActivity.this,
                 connectionStatusCode,
                 REQUEST_GOOGLE_PLAY_SERVICES);
         dialog.show();
@@ -364,10 +390,11 @@ public class DistributionActivity extends Activity   implements EasyPermissions.
 
     @Override
     public void onClick(View view) {
-        if (view == buttonDistGo)
+
+        if (view == buttonSubsGo)
         {
             list.clear();
-            textViewDistribution.setText("DISTRIBUTION\n" + distYear);
+            textViewSubscription.setText("IBM MONTHLY SHEET\n" + subsYear);
             getResultsFromApi();
         }
     }
@@ -405,19 +432,19 @@ public class DistributionActivity extends Activity   implements EasyPermissions.
                     cancel(true);
                     return null;
                 }
+
             }
 
             try {
-                querySel = DISTRIBUTION;
-                return getDataFromApi();
+                    querySel = SUBSCRIPTION;
+                return getMemberGroupFromApi();
             } catch (Exception e) {
                 mLastError = e;
                 cancel(true);
                 return null;
             }
+
         }
-
-
 
         private void getYearDataFromApi() throws IOException {
 
@@ -426,7 +453,7 @@ public class DistributionActivity extends Activity   implements EasyPermissions.
 
             spinnerYearArray = new ArrayList<String>();
 
-            String query =  "COMMON!C5:C";
+            String query =  "COMMON!D5:D";
 
             ValueRange response = this.mService.spreadsheets().values()
                     .get(spreadsheetId, query)
@@ -439,7 +466,7 @@ public class DistributionActivity extends Activity   implements EasyPermissions.
                 for (List row : values) {
 
                     if (count == 1)
-                        distYear = row.get(0).toString();
+                        subsYear = row.get(0).toString();
                     spinnerYearArray.add(row.get(0).toString());
                     count++;
                 }
@@ -452,56 +479,55 @@ public class DistributionActivity extends Activity   implements EasyPermissions.
             }
         }
 
-        /**
-         * Fetch a list of names and majors of students in a sample spreadsheet:
-         * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-         * @return List of names and majors
-         * @throws IOException
-         */
-        private List<String> getDataFromApi() throws IOException {
-            //String spreadsheetId = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
-            //String spreadsheetId = "1uLUhqMsFvB5JFSjj7vxQztn0QwHP1krwF3izKUWiyt8";
-            String spreadsheetId = "1JRYW5c0ZWA7ZfHzbcXuvCFznZCB_vK7JHm6G9fV-Kk0";
-            String query =  "Distribution_"+ distYear + "!B4:G";
-            //String query =  "Distribution_2017!B4:G";
+        private List<String> getMemberGroupFromApi() throws IOException {
 
-            String range = query;
+            int count = 1;
+            String query = "Imfras Member";
+
+            String spreadsheetId = "1JRYW5c0ZWA7ZfHzbcXuvCFznZCB_vK7JHm6G9fV-Kk0";
+
+            spinnerMemberGroupArray = new ArrayList<String>();
+
+            if (memberGroup.contentEquals("Imfras Member")) {
+                 query = "Imfras_IBM_" + subsYear + "!B4:Q";
+            }
+            else if (memberGroup.contentEquals("Non-Imfras Member"))
+            {
+                query = "Others_IBM_" + subsYear +"!B4:Q";
+            }
+
+
             List<String> results = new ArrayList<String>();
             ValueRange response = this.mService.spreadsheets().values()
-                    .get(spreadsheetId, range)
+                    .get(spreadsheetId, query)
                     .execute();
             List<List<Object>> values = response.getValues();
-            //int rowId = getRowId(query);
+
+
             if (values != null) {
                 results.add("Name       Balance");
                 for (List row : values) {
-                    populate(row.get(0),row.get(1),row.get(2),row.get(5));
+
+                        //spinnerMemberGroupArray.add(row.get(0).toString());
+                    if (row.get(0) != "") {
+                        populateRequests(count, row.get(0), row.get(15));
+                        count++;
+                    }
+                    else{
+                        break;
+                    }
+
+                    }
                 }
-            }
-
-            return results;
-        }
-
-        private void populate(Object acc, Object actual, Object interest, Object total) {
-
-            String stAcc = acc.toString();
-            String stActual = actual.toString();
-            String stInterest = interest.toString();
-            String stTotal = total.toString();
-
-            HashMap<String,String> temp=new HashMap<String, String>();
-            temp.put(FIRST_COLUMN, stAcc);
-            temp.put(SECOND_COLUMN,stActual);
-            temp.put(THIRD_COLUMN, stInterest);
-            temp.put(FOURTH_COLUMN, stTotal);
-
-            list.add(temp);
-            //TransactionListViewAdapter adapter= new TransactionListViewAdapter(ViewTransactionActivity.this,list);
-            //listView.setAdapter(adapter);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        reverseListAndSetAdapter();
+                    }
+                });
+            return  results;
 
         }
-
-
 
         @Override
         protected void onPreExecute() {
@@ -516,7 +542,7 @@ public class DistributionActivity extends Activity   implements EasyPermissions.
                 showToast("No results returned.");
             } else {
                 //output.add(0, "Data retrieved using the Google Sheets API:");
-                setListadapter();
+                //setListadapter();
                 //reverseListAndSetAdapter();
                 //showToast(TextUtils.join("\n", output));
             }
@@ -544,17 +570,16 @@ public class DistributionActivity extends Activity   implements EasyPermissions.
         }
     }
 
-    private void setListadapter() {
-        ListViewAdapter adapter= new ListViewAdapter(DistributionActivity.this,list,layout);
-        listView.setAdapter(adapter);
-
-    }
-
-
     private void setSpinnerYear() {
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, spinnerYearArray);
-        spinnerDistYear.setAdapter(spinnerArrayAdapter);
-        textViewDistribution.setText("DISTRIBUTION\n" + distYear);
+        spinnerSubsYear.setAdapter(spinnerArrayAdapter);
+
     }
 
+    private void setSpinnerMemberGroup() {
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, spinnerMemberGroupArray);
+        spinnerSubsMemberGrp.setAdapter(spinnerArrayAdapter);
+        textViewSubscription.setText("IBM MONTHLY SHEET\n" + subsYear);
+
+    }
 }

@@ -13,13 +13,17 @@
         <item>2017</item>
     </string-array>
     <string-array name="transAcc">
-        <item>All Accounts</item>
-        <item>Rilwan Account</item>
-        <item>Rasool Account</item>
-        <item>Anas Bank account</item>
-        <item>Anas hand cash</item>
-        <item>Azhar account</item>
-        <item>Ameen Hand</item>
-        <item>Rilwan Hand</item>
+    <item>All Accounts</item>
+    <item>Rilwan Account</item>
+    <item>Rasool Account</item>
+    <item>Anas Bank account</item>
+    <item>Anas hand cash</item>
+    <item>Azhar account</item>
+    <item>Ameen Hand</item>
+    <item>Rilwan Hand</item>
+</string-array>
+    <string-array name="subsMember">
+        <item>Imfras Member</item>
+        <item>Non-Imfras Member</item>
     </string-array>
 </resources>

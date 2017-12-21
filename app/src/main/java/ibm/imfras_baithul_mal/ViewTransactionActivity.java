@@ -612,7 +612,7 @@ public class ViewTransactionActivity extends Activity
 
         @Override
         protected void onPreExecute() {
-            showToast("");
+            //showToast("");
             mProgress.show();
         }
 
