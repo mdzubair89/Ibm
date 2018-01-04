@@ -61,6 +61,7 @@ public class SubscriptionActivity extends Activity
         TextView txtFirst;
         ListView listView;
         private ArrayList<HashMap<String, String>> list;
+        private ArrayList<HashMap<String, String>> memberList;
 
         private TextView textViewSubscription;
 
@@ -108,8 +109,37 @@ public class SubscriptionActivity extends Activity
         columnHeader3.setText("TOTAL CONTRIB");
 
         textViewSubscription = (TextView)findViewById(R.id.textViewSubscription);
-        listView=(ListView)findViewById(R.id.transactionListView1);
-        populateList();
+        listView=(ListView)findViewById(R.id.SubscriptionListView);
+        list = new ArrayList<HashMap<String, String>>();
+        memberList = new ArrayList<HashMap<String, String>>();
+        //populateList();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> adapter, View arg1, int position, long arg3) {
+                TextView textView = (TextView) arg1.findViewById(R.id.TextSecond);
+                String name = textView.getText().toString();
+
+                for (HashMap<String, String> map : memberList) {
+                    for (String key : map.keySet())
+                    {
+                        if (key.equals("NAME"))
+                        {
+                            if(map.get(key).equals(name))
+                            {
+                                Intent myIntent = new Intent(SubscriptionActivity.this, SubDetActivity.class);
+                                myIntent.putExtra("Year", subsYear);
+                                myIntent.putExtra("map", map);
+                                startActivity(myIntent);
+
+                            }
+                        }
+                    }
+                }
+             }
+        });
+
+
+
 
         spinnerSubsMemberGrp = (Spinner) findViewById(R.id.spinnerSubsMemberGrp);
         spinnerMemberGroupArrayAdapter = ArrayAdapter.createFromResource(this,R.array.subsMember,android.R.layout.simple_spinner_dropdown_item);
@@ -152,17 +182,37 @@ public class SubscriptionActivity extends Activity
         querySel = INITIAL;
         getResultsFromApi();
     }
-    private void populateList() {
+    private void populateList(List<List<Object>> values) {
 
-        list = new ArrayList<HashMap<String, String>>();
-        /*HashMap<String, String> temp = new HashMap<String, String>();
-        temp.put(FIRST_COLUMN, "");
-        temp.put(SECOND_COLUMN, "");
-        temp.put(THIRD_COLUMN, "");
-        temp.put(FOURTH_COLUMN, "");
-        temp.put(FIFTH_COLUMN, "");
-        list.add(temp);
-*/
+
+        int count  = 0;
+        int i = 0;
+        int j = 0;
+
+        int size = values.size();
+        int monthSize = 0;
+        String month[] = new String[size];
+
+
+        for (List row:values) {
+            if (count == 0) {
+                monthSize = row.size();
+                for (i = 0; i < monthSize; i++) {
+                    month[i] = row.get(i).toString();
+                }
+                count++;
+            }
+            else
+            {
+                HashMap<String, String> temp = new HashMap<String, String>();
+                for (j = 0; j < monthSize; j++) {
+                    if ((row.get(0) != "")) {
+                        temp.put(month[j], row.get(j).toString());
+                    }
+                }
+                addHashMap(temp);
+             }
+        }
 
     }
 
@@ -170,6 +220,10 @@ public class SubscriptionActivity extends Activity
         //Collections.reverse(list);
         SubscriptionListViewAdapter adapter= new SubscriptionListViewAdapter(SubscriptionActivity.this,list);
         listView.setAdapter(adapter);
+    }
+
+    private void addHashMap(HashMap<String, String> temp ) {
+        memberList.add(temp);
     }
 
     private void populateRequests(int sno, Object name, Object total) {
@@ -394,6 +448,7 @@ public class SubscriptionActivity extends Activity
         if (view == buttonSubsGo)
         {
             list.clear();
+            memberList.clear();
             textViewSubscription.setText("IBM MONTHLY SHEET\n" + subsYear);
             getResultsFromApi();
         }
@@ -481,7 +536,7 @@ public class SubscriptionActivity extends Activity
 
         private List<String> getMemberGroupFromApi() throws IOException {
 
-            int count = 1;
+            int count = 0;
             String query = "Imfras Member";
 
             String spreadsheetId = "1JRYW5c0ZWA7ZfHzbcXuvCFznZCB_vK7JHm6G9fV-Kk0";
@@ -489,11 +544,11 @@ public class SubscriptionActivity extends Activity
             spinnerMemberGroupArray = new ArrayList<String>();
 
             if (memberGroup.contentEquals("Imfras Member")) {
-                 query = "Imfras_IBM_" + subsYear + "!B4:Q";
+                 query = "Imfras_IBM_" + subsYear + "!B3:Q";
             }
             else if (memberGroup.contentEquals("Non-Imfras Member"))
             {
-                query = "Others_IBM_" + subsYear +"!B4:Q";
+                query = "Others_IBM_" + subsYear +"!B3:Q";
             }
 
 
@@ -502,21 +557,21 @@ public class SubscriptionActivity extends Activity
                     .get(spreadsheetId, query)
                     .execute();
             List<List<Object>> values = response.getValues();
-
+            populateList(values);
 
             if (values != null) {
                 results.add("Name       Balance");
                 for (List row : values) {
+                       //spinnerMemberGroupArray.add(row.get(0).toString());
+                    if (count != 0) {
+                        if ((row.get(0) != "")) {
+                            populateRequests(count, row.get(0), row.get(15));
 
-                        //spinnerMemberGroupArray.add(row.get(0).toString());
-                    if (row.get(0) != "") {
-                        populateRequests(count, row.get(0), row.get(15));
-                        count++;
+                        } else {
+                            break;
+                        }
                     }
-                    else{
-                        break;
-                    }
-
+                    count++;
                     }
                 }
                 runOnUiThread(new Runnable() {

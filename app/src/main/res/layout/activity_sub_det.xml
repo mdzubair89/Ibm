@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ibm.imfras_baithul_mal.SubDetActivity">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_orange_light"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textViewSubMember"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="20dp"
+            android:shadowColor="#0000FF"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="1"
+            android:textAlignment="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textColor="#000080"
+            android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#006"
+        >
+
+        <TextView android:id="@+id/textViewJan"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:text="JANUARY"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+
+            />
+
+        <TextView android:id="@+id/textViewJanAmt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#006"
+        >
+
+        <TextView android:id="@+id/textViewFeb"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:text="FEBRUARY"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+
+            />
+
+        <TextView android:id="@+id/textViewFebAmt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#006"
+        >
+
+        <TextView android:id="@+id/textViewMar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:text="MARCH"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+
+            />
+
+        <TextView android:id="@+id/textViewMarAmt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#006"
+        >
+
+        <TextView android:id="@+id/textViewApril"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:text="APRIL"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+
+            />
+
+        <TextView android:id="@+id/textViewAprilAmt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#006"
+        >
+
+        <TextView android:id="@+id/textViewMay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:text="MAY"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+
+            />
+
+        <TextView android:id="@+id/textViewMayAmt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#006"
+        >
+
+        <TextView android:id="@+id/textViewJune"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:text="JUNE"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+
+            />
+
+        <TextView android:id="@+id/textViewJuneAmt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#006"
+        >
+
+        <TextView android:id="@+id/textViewJuly"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:text="JULY"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+
+            />
+
+        <TextView android:id="@+id/textViewJulyAmt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#006"
+        >
+
+        <TextView android:id="@+id/textViewAug"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:text="AUGUST"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+
+            />
+
+        <TextView android:id="@+id/textViewAugAmt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#006"
+        >
+
+        <TextView android:id="@+id/textViewSept"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:text="SEPTEMBER"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+
+            />
+
+        <TextView android:id="@+id/textViewSeptAmt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#006"
+        >
+
+        <TextView android:id="@+id/textViewOct"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:text="OCTOBER"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+
+            />
+
+        <TextView android:id="@+id/textViewOctAmt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+            />
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#006"
+            >
+
+            <TextView android:id="@+id/textViewNov"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:text="NOVEMBER"
+                android:padding="4dp"
+                android:background="@drawable/textview_border"
+                android:textColor="@color/abc_input_method_navigation_guard"
+
+                />
+
+            <TextView android:id="@+id/textViewNovAmt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:padding="4dp"
+                android:background="@drawable/textview_border"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                />
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#006"
+        >
+
+        <TextView android:id="@+id/textViewDec"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:text="DECEMBER"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+
+            />
+
+        <TextView android:id="@+id/textViewDecAmt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:padding="4dp"
+            android:background="@drawable/textview_border"
+            android:textColor="@color/abc_input_method_navigation_guard"
+            />
+    </LinearLayout>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

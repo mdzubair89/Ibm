@@ -38,7 +38,8 @@
         <activity android:name=".ConnectIBMActivity" />
         <activity android:name=".ViewTransactionActivity" />
         <activity android:name=".DistributionActivity" />
-        <activity android:name=".SubscriptionActivity"></activity>
+        <activity android:name=".SubscriptionActivity" />
+        <activity android:name=".SubDetActivity"></activity>
     </application>
 
 </manifest>
