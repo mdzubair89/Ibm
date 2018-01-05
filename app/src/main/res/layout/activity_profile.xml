@@ -78,13 +78,7 @@
             android:layout_height="wrap_content"
             android:text="Manage" />
 
-        <Button
-            android:id="@+id/buttonAdvOptions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Advance Options" />
-
-        <Button
+         <Button
             android:id="@+id/buttonLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

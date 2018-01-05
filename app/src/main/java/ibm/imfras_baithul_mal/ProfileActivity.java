@@ -19,7 +19,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private Button buttonIbmMembers;
     private Button buttonManReq;
     private Button buttonIbmAcc;
-    private Button buttonAdvOptions;
     private Button buttonIbmObj;
 
     @Override
@@ -43,7 +42,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         buttonManReq = (Button) findViewById(R.id.buttonManReq);
         buttonIbmMembers = (Button) findViewById(R.id.buttonIbmMembers);
         buttonIbmAcc = (Button) findViewById(R.id.buttonIbmAccount);
-        buttonAdvOptions = (Button) findViewById(R.id.buttonAdvOptions);
         buttonIbmObj = (Button) findViewById(R.id.buttonIbmObj);
 
         buttonLogout.setOnClickListener(this);
@@ -51,7 +49,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         buttonIbmMembers.setOnClickListener(this);
         buttonIbmAcc.setOnClickListener(this);
         buttonIbmObj.setOnClickListener(this);
-        buttonAdvOptions.setOnClickListener(this);
+
     }
 
     private void logout()
@@ -85,12 +83,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         {
             viewIBMAcc();
         }
-        else if (view == buttonAdvOptions)
-        {
-            //advanceOptions();
-            //launchConnectIBM();
-            viewTransaction();
-        }
         else if (view == buttonIbmObj)
         {
             viewIBMObj();
@@ -101,17 +93,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         startActivity(new Intent(this, ObjectiveActivity.class));
     }
 
-    private void advanceOptions() {
-        startActivity(new Intent(this, AdvanceOptionsActivity.class));
-    }
-
     private void launchConnectIBM() {
         startActivity(new Intent(this, ConnectIBMActivity.class));
     }
 
-    private void viewTransaction() {
-        startActivity(new Intent(this, ViewTransactionActivity.class));
-    }
 
     private void viewIBMAcc() {
         startActivity(new Intent(this,ViewBankAccActivity.class));

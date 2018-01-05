@@ -7,14 +7,10 @@
     tools:context="ibm.imfras_baithul_mal.ManReqActivity">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="587dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:paddingTop="20dp"
         android:background="@android:color/holo_orange_light">
 
         <TextView
@@ -22,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="MANAGE REQUESTS"
+            android:text="MANAGE"
             android:textAlignment="center"
             android:paddingBottom="20dp"
             android:textColor="#000080"
