@@ -482,7 +482,7 @@ public class ProfileActivity extends Activity
                 } else if (mLastError instanceof UserRecoverableAuthIOException) {
                     startActivityForResult(
                             ((UserRecoverableAuthIOException) mLastError).getIntent(),
-                            ConnectIBMActivity.REQUEST_AUTHORIZATION);
+                            ProfileActivity.REQUEST_AUTHORIZATION);
                 } else {
                     showToast("The following error occurred:\n"
                             + mLastError.getMessage());

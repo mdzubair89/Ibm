@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -89,12 +90,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
                         }
                         else{
-                           //Error login
+                            try {
+                                throw task.getException();
+                            } catch(Exception e) {
+                                showToast("Error : " + e.getLocalizedMessage());
+                            }
                         }
                     }
                 });
-
-
     }
 
     @Override
@@ -112,5 +115,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(new Intent(this,MainActivity.class));
         }
 
+    }
+
+    private void showToast(String message) {
+
+        Toast.makeText(this,message,Toast.LENGTH_LONG).show();
     }
 }

@@ -111,7 +111,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                           }
                         else
                         {
-                            Toast.makeText(MainActivity.this,"Could not register. Please try again",Toast.LENGTH_SHORT).show();
+                            try {
+                                throw task.getException();
+                            } catch(Exception e) {
+                                showToast("Error : " + e.getLocalizedMessage());
+                            }
                         }
                     }
                 });
@@ -131,5 +135,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(this,LoginActivity.class));
         }
 
+    }
+
+    private void showToast(String message) {
+
+        Toast.makeText(this,message,Toast.LENGTH_LONG).show();
     }
 }
