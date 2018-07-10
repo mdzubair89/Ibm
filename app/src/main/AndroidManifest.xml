@@ -39,7 +39,8 @@
         <activity android:name=".ViewTransactionActivity" />
         <activity android:name=".DistributionActivity" />
         <activity android:name=".SubscriptionActivity" />
-        <activity android:name=".SubDetActivity"></activity>
+        <activity android:name=".SubDetActivity" />
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>

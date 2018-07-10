@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context="ibm.imfras_baithul_mal.MainActivity">
 
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+
   <LinearLayout
       android:orientation="vertical"
       android:layout_width="match_parent"
@@ -73,5 +78,5 @@
          />
 
   </LinearLayout>
-
+  </ScrollView>
 </android.support.constraint.ConstraintLayout>

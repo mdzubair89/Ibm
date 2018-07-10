@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutActivity">
+
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="15dp"
+            android:text="About Us"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textColor="#000080"
+            android:shadowColor="#0000FF"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="1"/>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:paddingTop="25dp"
+            app:srcCompat="@mipmap/ibm_logo" />
+
+        <TextView
+            android:id ="@+id/briefDesc1"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:text="A flagship product by Imfras Team.\n"/>
+
+        <TextView
+            android:id ="@+id/briefDesc2"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textAlignment="center"
+            android:text="Our initial mission is to help the poor muslims around Tirunelveli who are not capable of taking care of their daily lives with
+ monthly contributions for their family and also contribute to immediate emergency medical requests. Insha Allah this mission of us will be expanded later."/>
+
+        <TextView
+            android:id ="@+id/ibmVersion"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:text="\nIBM Version 4.1.2"/>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

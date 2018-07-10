@@ -58,6 +58,7 @@ public class ProfileActivity extends Activity
     private Button buttonManReq;
     private Button buttonIbmAcc;
     private Button buttonIbmObj;
+    private Button buttonAbout;
 
     private TextView textViewDistributionName;
     private TextView textViewDistributionValue;
@@ -102,12 +103,14 @@ public class ProfileActivity extends Activity
         buttonIbmMembers = (Button) findViewById(R.id.buttonIbmMembers);
         buttonIbmAcc = (Button) findViewById(R.id.buttonIbmAccount);
         buttonIbmObj = (Button) findViewById(R.id.buttonIbmObj);
+        buttonAbout = (Button) findViewById(R.id.buttonAbout);
 
         buttonLogout.setOnClickListener(this);
         buttonManReq.setOnClickListener(this);
         buttonIbmMembers.setOnClickListener(this);
         buttonIbmAcc.setOnClickListener(this);
         buttonIbmObj.setOnClickListener(this);
+        buttonAbout.setOnClickListener(this);
 
         mProgress = new ProgressDialog(this);
         mProgress.setMessage("Fetching data ...Please wait");
@@ -150,10 +153,19 @@ public class ProfileActivity extends Activity
         {
             viewIBMAcc();
         }
+        else if (view == buttonAbout)
+        {
+            viewIBMAbout();
+        }
         else if (view == buttonIbmObj)
         {
             viewIBMObj();
         }
+    }
+
+    private void viewIBMAbout() {
+
+        startActivity(new Intent(this, AboutActivity.class));
     }
 
     private void viewIBMObj() {
@@ -454,7 +466,7 @@ public class ProfileActivity extends Activity
 
         @Override
         protected void onPreExecute() {
-            showToast("");
+            //showToast("");
             mProgress.show();
         }
 

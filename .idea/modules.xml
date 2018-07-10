@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CLONE_IBM.iml" filepath="$PROJECT_DIR$/CLONE_IBM.iml" />
-      <module fileurl="file://D:\MINE\ANDROID_PROJECT\GIT\CLONE_IBM\GIT_CLONE_IBM.iml" filepath="D:\MINE\ANDROID_PROJECT\GIT\CLONE_IBM\GIT_CLONE_IBM.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
