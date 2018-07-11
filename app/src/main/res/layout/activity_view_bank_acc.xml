@@ -37,8 +37,22 @@
         android:shadowDy="2"
         android:shadowRadius="1"/>
 
+        <TextView android:id="@+id/textViewStaticTransfer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="15dp"
+            android:text="\n Use either of the below accounts for transfer of funds to IBM"
 
-    <LinearLayout
+            android:textColor="@color/abc_input_method_navigation_guard"
+
+            />
+
+
+
+
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -158,6 +172,141 @@
                 />
 
         </LinearLayout>
+
+
+        <TextView android:id="@+id/textViewOR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="15dp"
+            android:text="\nOR"
+            android:textColor="@color/abc_input_method_navigation_guard"
+
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:paddingTop="20dp"
+            >
+
+            <TextView android:id="@+id/textViewAccNameFixed2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:text=" Account Name"
+                android:background="@drawable/textview_border"
+                android:textColor="@color/abc_input_method_navigation_guard"
+
+                />
+
+            <TextView android:id="@+id/textViewAccName2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:background="@drawable/textview_border"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                android:text=" Mohamed Anas"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#006"
+            >
+
+            <TextView android:id="@+id/textViewAccNoFixed2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:text=" Account Number"
+                android:background="@drawable/textview_border"
+                android:textColor="@color/abc_input_method_navigation_guard"
+
+                />
+
+            <TextView android:id="@+id/textViewAccNo2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:background="@drawable/textview_border"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                android:text=" 561702010087297"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#006"
+            >
+
+            <TextView android:id="@+id/textViewAccNameBranchFixed2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:text=" Name of the Branch"
+                android:background="@drawable/textview_border"
+                android:textColor="@color/abc_input_method_navigation_guard"
+
+                />
+
+            <TextView android:id="@+id/textViewAccNameBranch2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:background="@drawable/textview_border"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                android:text=" Union Bank of India"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#006"
+            >
+
+            <TextView android:id="@+id/textViewAccIfscCodeFixed2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:text=" IFSC code"
+                android:background="@drawable/textview_border"
+                android:textColor="@color/abc_input_method_navigation_guard"
+
+                />
+
+            <TextView android:id="@+id/textViewAccIfscCode2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:background="@drawable/textview_border"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                android:text=" UBIN0556173"
+                />
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

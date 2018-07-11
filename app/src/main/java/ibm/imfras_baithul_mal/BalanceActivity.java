@@ -408,7 +408,7 @@ public class BalanceActivity extends Activity
 
         @Override
         protected void onPreExecute() {
-            showToast("");
+            //showToast("");
             mProgress.show();
         }
 
