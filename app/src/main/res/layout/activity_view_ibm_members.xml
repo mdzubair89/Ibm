@@ -6,10 +6,16 @@
     android:layout_height="match_parent"
     tools:context="ibm.imfras_baithul_mal.ViewIbmMembersActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_orange_light"
+        android:orientation="vertical">
+
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -33,341 +39,26 @@
             android:shadowDy="2"
             android:shadowRadius="1"/>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#006"
             >
 
-            <TextView
-                android:id="@+id/textViewSno1Fixed"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="80dp"
                 android:layout_weight="1"
-                android:background="@drawable/textview_border"
-                android:text=" CONTRIBUTER"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                android:textStyle="bold"
+                android:textAlignment="center"
+                app:srcCompat="@mipmap/ameen" />
 
-                />
-
-            <TextView android:id="@+id/textViewSno1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text=" Ibrahim"
-                android:textStyle="bold"
-                android:background="@drawable/textview_border"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#006"
-            >
-
-            <TextView
-                android:id="@+id/textViewSno2Fixed"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/textview_border"
-                android:text=" CONTRIBUTER"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                android:textStyle="bold"
-
-                />
-
-            <TextView android:id="@+id/textViewSno2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text=" Ibrahim Sha"
-                android:textStyle="bold"
-                android:background="@drawable/textview_border"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#006"
-            >
-
-            <TextView
-                android:id="@+id/textViewSno3Fixed"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/textview_border"
-                android:text=" CONTRIBUTER"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                android:textStyle="bold"
-
-                />
-
-            <TextView android:id="@+id/textViewSno3"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text=" Moinudeen"
-                android:textStyle="bold"
-                android:background="@drawable/textview_border"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#006"
-            >
-
-            <TextView
-                android:id="@+id/textViewSno4Fixed"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/textview_border"
-                android:text=" CONTRIBUTER"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                android:textStyle="bold"
-
-                />
-
-            <TextView android:id="@+id/textViewSno4"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text=" Mohamed Azarudeen"
-                android:textStyle="bold"
-                android:background="@drawable/textview_border"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#006"
-            >
-
-            <TextView
-                android:id="@+id/textViewSno5Fixed"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/textview_border"
-                android:text=" CONTRIBUTER"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                android:textStyle="bold"
-
-                />
-
-            <TextView android:id="@+id/textViewSno5"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text=" Mohamed Zubair"
-                android:textStyle="bold"
-                android:background="@drawable/textview_border"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#006"
-            >
-
-            <TextView
-                android:id="@+id/textViewSno6Fixed"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/textview_border"
-                android:text=" CONTRIBUTER"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                android:textStyle="bold"
-
-                />
-
-            <TextView android:id="@+id/textViewSno6"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text=" Faris"
-                android:textStyle="bold"
-                android:background="@drawable/textview_border"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#006"
-            >
-
-            <TextView
-                android:id="@+id/textViewSno7Fixed"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/textview_border"
-                android:text=" TREASURER"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                android:textStyle="bold"
-
-                />
-
-            <TextView android:id="@+id/textViewSno7"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text=" Rilwan"
-                android:textStyle="bold"
-                android:background="@drawable/textview_border"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#006"
-            >
-
-            <TextView
-                android:id="@+id/textViewSno8Fixed"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/textview_border"
-                android:text=" CONTRIBUTER"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                android:textStyle="bold"
-
-                />
-
-            <TextView android:id="@+id/textViewSno8"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text=" Rasool"
-                android:textStyle="bold"
-                android:background="@drawable/textview_border"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#006"
-            >
-
-            <TextView
-                android:id="@+id/textViewSno9Fixed"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/textview_border"
-                android:text=" CONTRIBUTER"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                android:textStyle="bold"
-
-                />
-
-            <TextView android:id="@+id/textViewSno9"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text=" Abdul Basith"
-                android:textStyle="bold"
-                android:background="@drawable/textview_border"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#006"
-            >
-
-            <TextView
-                android:id="@+id/textViewSno10Fixed"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/textview_border"
-                android:text=" CONTRIBUTER"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                android:textStyle="bold"
-
-                />
-
-            <TextView android:id="@+id/textViewSno10"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text=" Abdul Kareem"
-                android:textStyle="bold"
-                android:background="@drawable/textview_border"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#006"
-            >
-
-            <TextView
-                android:id="@+id/textViewSno11Fixed"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/textview_border"
-                android:text=" CONTRIBUTER"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                android:textStyle="bold"
-
-                />
 
             <TextView android:id="@+id/textViewSno11"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text=" Abusalih"
+                android:layout_weight="1"
+                android:text=" \n Ameenul huq \n PRESIDENT"
                 android:textStyle="bold"
-                android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard"
                 />
 
@@ -377,28 +68,290 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#006"
+
             >
 
-            <TextView
-                android:id="@+id/textViewSno12Fixed"
-                android:layout_width="0dp"
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                app:srcCompat="@mipmap/rilwan" />
+
+
+            <TextView android:id="@+id/textViewSno7"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/textview_border"
-                android:text=" PRESIDENT"
-                android:textColor="@color/abc_input_method_navigation_guard"
+                android:text=" \n Rilwan \n TREASURER"
                 android:textStyle="bold"
-
+                android:textColor="@color/abc_input_method_navigation_guard"
                 />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="80dp"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/ibrahim" />
+
+
+            <TextView android:id="@+id/textViewSno1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text=" \n Ibrahim \n CONTRIBUTER"
+                android:textStyle="bold"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="80dp"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/sha" />
+
+
+            <TextView android:id="@+id/textViewSno2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text=" \n Ibrahim Sha \n CONTRIBUTER"
+                android:textStyle="bold"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="80dp"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/moin" />
+
+
+            <TextView android:id="@+id/textViewSno3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text=" \n Moinudeen \n CONTRIBUTER"
+                android:textStyle="bold"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/azar" />
+
+
+            <TextView android:id="@+id/textViewSno4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text=" \n Mohamed Azharudeen \n CONTRIBUTER"
+                android:textStyle="bold"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                app:srcCompat="@mipmap/zubair" />
+
+
+            <TextView android:id="@+id/textViewSno5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text=" \n Mohamed Zubair \n CONTRIBUTER"
+                android:textStyle="bold"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                />
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="80dp"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/faris" />
+
+
+            <TextView android:id="@+id/textViewSno6"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text=" \n Faris \n CONTRIBUTER"
+                android:textStyle="bold"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="80dp"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/rasool" />
+
+
+            <TextView android:id="@+id/textViewSno8"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text=" \n Rasool \n CONTRIBUTER"
+                android:textStyle="bold"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="80dp"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/basith_air" />
+
+
+            <TextView android:id="@+id/textViewSno9"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text=" \n Abdul Basith \n CONTRIBUTER"
+                android:textStyle="bold"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="80dp"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/abusalih" />
+
+
+            <TextView android:id="@+id/textViewSno10"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text=" \n Abusalih \n CONTRIBUTER"
+                android:textStyle="bold"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="80dp"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/huq" />
+
 
             <TextView android:id="@+id/textViewSno12"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text=" Santhu Ameenul Huq"
+                android:layout_weight="1"
+                android:text=" \n Noorul huq \n CONTRIBUTER"
                 android:textStyle="bold"
-                android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard"
                 />
 
@@ -408,92 +361,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#006"
+
             >
-
-            <TextView
-                android:id="@+id/textViewSno13Fixed"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="80dp"
+                android:textAlignment="center"
                 android:layout_weight="1"
-                android:background="@drawable/textview_border"
-                android:text=" CONTRIBUTER"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                android:textStyle="bold"
+                app:srcCompat="@mipmap/basiths" />
 
-                />
 
             <TextView android:id="@+id/textViewSno13"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text=" Santhu Noorul Huq"
-                android:textStyle="bold"
-                android:background="@drawable/textview_border"
-                android:textColor="@color/abc_input_method_navigation_guard"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#006"
-            >
-
-            <TextView
-                android:id="@+id/textViewSno14Fixed"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/textview_border"
-                android:text=" CONTRIBUTER"
-                android:textColor="@color/abc_input_method_navigation_guard"
+                android:text=" \n Sheriff Basith \n CONTRIBUTER"
                 android:textStyle="bold"
-
-                />
-
-            <TextView android:id="@+id/textViewSno14"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text=" Sheriff Basith"
-                android:textStyle="bold"
-                android:background="@drawable/textview_border"
                 android:textColor="@color/abc_input_method_navigation_guard"
                 />
-
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#006"
+
             >
 
-        <TextView
-            android:id="@+id/textViewSno15Fixed"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/textview_border"
-            android:text=" CONTRIBUTER"
-            android:textColor="@color/abc_input_method_navigation_guard"
-            android:textStyle="bold"
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="80dp"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/anas" />
 
-            />
 
-        <TextView android:id="@+id/textViewSno15"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text=" Mohamed  Anas"
-            android:textStyle="bold"
-            android:background="@drawable/textview_border"
-            android:textColor="@color/abc_input_method_navigation_guard"
-            />
+            <TextView android:id="@+id/textViewSno14"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text=" \n Mohamed Anas \n CONTRIBUTER"
+                android:textStyle="bold"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                />
 
     </LinearLayout>
 
@@ -504,5 +414,6 @@
 
 
 </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
