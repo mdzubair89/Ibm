@@ -61,12 +61,20 @@
  monthly contributions for their family and also contribute to immediate emergency medical requests. Insha Allah this mission of us will be expanded later."/>
 
         <TextView
-            android:id ="@+id/ibmVersion"
+        android:id ="@+id/ibmVersion"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:text="\nIBM Version 4.2"/>
+
+        <TextView
+            android:id ="@+id/ibmVersionDate"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:textAlignment="center"
             android:textStyle="bold"
-            android:text="\nIBM Version 4.1.2"/>
+            android:text="\nBuild Date: 17.12.2018"/>
 
     </LinearLayout>
 

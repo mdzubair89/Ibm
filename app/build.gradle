@@ -1,13 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-
     compileSdkVersion 25
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "ibm.imfras_baithul_mal"
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -17,6 +16,8 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    productFlavors {
     }
 }
 // Creates Gradle dependency configurations to use in the dependencies block.
@@ -28,31 +29,22 @@ configurations {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.4.0'
-
-    compile 'com.google.android.gms:play-services-auth:11.4.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:25.4.0'
+    implementation 'com.google.android.gms:play-services-auth:11.4.0'
     // Adds an apk dependency only to the "freeDebug" build variant.
     freeDebugApk fileTree(dir: 'libs', include: ['*.jar'])
-    // Adds a remote binary dependency only for local tests.
-    testCompile 'junit:junit:4.12'
-    // Adds a remote binary dependency only for the instrumented test APK.
-    //androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.google.firebase:firebase-auth:11.4.0'
-    compile 'com.google.firebase:firebase-database:11.4.0'
-    compile 'com.google.firebase:firebase-messaging:11.4.0'
-
-
-    compile 'pub.devrel:easypermissions:0.3.0'
-    compile('com.google.api-client:google-api-client-android:1.23.0') {
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.google.firebase:firebase-auth:11.4.0'
+    implementation 'com.google.firebase:firebase-database:11.4.0'
+    implementation 'com.google.firebase:firebase-messaging:11.4.0'
+    implementation 'pub.devrel:easypermissions:0.3.0'
+    implementation('com.google.api-client:google-api-client-android:1.23.0') {
         exclude group: 'org.apache.httpcomponents'
     }
-    compile('com.google.apis:google-api-services-sheets:v4-rev492-1.23.0') {
+    implementation('com.google.apis:google-api-services-sheets:v4-rev492-1.23.0') {
         exclude group: 'org.apache.httpcomponents'
     }
-
 }
 
 apply plugin: 'com.google.gms.google-services'
