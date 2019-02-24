@@ -169,7 +169,7 @@ public class ProfileActivity extends Activity
     }
 
     private void viewIBMObj() {
-        startActivity(new Intent(this, ObjectiveActivity.class));
+        startActivity(new Intent(this, InformationActivity.class));
     }
 
     private void launchConnectIBM() {
