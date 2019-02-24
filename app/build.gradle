@@ -3,8 +3,8 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         config {
-            keyAlias 'ibmkey'
-            keyPassword 'Ibmkey123'
+            keyAlias 'ibmKey'
+            keyPassword 'Ibm123'
             storeFile file('D:/MINE/ANDROID_PROJECT/GIT/CLONE_IBM/key/Android_Studio_Zulu_lap/ibmkey.jks')
             storePassword 'ibm123'
         }
