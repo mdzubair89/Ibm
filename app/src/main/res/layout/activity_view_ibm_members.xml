@@ -45,6 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:paddingTop="10dp"
 
                 >
 
@@ -104,6 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+
             >
 
             <TextView
@@ -117,7 +119,7 @@
                 android:shadowDx="2"
                 android:shadowDy="2"
                 android:shadowRadius="1"
-                android:text="CONTRIBUTERS"
+                android:text="EC COMMITTEE MEMBERS"
                 android:textSize="15dp"
                 android:textAlignment="center"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
@@ -131,6 +133,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingTop="10dp"
 
             >
 
