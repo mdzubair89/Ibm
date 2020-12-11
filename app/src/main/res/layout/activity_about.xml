@@ -57,8 +57,8 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:textAlignment="center"
-            android:text="Our initial mission is to help the poor muslims around Tirunelveli who are not capable of taking care of their daily lives with
- monthly contributions for their family and also contribute to immediate emergency medical requests. Insha Allah this mission of us will be expanded later."/>
+            android:text="Our mission is to help the poor muslims around Tirunelveli who are not capable of taking care of their daily lives with
+ monthly contributions for their family and also contribute to immediate emergency medical requests."/>
 
         <TextView
         android:id ="@+id/ibmVersion"
@@ -66,7 +66,7 @@
         android:layout_width="match_parent"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:text="\nIBM Version 4.6"/>
+        android:text="\nIBM Version 4.7"/>
 
         <TextView
             android:id ="@+id/ibmVersionDate"
@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:textAlignment="center"
             android:textStyle="bold"
-            android:text="\nBuild Date: 01.03.2019"/>
+            android:text="\nBuild Date: 11.12.2020"/>
 
     </LinearLayout>
 

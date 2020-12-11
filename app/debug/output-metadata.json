@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "ibm.imfras_baithul_mal",
+  "variantName": "processDebugResources",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "versionCode": 4,
+      "versionName": "4.7",
+      "outputFile": "app-debug.apk"
+    }
+  ]
+}
