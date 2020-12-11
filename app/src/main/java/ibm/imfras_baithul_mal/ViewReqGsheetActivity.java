@@ -10,7 +10,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
@@ -34,6 +36,7 @@ import com.google.api.services.sheets.v4.model.ValueRange;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -51,7 +54,6 @@ public class ViewReqGsheetActivity extends AppCompatActivity  {
     ProgressDialog mProgress;
     public String layoutName = "request";
 
-
     static final int REQUEST_ACCOUNT_PICKER = 1000;
     static final int REQUEST_AUTHORIZATION = 1001;
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
@@ -61,7 +63,9 @@ public class ViewReqGsheetActivity extends AppCompatActivity  {
     GoogleAccountCredential mCredential;
 
     public static final String INITIAL = "INITIAL";
-    public static final String DISTRIBUTION = "REQUESTS";
+    public static final String REQUESTS = "REQUESTS";
+    public static final String COMPLETED = "COMPLETED";
+    public String updateCompletion = INITIAL;
     private static String querySel = INITIAL;
     private ArrayList<HashMap<String, String>> list;
 
@@ -94,6 +98,7 @@ public class ViewReqGsheetActivity extends AppCompatActivity  {
         querySel = INITIAL;
 
         getResultsFromApi();
+
     }
 
     private void populateList() {
@@ -321,13 +326,20 @@ public class ViewReqGsheetActivity extends AppCompatActivity  {
             if (querySel.contentEquals(INITIAL)) {
                 try {
                     getDataFromApi();
-                    setListadapter();
+                    updateCompletion = REQUESTS;
+                    //setListadapter();
                 } catch (Exception e) {
                     mLastError = e;
                     cancel(true);
                     return null;
                 }
             }
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setListadapter();
+                }
+            });
             return null;
         }
 
@@ -357,6 +369,7 @@ public class ViewReqGsheetActivity extends AppCompatActivity  {
                 showToast("Request cancelled.");
             }
         }
+
         /**
          * Fetch a list of names and majors of students in a sample spreadsheet:
          * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
@@ -366,8 +379,8 @@ public class ViewReqGsheetActivity extends AppCompatActivity  {
          */
         private List<String> getDataFromApi() throws IOException {
             String spreadsheetId = "1JRYW5c0ZWA7ZfHzbcXuvCFznZCB_vK7JHm6G9fV-Kk0";
-
-            String query = "REQUESTS";
+            Integer colsize = 0;
+            String query = "REQUESTS!A4:N";
 
             List<String> results = new ArrayList<String>();
             ValueRange response = this.mService.spreadsheets().values()
@@ -378,7 +391,12 @@ public class ViewReqGsheetActivity extends AppCompatActivity  {
             if (values != null) {
                 //results.add("Name       Balance");
                 for (List row : values) {
-                    populate(row.get(1), row.get(2), row.get(7), row.get(8));
+                    colsize = row.size();
+                    if(colsize > 1) {
+                        if (String.valueOf(row.get(1)) != "")  {
+                            populate(row.get(1), row.get(2), row.get(7), row.get(8));
+                        }
+                    }
                 }
             }
 
@@ -407,8 +425,9 @@ public class ViewReqGsheetActivity extends AppCompatActivity  {
     }
 
     private void setListadapter() {
+        Collections.reverse(list);
         ListViewAdapter adapter= new ListViewAdapter(ViewReqGsheetActivity.this,list,layoutName);
         listView.setAdapter(adapter);
+        mProgress.hide();
     }
-
-}
+    }

@@ -1,7 +1,7 @@
 package ibm.imfras_baithul_mal;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,7 +37,8 @@ public class ManReqActivity extends AppCompatActivity implements View.OnClickLis
 
     private void viewRequest()
     {
-        startActivity(new Intent(this,ViewRequestActivity.class));
+        //startActivity(new Intent(this,ViewRequestActivity.class));
+        startActivity(new Intent(this,ViewReqGsheetActivity.class));
     }
 
     private void addRequest()

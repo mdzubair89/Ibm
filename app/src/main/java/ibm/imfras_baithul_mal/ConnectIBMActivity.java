@@ -28,7 +28,6 @@ package ibm.imfras_baithul_mal;
         import android.net.NetworkInfo;
         import android.os.AsyncTask;
         import android.os.Bundle;
-        import android.support.annotation.NonNull;
         import android.text.TextUtils;
         import android.text.method.ScrollingMovementMethod;
         import android.view.View;
@@ -43,6 +42,7 @@ package ibm.imfras_baithul_mal;
         import java.util.Arrays;
         import java.util.List;
 
+        import androidx.annotation.NonNull;
         import pub.devrel.easypermissions.AfterPermissionGranted;
         import pub.devrel.easypermissions.EasyPermissions;
 

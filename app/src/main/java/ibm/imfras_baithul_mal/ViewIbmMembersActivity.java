@@ -1,6 +1,6 @@
 package ibm.imfras_baithul_mal;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class ViewIbmMembersActivity extends AppCompatActivity {
