@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +53,7 @@ public class ViewReqGsheetActivity extends AppCompatActivity  {
 
     ListView listView;
     ProgressDialog mProgress;
+    ProgressDialog mProgressTemp;
     public String layoutName = "request";
 
     static final int REQUEST_ACCOUNT_PICKER = 1000;
@@ -68,6 +70,7 @@ public class ViewReqGsheetActivity extends AppCompatActivity  {
     public String updateCompletion = INITIAL;
     private static String querySel = INITIAL;
     private ArrayList<HashMap<String, String>> list;
+    private ArrayList<HashMap<String, String>> requestList;
 
 
     @Override
@@ -97,8 +100,80 @@ public class ViewReqGsheetActivity extends AppCompatActivity  {
 
         querySel = INITIAL;
 
+        requestList = new ArrayList<HashMap<String, String>>();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView = (TextView) view.findViewById(R.id.TextFirst);
+                String reqNo = textView.getText().toString();
+
+                for (HashMap<String, String> map : requestList) {
+                    for (String key : map.keySet())
+                    {
+                        if (key.equals("REQ NO"))
+                        {
+                            if(map.get(key).equals(reqNo))
+                            {
+                                updateCompletion = COMPLETED;
+                                //Intent myIntent = new Intent(SubscriptionActivity.this, SubDetActivity.class);
+                                //startActivity(myIntent);
+
+                            }
+                        }
+                    }
+                }
+
+            }
+        });
+
         getResultsFromApi();
 
+
+
+    }
+
+    private void populateRequestList(List<List<Object>> values) {
+
+        int count  = 0;
+        int i = 0;
+        int j = 0;
+
+        int size = values.size();
+        int reqColSize = 0;
+        String requestCol[] = new String[size];
+
+
+        for (List row:values) {
+            reqColSize = row.size();
+            if (count == 0) {
+                for (i = 0; i < reqColSize; i++) {
+                    requestCol[i] = row.get(i).toString();
+                }
+                count++;
+            }
+            else
+            {
+                HashMap<String, String> temp = new HashMap<String, String>();
+                for (j = 0; j < reqColSize; j++) {
+                    if ((row.get(1) != "")) {
+                        if(row.get(j) != "")
+                        {
+                            temp.put(requestCol[j], row.get(j).toString());
+                        }
+                        else
+                        {
+                            temp.put(requestCol[j], "");
+                        }
+                    }
+                }
+                addHashMap(temp);
+            }
+        }
+    }
+
+    private void addHashMap(HashMap<String, String> temp ) {
+        requestList.add(temp);
     }
 
     private void populateList() {
@@ -378,25 +453,31 @@ public class ViewReqGsheetActivity extends AppCompatActivity  {
          * @throws IOException
          */
         private List<String> getDataFromApi() throws IOException {
+            int count = 0;
             String spreadsheetId = "1JRYW5c0ZWA7ZfHzbcXuvCFznZCB_vK7JHm6G9fV-Kk0";
             Integer colsize = 0;
-            String query = "REQUESTS!A4:N";
+            String query = "REQUESTS!A3:M";
 
             List<String> results = new ArrayList<String>();
             ValueRange response = this.mService.spreadsheets().values()
                     .get(spreadsheetId, query)
                     .execute();
             List<List<Object>> values = response.getValues();
+
+            populateRequestList( values);
             //int rowId = getRowId(query);
             if (values != null) {
                 //results.add("Name       Balance");
                 for (List row : values) {
-                    colsize = row.size();
-                    if(colsize > 1) {
-                        if (String.valueOf(row.get(1)) != "")  {
-                            populate(row.get(1), row.get(2), row.get(7), row.get(8));
+                    if (count != 0) {
+                        colsize = row.size();
+                        if (colsize > 1) {
+                            if (String.valueOf(row.get(1)) != "") {
+                                populate(row.get(1), row.get(2), row.get(7), row.get(8));
+                            }
                         }
                     }
+                    count++;
                 }
             }
 
