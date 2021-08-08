@@ -116,9 +116,9 @@ public class ViewReqGsheetActivity extends AppCompatActivity  {
                             if(map.get(key).equals(reqNo))
                             {
                                 updateCompletion = COMPLETED;
-                                //Intent myIntent = new Intent(SubscriptionActivity.this, SubDetActivity.class);
-                                //startActivity(myIntent);
-
+                                Intent myIntent = new Intent(ViewReqGsheetActivity.this, ViewReqSheetDetActivity.class);
+                                myIntent.putExtra("map", map);
+                                startActivity(myIntent);
                             }
                         }
                     }

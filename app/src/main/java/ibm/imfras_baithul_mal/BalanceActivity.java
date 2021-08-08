@@ -12,8 +12,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 //import android.support.annotation.NonNull;
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -43,7 +42,6 @@ import java.util.List;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-import static ibm.imfras_baithul_mal.Constants.FIFTH_COLUMN;
 import static ibm.imfras_baithul_mal.Constants.FIRST_COLUMN;
 import static ibm.imfras_baithul_mal.Constants.FOURTH_COLUMN;
 import static ibm.imfras_baithul_mal.Constants.SECOND_COLUMN;
@@ -60,6 +58,7 @@ public class BalanceActivity extends Activity
         TextView columnHeader2;
         TextView columnHeader3;
         TextView columnHeader4;
+        TextView textViewDate;
         TextView txtFirst;
         ListView listView;
         private ProgressDialog progressDialog;
@@ -81,6 +80,8 @@ public class BalanceActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_balance);
+
+        textViewDate = (TextView) findViewById(R.id.textViewDate1);
 
         TextView columnHeader1 = (TextView) findViewById(R.id.balHeader_line1);
         TextView columnHeader2 = (TextView) findViewById(R.id.balHeader_line2);
@@ -383,6 +384,22 @@ public class BalanceActivity extends Activity
                     populate(row.get(0),row.get(1),row.get(2),row.get(3));
                 }
             }
+            /* Date query execution*/
+            String queryDate = "BALANCE_TESTING!A2:A2";
+            String rangeDate = queryDate;
+            List<String> resultsDate = new ArrayList<String>();
+            ValueRange responseDate = this.mService.spreadsheets().values()
+                    .get(spreadsheetId, rangeDate)
+                    .execute();
+            List<List<Object>> valuesDate = responseDate.getValues();
+
+            if (valuesDate != null) {
+                for (List row : valuesDate) {
+                    String date = (String) row.get(0);
+                    textViewDate.setText(date);
+                }
+            }
+
 
             return results;
         }

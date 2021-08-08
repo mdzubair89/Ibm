@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    tools:context=".ViewReqSheetDetActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/requestheadlingTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/requests_headline"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/requestnoHeadline_TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@android:dimen/app_icon_size" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textview_border"
+            android:divider="@color/colorPrimaryDark"
+            android:dividerPadding="@dimen/cardview_compat_inset_shadow"
+            android:showDividers="middle|beginning|end|none">
+
+            <TableRow
+                android:id="@+id/TableRow_PurposeReq"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/colorPrimary"
+                android:dividerPadding="@dimen/cardview_default_elevation"
+                android:showDividers="middle|beginning|end">
+
+                <TextView
+                    android:id="@+id/purposeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/requests_purpose_req"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/purposeTextViewValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/TableRow_ContactName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/colorPrimary"
+                android:dividerPadding="@dimen/cardview_default_elevation"
+                android:showDividers="middle|beginning|end">
+
+                <TextView
+                    android:id="@+id/contactNametextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/requests_contact_name"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/contactNameTextViewValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/TableRow_Address"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/colorPrimary"
+                android:dividerPadding="@dimen/cardview_default_elevation"
+                android:showDividers="middle|beginning|end">
+
+                <TextView
+                    android:id="@+id/addressTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/requests_address"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/addressTextViewValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/TableRow_ReqDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/colorPrimary"
+                android:dividerPadding="@dimen/cardview_default_elevation"
+                android:showDividers="middle|beginning|end">
+
+                <TextView
+                    android:id="@+id/reqDateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/requests_req_date"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/reqDateTextViewValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/TableRow_ContactNo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/colorPrimary"
+                android:dividerPadding="@dimen/cardview_default_elevation"
+                android:showDividers="middle|beginning|end">
+
+                <TextView
+                    android:id="@+id/contactNoTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/requests_contactno"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/contactNoTextViewValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/TableRow_IbmContrib"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/colorPrimary"
+                android:dividerPadding="@dimen/cardview_default_elevation"
+                android:showDividers="middle|beginning|end">
+
+                <TextView
+                    android:id="@+id/ibmContribTextview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/requests_ibmcontrib"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/ibmContribTextViewValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/TableRow_SepContrib"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/colorPrimary"
+                android:dividerPadding="@dimen/cardview_default_elevation"
+                android:showDividers="middle|beginning|end">
+
+                <TextView
+                    android:id="@+id/sepContribTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/requests_sepcontrib"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/sepContribTextViewValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/TableRow_Total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/colorPrimary"
+                android:dividerPadding="@dimen/cardview_default_elevation"
+                android:showDividers="middle|beginning|end">
+
+                <TextView
+                    android:id="@+id/totalTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/requests_total"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/totalTextViewValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/TableRow_Status"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/colorPrimary"
+                android:dividerPadding="@dimen/cardview_default_elevation"
+                android:showDividers="middle|beginning|end">
+
+                <TextView
+                    android:id="@+id/statusTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/requests_status"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/statusTextViewValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/TableRow_SepContribList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/colorPrimary"
+                android:dividerPadding="@dimen/cardview_default_elevation"
+                android:showDividers="middle|beginning|end">
+
+                <TextView
+                    android:id="@+id/sepContribListTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/requests_sep_contrib_list"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/sepContribListTextViewValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/TableRow_Comments"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/colorPrimary"
+                android:dividerPadding="@dimen/cardview_default_elevation"
+                android:showDividers="middle|beginning|end">
+
+                <TextView
+                    android:id="@+id/commentsTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/requests_comments"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/commentsTextViewValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
